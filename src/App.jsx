@@ -1,10 +1,11 @@
-import './App.css'
+import './App.css';
+import {UserSignUpForm} from "./components/auth/UserSignUpForm.jsx";
 
 function App() {
 
   return (
     <>
-
+        <UserSignUpForm />
     </>
   )
 }
