@@ -50,3 +50,29 @@ svg {
         scroll-behavior: auto !important;
     }
 }
+
+.slide-in {
+    animation: statusSlide 5s ease-in-out;
+}
+
+@keyframes statusSlide {
+    0% {
+        transform: translateX(0rem);
+    }
+
+    10% {
+        transform: translateX(-34.6875rem);
+    }
+    50% {
+        transform: translateX(-34.6875rem);
+    }
+    60% {
+        transform: translateX(-34.6875rem);
+    }
+    90% {
+        transform: translateX(-34.6875rem);
+    }
+    100% {
+        transform: translateX(0rem);
+    }
+}
