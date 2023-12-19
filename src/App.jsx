@@ -2,10 +2,11 @@ import './App.css';
 import {ResetPassword} from "./components/auth/ResetPassword.jsx";
 import {StatusCard} from "./utils/StatusCard.jsx";
 import {useState} from "react";
-import {UserSignUpForm} from "./components/auth/UserSignUpForm.jsx";
-import {Login} from "./components/auth/Login.jsx";
 import {Route, Routes} from "react-router-dom";
 import {ForgotPassword} from "./components/auth/ForgotPassword.jsx";
+import {LandingPage} from "./components/pages/landingPage/LandingPage.jsx";
+import {Login} from "./components/auth/Login.jsx";
+import {UserSignUpForm} from "./components/auth/UserSignUpForm.jsx";
 
 function App() {
     const [status, setStatus] = useState("")
@@ -30,7 +31,7 @@ function App() {
                 statusColor={statusColor}
             />
             <Routes>
-                {/*<Route path={"/"} element={}/>*/}
+                <Route path="/" element={<LandingPage/>}/>
 
                 <Route path={"/login"} element={
                     <Login
