@@ -146,7 +146,7 @@ export const Footer = ()=> {
                 </div>
             </div>
             <div className="items-center self-stretch bg-gray-900 flex w-full flex-col justify-center mt-12 px-16 py-12 max-md:max-w-full max-md:mt-10 max-md:px-5">
-                <div className="items-stretch flex ml-0 justify-between gap-5 max-md:max-w-full max-md:flex-wrap">
+                <div className="items-stretch flex ml-0 justify-between w-full px-[3rem] gap-5 max-md:max-w-full max-md:flex-wrap">
                     <div className="text-gray-400 text-base leading-6 grow whitespace-nowrap max-md:max-w-full">
                         © 2077 Booksville. All rights reserved.
                     </div>

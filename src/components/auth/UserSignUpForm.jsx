@@ -1,12 +1,21 @@
 import {useEffect, useState} from "react";
 // import {Link} from "react-router-dom";
 import axios from "../../api/axios.jsx";
-import {SweetAlert} from "../../utils/SweetAlert.jsx";
-import logo from "../../assets/images/booksvillelogo.png"
+import logo from "../../assets/images/landingPageImages/booksvillelogo.png"
 import {ClipLoader} from "react-spinners";
 import {FaEye, FaEyeSlash} from "react-icons/fa";
+import {Link, useNavigate} from "react-router-dom";
 // import { GoogleLogin } from 'react-google-login';
-export const UserSignUpForm = () => {
+
+export const UserSignUpForm = ({ handleStatus, setStatusTitle, setStatusMessage, setStatusColor }) => {
+    const enableStatus = (title, message, color) => {
+        handleStatus();
+        setStatusTitle(title);
+        setStatusMessage(message)
+        setStatusColor(color)
+    }
+
+
     // const responseGoogle = (response) => {
     //     // Handle the response from Google Sign-In
     //     console.log(response);
@@ -40,9 +49,7 @@ export const UserSignUpForm = () => {
 
     const [clip, setClip] = useState(false);
 
-    const [blur, setBlur] = useState("");
-
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         firstName: '',
@@ -73,19 +80,17 @@ export const UserSignUpForm = () => {
 
         try {
             setClip(true);
-            setBlur("opacity-[0.2]");
 
             // Make API call to your Java backend to handle user registration
-            await axios.post('', formData)
+            await axios.post('/auth/register-user', formData)
                 .then(result => {
                     setClip(false);
 
-                    SweetAlert('success', 'Registration Successful', 'Your Registration is Successful, Please proceed to confirm your Email', 3000);
+                    enableStatus("Registration Successful", "Your Registration is Successful, Please proceed to confirm your Email", "bg-green-600")
 
                     setTimeout(() => {
-                        setBlur("");
-                        // navigate("/login")
-                    }, 3000)
+                        navigate("/login")
+                    }, 5000)
 
                     // Handle success (redirect, show message, etc.)
                     console.log(result.data);
@@ -94,12 +99,7 @@ export const UserSignUpForm = () => {
         } catch (error) {
             setClip(false);
 
-            SweetAlert('error', 'Oops!', 'Something went wrong, Please check your inputs and try again', 3000);
-
-            setTimeout(() => {
-                setBlur("");
-            }, 3000)
-
+            enableStatus("Oops!", "Something went wrong, Please check your inputs and try again", "bg-red-600")
 
             // Handle error (display error message, log, etc.)
             console.error('Registration failed:', error.message);
@@ -108,185 +108,165 @@ export const UserSignUpForm = () => {
 
     return (
         <div className="justify-center items-center bg-emerald-200 flex flex-col px-16 py-12 max-md:px-5">
-
-            <div className="fixed bg-black top-[3rem] right-[1rem] cursor-pointer hover:bg-green-500 justify-between items-stretch border-[color:var(--white-600,#FFFFFF)] self-stretch flex gap-4 pl-7 pr-3 py-3 rounded-lg border-2 border-solid max-md:pl-5 my-auto max-h-[3rem]">
-                <div className="text-white text-base font-medium leading-6 tracking-wide">
-                    Back to Home
-                </div>
-                <img
-                    loading="lazy"
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/5062df1f-67ac-469a-801d-d6350c5b260d?"
-                    className="aspect-square object-contain object-center w-6 overflow-hidden shrink-0 max-w-full"
-                 alt=""/>
-            </div>
-
-            { clip &&
-                <ClipLoader color="#36D7B7" loading={true} size={100} className="absolute right-[46.5vw] top-[44vh]" />
-            }
-            <div className={`${blur}`}>
-            <form  onSubmit={handleSubmit} className="shadow-lg bg-white flex w-[564px] max-w-full flex-col mt-40 mb-11 px-11 py-12 rounded-xl max-md:my-10 max-md:px-5">
-                <div className="items-stretch self-center flex gap-1.5">
-                    <img
-                        loading="lazy"
-                        srcSet={logo}
-                        className="aspect-square object-contain object-center w-[41px] overflow-hidden shrink-0 max-w-full"
-                     alt=""/>
-                    <div className="text-green-500 text-xl font-semibold leading-7 self-center grow whitespace-nowrap my-auto">
-                        <span className="text-black">Books</span>
-                        <span className="text-green-500">Ville</span>
-                    </div>
-                </div>
-                <div className="text-gray-900 text-2xl font-bold leading-8 self-center whitespace-nowrap mt-2.5">
-                    Create an Account
-                </div>
-                <div className="text-neutral-800 text-sm flex flex-col font-medium leading-5 self-stretch mt-10 max-md:max-w-full">
-                    <label htmlFor="first-name">First Name</label>
-                    <input
-                        type="text"
-                        name="firstName"
-                        value={formData.firstName}
-                        onChange={handleChange}
-                        id="first-name"
-                        autoComplete="given-name"
-                        className="text-neutral-500 text-base leading-6 whitespace-nowrap self-stretch rounded border border-[color:var(--Gray-3,#828282)] bg-white justify-center mt-1 pl-3 pr-16 py-3 border-solid items-start max-md:max-w-full max-md:pr-5"
-                    />
-                </div>
-                <div className="text-neutral-800 text-sm flex flex-col font-medium leading-5 self-stretch mt-2 max-md:max-w-full">
-                    <label htmlFor="last-name">Last Name</label>
-                    <input
-                        type="text"
-                        name="lastName"
-                        value={formData.lastName}
-                        onChange={handleChange}
-                        id="last-name"
-                        autoComplete="given-name"
-                        className="text-neutral-500 text-base leading-6 whitespace-nowrap self-stretch rounded border border-[color:var(--Gray-3,#828282)] bg-white justify-center mt-1 pl-3 pr-16 py-3 border-solid items-start max-md:max-w-full max-md:pr-5"
-                    />
-                </div>
-                <div className="text-neutral-800 text-sm font-medium leading-5 self-stretch mt-2 max-md:max-w-full">
-                    <label htmlFor="phone-number">Phone Number</label>
-                    <div className="items-stretch rounded border border-[color:var(--Gray-3,#828282)] self-stretch flex justify-between gap-2.5 pl-4 pr-20 py-2.5 border-solid max-md:max-w-full max-md:flex-wrap max-md:pr-5">
-                        <div className="flex">
-                            {selectedCountry && (
-                                <img
-                                    loading="lazy"
-                                    src={selectedCountry.flags.svg}
-                                    alt={selectedCountry.name.common}
-                                    className="aspect-[1.67] object-contain object-center w-10 items-center overflow-hidden shrink-0 max-w-full"
-                                />
-                            )}
-                            <select
-                                value={selectedCountry ? selectedCountry.cca2 : ""}
-                                onChange={(e) => handleCountryChange(e.target.value)}
-                                className="text-neutral-500 w-4 h-4 mt-1 mx-2 text-base leading-6 tracking-normal grow whitespace-nowrap self-start"
-                            >
-                                {countries.map((country) => (
-                                    <option key={country.cca2} value={country.cca2}>
-                                        {country.name.common}
-                                    </option>
-                                ))}
-                            </select>
-                            <input
-                                type="tel"
-                                name="phoneNumber"
-                                value={formData.phoneNumber}
-                                onChange={handleChange}
-                                id="tel"
-                                autoComplete="tel"
-                                className="text-neutral-500 text-base leading-6 tracking-normal grow whitespace-nowrap self-start"
-                                style={{ border: '1px solid transparent' }}
-                            />
-                        </div>
-                    </div>
-                </div>
-                <div className="text-neutral-800 text-sm flex flex-col font-medium leading-5 self-stretch mt-2 max-md:max-w-full">
-                <label htmlFor="email">
-                    Email Address
-                </label>
-                    <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        id="email"
-                        autoComplete="given-email"
-                        className="text-neutral-500 text-base leading-6 whitespace-nowrap self-stretch rounded border border-[color:var(--Gray-3,#828282)] bg-white justify-center mt-1 pl-3 pr-16 py-3 border-solid items-start max-md:max-w-full max-md:pr-5"
-                    />
-                </div>
-                <div className="text-neutral-800 text-sm flex flex-col font-medium leading-5 self-stretch mt-2 max-md:max-w-full">
-                <label htmlFor="password">
-                    Password
-                </label>
-                    <input
-                        type={showPassword ? 'text' : 'password'}
-                        name="password"
-                        id="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        required
-                        autoComplete="password"
-                        className="text-neutral-500 text-base leading-6 whitespace-nowrap self-stretch rounded border border-[color:var(--Gray-3,#828282)] bg-white justify-center mt-1 pl-3 pr-16 py-3 border-solid items-start max-md:max-w-full max-md:pr-5"
-                    />
-                    <span className="password-toggle relative bottom-[2rem] left-[28rem] text-green-700" onClick={handleTogglePassword}>
-                        {showPassword ? <FaEyeSlash /> : <FaEye />}
-                    </span>
-                </div>
-
-                    <div className="text-neutral-800 text-sm flex flex-col font-medium leading-5 self-stretch mt-2 max-md:max-w-full">
-                    <label htmlFor="confirmPassword">
-                        Confirm Password
-                    </label>
-                    <input
-                        type={showConfirmPassword ? 'text' : 'password'}
-                        name="confirmPassword"
-                        id="confirmPassword"
-                        value={formData.confirmPassword}
-                        onChange={handleChange}
-                        required
-                        autoComplete="confirm-password"
-                        className="text-neutral-500 text-base leading-6 whitespace-nowrap self-stretch rounded border border-[color:var(--Gray-3,#828282)] bg-white justify-center mt-1 pl-3 pr-16 py-3 border-solid items-start max-md:max-w-full max-md:pr-5"
-                    />
-                    <span className="confirmPassword-toggle relative bottom-[2rem] left-[28rem] text-green-700" onClick={handleToggleConfirmPassword}>
-                        {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-                    </span>
-                </div>
-                <div className="self-stretch flex items-stretch justify-between gap-3.5 mt-6 max-md:max-w-full max-md:flex-wrap max-md:justify-center">
-                    <div className="bg-gray-200 self-center w-[222px] shrink-0 h-px my-auto" />
-                    <div className="text-gray-400 text-sm leading-5">OR</div>
-                    <div className="bg-gray-200 self-center w-[203px] shrink-0 h-0.5 my-auto" />
-                </div>
-                <div className="justify-center items-center self-stretch border border-[color:var(--Grey-300,#D0D5DD)] bg-white flex flex-col mt-3 px-16 py-3 rounded-lg border-solid max-md:max-w-full max-md:px-5">
-                    <div className="flex items-stretch gap-2">
+            <div>
+                <form  onSubmit={handleSubmit} className="shadow-lg bg-white flex w-[564px] max-w-full flex-col mt-[10%] mb-10 px-11 py-12 rounded-xl max-md:my-10 max-md:px-5">
+                    <div className="items-stretch self-center flex gap-1.5">
                         <img
                             loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/f8f32a5d5ac7ff28f7684ff19596e3ee16bb64fea14f5dcf406b3b01c9f04758?"
-                            className="aspect-square object-contain object-center w-6 overflow-hidden shrink-0 max-w-full"
-                        />
-                        <div className="text-gray-400 text-sm leading-5 self-center grow whitespace-nowrap my-auto">
-                            Sign in with Google
-                            {/*<GoogleLogin*/}
-                            {/*    clientId="YOUR_GOOGLE_CLIENT_ID"*/}
-                            {/*    buttonText="Sign in with Google"*/}
-                            {/*    onSuccess={responseGoogle}*/}
-                            {/*    onFailure={responseGoogle}*/}
-                            {/*    cookiePolicy={'single_host_origin'}*/}
-                            {/*/>*/}
+                            srcSet={logo}
+                            className="aspect-square object-contain object-center w-[41px] overflow-hidden shrink-0 max-w-full"
+                         alt=""/>
+                        <div className="text-green-500 text-xl font-semibold leading-7 self-center grow whitespace-nowrap my-auto">
+                            <span className="text-black">Books</span>
+                            <span className="text-green-500">Ville</span>
                         </div>
                     </div>
-                </div>
-                <div className="hover:bg-black text-gray-50 text-base font-semibold leading-4 whitespace-nowrap flex justify-center items-center bg-green-500 self-stretch mt-1.5 px-16 py-3 rounded-xl max-md:max-w-full max-md:px-5">
-                    <input
-                        type="submit"
-                        name="submit"
-                        id="submit"
-                        value="SIGNUP"
+                    <div className="text-gray-900 text-2xl font-bold leading-8 self-center whitespace-nowrap mt-2.5">
+                        Create an Account
+                    </div>
+                    <div className="text-neutral-800 text-sm flex flex-col font-medium leading-5 self-stretch mt-10 max-md:max-w-full">
+                        <label htmlFor="first-name">First Name</label>
+                        <input
+                            type="text"
+                            name="firstName"
+                            value={formData.firstName}
+                            onChange={handleChange}
+                            id="first-name"
+                            autoComplete="given-name"
+                            className="text-neutral-500 text-base leading-6 whitespace-nowrap self-stretch rounded border border-[color:var(--Gray-3,#828282)] bg-white justify-center mt-1 pl-3 pr-16 py-3 border-solid items-start max-md:max-w-full max-md:pr-5"
                         />
-                </div>
-                <div className="text-green-500 text-sm leading-5 self-center whitespace-nowrap mt-6">
-                    <span className=" text-gray-400">Already have an account ? </span>
-                    <span className="font-semibold text-green-500 underline">Log In here</span>
-                </div>
-            </form>
+                    </div>
+                    <div className="text-neutral-800 text-sm flex flex-col font-medium leading-5 self-stretch mt-2 max-md:max-w-full">
+                        <label htmlFor="last-name">Last Name</label>
+                        <input
+                            type="text"
+                            name="lastName"
+                            value={formData.lastName}
+                            onChange={handleChange}
+                            id="last-name"
+                            autoComplete="given-name"
+                            className="text-neutral-500 text-base leading-6 whitespace-nowrap self-stretch rounded border border-[color:var(--Gray-3,#828282)] bg-white justify-center mt-1 pl-3 pr-16 py-3 border-solid items-start max-md:max-w-full max-md:pr-5"
+                        />
+                    </div>
+                    <div className="text-neutral-800 text-sm font-medium leading-5 self-stretch mt-2 max-md:max-w-full">
+                        <label htmlFor="phone-number">Phone Number</label>
+                        <div className="items-stretch rounded border border-[color:var(--Gray-3,#828282)] self-stretch flex justify-between gap-2.5 pl-4 pr-20 py-2.5 border-solid max-md:max-w-full max-md:flex-wrap max-md:pr-5">
+                            <div className="flex">
+                                {selectedCountry && (
+                                    <img
+                                        loading="lazy"
+                                        src={selectedCountry.flags.svg}
+                                        alt={selectedCountry.name.common}
+                                        className="aspect-[1.67] object-contain object-center w-10 items-center overflow-hidden shrink-0 max-w-full"
+                                    />
+                                )}
+                                <select
+                                    value={selectedCountry ? selectedCountry.cca2 : ""}
+                                    onChange={(e) => handleCountryChange(e.target.value)}
+                                    className="text-neutral-500 w-4 h-4 mt-1 mx-2 text-base leading-6 tracking-normal grow whitespace-nowrap self-start"
+                                >
+                                    {countries.map((country) => (
+                                        <option key={country.cca2} value={country.cca2}>
+                                            {country.name.common}
+                                        </option>
+                                    ))}
+                                </select>
+                                <input
+                                    type="tel"
+                                    name="phoneNumber"
+                                    value={formData.phoneNumber}
+                                    onChange={handleChange}
+                                    id="tel"
+                                    autoComplete="tel"
+                                    className="text-neutral-500 text-base leading-6 tracking-normal grow whitespace-nowrap self-start"
+                                    style={{ border: '1px solid transparent' }}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="text-neutral-800 text-sm flex flex-col font-medium leading-5 self-stretch mt-2 max-md:max-w-full">
+                    <label htmlFor="email">
+                        Email Address
+                    </label>
+                        <input
+                            type="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            id="email"
+                            autoComplete="email"
+                            className="text-neutral-500 text-base leading-6 whitespace-nowrap self-stretch rounded border border-[color:var(--Gray-3,#828282)] bg-white justify-center mt-1 pl-3 pr-16 py-3 border-solid items-start max-md:max-w-full max-md:pr-5"
+                        />
+                    </div>
+                    <div className="text-neutral-800 text-sm flex flex-col font-medium leading-5 self-stretch mt-2 max-md:max-w-full">
+                    <label htmlFor="password">
+                        Password
+                    </label>
+                        <input
+                            type={showPassword ? 'text' : 'password'}
+                            name="password"
+                            id="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            required
+                            autoComplete="password"
+                            className="text-neutral-500 text-base leading-6 whitespace-nowrap self-stretch rounded border border-[color:var(--Gray-3,#828282)] bg-white justify-center mt-1 pl-3 pr-16 py-3 border-solid items-start max-md:max-w-full max-md:pr-5"
+                        />
+                        <span className="password-toggle relative bottom-[2rem] left-[28rem] text-green-700" onClick={handleTogglePassword}>
+                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                        </span>
+                    </div>
+
+                        <div className="text-neutral-800 text-sm flex flex-col font-medium leading-5 self-stretch mt-2 max-md:max-w-full">
+                        <label htmlFor="confirmPassword">
+                            Confirm Password
+                        </label>
+                        <input
+                            type={showConfirmPassword ? 'text' : 'password'}
+                            name="confirmPassword"
+                            id="confirmPassword"
+                            value={formData.confirmPassword}
+                            onChange={handleChange}
+                            required
+                            autoComplete="confirm-password"
+                            className="text-neutral-500 text-base leading-6 whitespace-nowrap self-stretch rounded border border-[color:var(--Gray-3,#828282)] bg-white justify-center mt-1 pl-3 pr-16 py-3 border-solid items-start max-md:max-w-full max-md:pr-5"
+                        />
+                        <span className="confirmPassword-toggle relative bottom-[2rem] left-[28rem] text-green-700" onClick={handleToggleConfirmPassword}>
+                            {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                        </span>
+                    </div>
+                    <div className="self-stretch flex items-stretch justify-between gap-3.5 mt-6 max-md:max-w-full max-md:flex-wrap max-md:justify-center">
+                        <div className="bg-gray-200 self-center w-[222px] shrink-0 h-px my-auto" />
+                        <div className="text-gray-400 text-sm leading-5">OR</div>
+                        <div className="bg-gray-200 self-center w-[203px] shrink-0 h-0.5 my-auto" />
+                    </div>
+                    <div className="justify-center items-center self-stretch border border-[color:var(--Grey-300,#D0D5DD)] bg-white flex flex-col mt-3 px-16 py-3 rounded-lg border-solid max-md:max-w-full max-md:px-5">
+                        <div className="flex items-stretch gap-2">
+                            <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/f8f32a5d5ac7ff28f7684ff19596e3ee16bb64fea14f5dcf406b3b01c9f04758?"
+                                className="aspect-square object-contain object-center w-6 overflow-hidden shrink-0 max-w-full"
+                            />
+                            <div className="text-gray-400 text-sm leading-5 self-center grow whitespace-nowrap my-auto">
+                                Sign in with Google
+                                {/*<GoogleLogin*/}
+                                {/*    clientId="YOUR_GOOGLE_CLIENT_ID"*/}
+                                {/*    buttonText="Sign in with Google"*/}
+                                {/*    onSuccess={responseGoogle}*/}
+                                {/*    onFailure={responseGoogle}*/}
+                                {/*    cookiePolicy={'single_host_origin'}*/}
+                                {/*/>*/}
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" className="cursor-pointer h-[2.5rem] hover:bg-black text-gray-50 text-base font-semibold leading-4 whitespace-nowrap flex justify-center items-center bg-green-500 self-stretch mt-1.5 px-16 py-3 rounded-xl max-md:max-w-full max-md:px-5">
+                            { !clip ? "SIGNUP" : <ClipLoader color="#FFFFFF" loading={true} size={20} /> }
+                    </button>
+                    <div className="text-green-500 text-sm leading-5 self-center whitespace-nowrap mt-6">
+                        <span className=" text-gray-400">Already have an account ? </span>
+                        <span className="font-semibold text-green-500 underline"><Link to={"/login"}>Log In here</Link></span>
+                    </div>
+                </form>
             </div>
         </div>
     );
