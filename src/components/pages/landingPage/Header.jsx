@@ -47,12 +47,12 @@ export const Header = ({handleSignUp}) => {
                 {/* Buttons */}
                 <div className="buttons flex items-center gap-5">
                     {/* Replace the below divs with your actual buttons */}
-                    <div className="text-green-500 text-base font-semibold leading-7 whitespace-nowrap justify-center items-stretch border grow px-11 py-3.5 rounded-xl border-solid border-green-500">
+                    <div onClick={handleSignUp} className="text-green-500 text-base font-semibold leading-7 whitespace-nowrap justify-center items-stretch border grow px-11 py-3.5 rounded-xl border-solid border-green-500">
                         Sign Up
                     </div>
-                    <div className="text-white text-base font-semibold leading-7 whitespace-nowrap justify-center items-stretch bg-green-500 grow px-11 py-3.5 rounded-xl">
+                    <Link to="/login" className="text-white text-base font-semibold leading-7 whitespace-nowrap justify-center items-stretch bg-green-500 grow px-11 py-3.5 rounded-xl">
                         Log In
-                    </div>
+                    </Link>
                 </div>
             </div>
         </div>

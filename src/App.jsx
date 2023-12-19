@@ -1,16 +1,21 @@
+
 import './App.css'
 import {Route, Routes} from "react-router-dom";
 import {LandingPage} from "./components/pages/landingPage/LandingPage.jsx";
-import {useState} from "react";
-import {BookCard} from "./components/pages/landingPage/BookCard.jsx";
+import {Login} from "./components/auth/Login.jsx";
+import {UserSignUpForm} from "./components/auth/UserSignUpForm.jsx";
+
+
 
 function App() {
-    const [user, setUser] = useState();
 
   return (
     <>
+
       <Routes>
         <Route path="/" element={<LandingPage/>}/>
+        <Route path="/login" element={<Login onAuth={user => setUser(user)}/>}/>
+        <Route path="/user-signup" element={<UserSignUpForm/>}/>
       </Routes>
     </>
   )
