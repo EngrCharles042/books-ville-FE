@@ -2,6 +2,7 @@ import {useState} from "react";
 import axios from "../../api/axios.jsx";
 import logo from "../../assets/images/booksvillelogo.png"
 import {ClipLoader} from "react-spinners";
+import {Link} from "react-router-dom";
 
 export const ForgotPassword = ({ handleStatus, setStatusTitle, setStatusMessage, setStatusColor }) => {
 
@@ -107,7 +108,7 @@ export const ForgotPassword = ({ handleStatus, setStatusTitle, setStatusMessage,
 
                     <div className="text-green-500 text-sm leading-5 self-center whitespace-nowrap mt-2">
                         <span className=" text-gray-400">Go back to </span>
-                        <span className="cursor-pointer font-semibold text-green-500 underline">Sign In</span>
+                        <span className="cursor-pointer font-semibold text-green-500 underline"><Link to={"/login"}>Sign In</Link></span>
                     </div>
 
                 </form>

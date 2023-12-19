@@ -2,6 +2,10 @@ import './App.css';
 import {ResetPassword} from "./components/auth/ResetPassword.jsx";
 import {StatusCard} from "./utils/StatusCard.jsx";
 import {useState} from "react";
+import {UserSignUpForm} from "./components/auth/UserSignUpForm.jsx";
+import {Login} from "./components/auth/Login.jsx";
+import {Route, Routes} from "react-router-dom";
+import {ForgotPassword} from "./components/auth/ForgotPassword.jsx";
 
 function App() {
     const [status, setStatus] = useState("")
@@ -18,25 +22,54 @@ function App() {
     }
 
   return (
-      <>
-      </>
+        <div className="w-[100vw]">
+            <StatusCard
+                statusStyle={status}
+                statusTitle={statusTitle}
+                message={statusMessage}
+                statusColor={statusColor}
+            />
+            <Routes>
+                {/*<Route path={"/"} element={}/>*/}
+
+                <Route path={"/login"} element={
+                    <Login
+                        handleStatus={handleStatus}
+                        setStatusTitle={setStatusTitle}
+                        setStatusMessage={setStatusMessage}
+                        setStatusColor={setStatusColor}
+                    />
+                }/>
+
+                <Route path={"/user-signup"} element={
+                    <UserSignUpForm
+                        handleStatus={handleStatus}
+                        setStatusTitle={setStatusTitle}
+                        setStatusMessage={setStatusMessage}
+                        setStatusColor={setStatusColor}
+                    />
+                }/>
+
+                <Route path={"/forgot-password"} element={
+                    <ForgotPassword
+                        handleStatus={handleStatus}
+                        setStatusTitle={setStatusTitle}
+                        setStatusMessage={setStatusMessage}
+                        setStatusColor={setStatusColor}
+                    />
+                }/>
+
+                <Route path={"/reset-password"} element={
+                    <ResetPassword
+                        handleStatus={handleStatus}
+                        setStatusTitle={setStatusTitle}
+                        setStatusMessage={setStatusMessage}
+                        setStatusColor={setStatusColor}
+                    />
+                }/>
+            </Routes>
+        </div>
   )
 }
-
-// <div className="w-[100vw]">
-    //     <StatusCard
-    //         statusStyle={status}
-    //         statusTitle={statusTitle}
-    //         message={statusMessage}
-    //         statusColor={statusColor}
-    //     />
-    //
-    //     <ResetPassword
-    //         handleStatus={handleStatus}
-    //         setStatusTitle={setStatusTitle}
-    //         setStatusMessage={setStatusMessage}
-    //         setStatusColor={setStatusColor}
-    //     />
-    // </div>
 
 export default App

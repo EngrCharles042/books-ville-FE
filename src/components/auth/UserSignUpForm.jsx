@@ -4,7 +4,7 @@ import axios from "../../api/axios.jsx";
 import logo from "../../assets/images/booksvillelogo.png"
 import {ClipLoader} from "react-spinners";
 import {FaEye, FaEyeSlash} from "react-icons/fa";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 // import { GoogleLogin } from 'react-google-login';
 
 export const UserSignUpForm = ({ handleStatus, setStatusTitle, setStatusMessage, setStatusColor }) => {
@@ -118,7 +118,7 @@ export const UserSignUpForm = ({ handleStatus, setStatusTitle, setStatusMessage,
     return (
         <div className="justify-center items-center bg-emerald-200 flex flex-col px-16 py-12 max-md:px-5">
             <div className={`${blur}`}>
-                <form  onSubmit={handleSubmit} className="shadow-lg bg-white flex w-[564px] max-w-full flex-col mt-40 mb-11 px-11 py-12 rounded-xl max-md:my-10 max-md:px-5">
+                <form  onSubmit={handleSubmit} className="shadow-lg bg-white flex w-[564px] max-w-full flex-col mt-[10%] mb-10 px-11 py-12 rounded-xl max-md:my-10 max-md:px-5">
                     <div className="items-stretch self-center flex gap-1.5">
                         <img
                             loading="lazy"
@@ -203,7 +203,7 @@ export const UserSignUpForm = ({ handleStatus, setStatusTitle, setStatusMessage,
                             value={formData.email}
                             onChange={handleChange}
                             id="email"
-                            autoComplete="given-email"
+                            autoComplete="email"
                             className="text-neutral-500 text-base leading-6 whitespace-nowrap self-stretch rounded border border-[color:var(--Gray-3,#828282)] bg-white justify-center mt-1 pl-3 pr-16 py-3 border-solid items-start max-md:max-w-full max-md:pr-5"
                         />
                     </div>
@@ -275,7 +275,7 @@ export const UserSignUpForm = ({ handleStatus, setStatusTitle, setStatusMessage,
                     </div>
                     <div className="text-green-500 text-sm leading-5 self-center whitespace-nowrap mt-6">
                         <span className=" text-gray-400">Already have an account ? </span>
-                        <span className="font-semibold text-green-500 underline">Log In here</span>
+                        <span className="font-semibold text-green-500 underline"><Link to={"/login"}>Log In here</Link></span>
                     </div>
                 </form>
             </div>
