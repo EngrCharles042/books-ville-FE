@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 // import {Link} from "react-router-dom";
 import axios from "../../api/axios.jsx";
-import logo from "../../assets/images/booksvillelogo.png"
+import logo from "../../assets/images/landingPageImages/booksvillelogo.png"
 import {ClipLoader} from "react-spinners";
 import {FaEye, FaEyeSlash} from "react-icons/fa";
 import {Link, useNavigate} from "react-router-dom";
@@ -49,8 +49,6 @@ export const UserSignUpForm = ({ handleStatus, setStatusTitle, setStatusMessage,
 
     const [clip, setClip] = useState(false);
 
-    const [blur, setBlur] = useState("");
-
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -82,17 +80,15 @@ export const UserSignUpForm = ({ handleStatus, setStatusTitle, setStatusMessage,
 
         try {
             setClip(true);
-            setBlur("opacity-[0.2]");
 
             // Make API call to your Java backend to handle user registration
-            await axios.post('', formData)
+            await axios.post('/auth/register-user', formData)
                 .then(result => {
                     setClip(false);
 
                     enableStatus("Registration Successful", "Your Registration is Successful, Please proceed to confirm your Email", "bg-green-600")
 
                     setTimeout(() => {
-                        setBlur("");
                         navigate("/login")
                     }, 5000)
 
@@ -105,11 +101,6 @@ export const UserSignUpForm = ({ handleStatus, setStatusTitle, setStatusMessage,
 
             enableStatus("Oops!", "Something went wrong, Please check your inputs and try again", "bg-red-600")
 
-            setTimeout(() => {
-                setBlur("");
-            }, 5000)
-
-
             // Handle error (display error message, log, etc.)
             console.error('Registration failed:', error.message);
         }
@@ -117,7 +108,7 @@ export const UserSignUpForm = ({ handleStatus, setStatusTitle, setStatusMessage,
 
     return (
         <div className="justify-center items-center bg-emerald-200 flex flex-col px-16 py-12 max-md:px-5">
-            <div className={`${blur}`}>
+            <div>
                 <form  onSubmit={handleSubmit} className="shadow-lg bg-white flex w-[564px] max-w-full flex-col mt-[10%] mb-10 px-11 py-12 rounded-xl max-md:my-10 max-md:px-5">
                     <div className="items-stretch self-center flex gap-1.5">
                         <img
@@ -268,11 +259,9 @@ export const UserSignUpForm = ({ handleStatus, setStatusTitle, setStatusMessage,
                             </div>
                         </div>
                     </div>
-                    <div className="hover:bg-black text-gray-50 text-base font-semibold leading-4 whitespace-nowrap flex justify-center items-center bg-green-500 self-stretch mt-1.5 px-16 py-3 rounded-xl max-md:max-w-full max-md:px-5">
-                        <button type="submit" className="cursor-pointer">
+                    <button type="submit" className="cursor-pointer h-[2.5rem] hover:bg-black text-gray-50 text-base font-semibold leading-4 whitespace-nowrap flex justify-center items-center bg-green-500 self-stretch mt-1.5 px-16 py-3 rounded-xl max-md:max-w-full max-md:px-5">
                             { !clip ? "SIGNUP" : <ClipLoader color="#FFFFFF" loading={true} size={20} /> }
-                        </button>
-                    </div>
+                    </button>
                     <div className="text-green-500 text-sm leading-5 self-center whitespace-nowrap mt-6">
                         <span className=" text-gray-400">Already have an account ? </span>
                         <span className="font-semibold text-green-500 underline"><Link to={"/login"}>Log In here</Link></span>

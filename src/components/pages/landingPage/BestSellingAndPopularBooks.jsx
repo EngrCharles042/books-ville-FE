@@ -102,7 +102,7 @@ export const BestSellingAndPopularBooks = () => {
                     View All{" "}
                 </div>
             </div>
-            <div className="w-full mt-12 max-md:max-w-full max-md:mt-10">
+            <div className="w-full mt-12 px-5 max-md:max-w-full max-md:mt-10">
                 <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
                     <BookCard
                         image={fantasyBooks.image1}

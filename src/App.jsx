@@ -23,7 +23,7 @@ function App() {
     }
 
   return (
-        <div className="w-[100vw]">
+        <div className="w-[100vw]" style={{overflowX: "hidden"}}>
             <StatusCard
                 statusStyle={status}
                 statusTitle={statusTitle}
@@ -31,7 +31,7 @@ function App() {
                 statusColor={statusColor}
             />
             <Routes>
-                <Route path="/" element={<LandingPage/>}/>
+                <Route path="/" element={ <LandingPage/> }/>
 
                 <Route path={"/login"} element={
                     <Login

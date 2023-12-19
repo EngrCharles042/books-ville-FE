@@ -1,7 +1,6 @@
-import {useState} from "react";
+import {Link} from "react-router-dom";
 
-export const PasswordResetSuccessCard = () => {
-    const [email, setEmail] = useState()
+export const PasswordResetSuccessCard = ({email}) => {
 
     return (
         <div className="w-fit absolute mx-auto mt-[15vh] z-[100] bg-white p-[2rem] grid text-center gap-[2rem] rounded-[0.75rem]">
@@ -18,13 +17,10 @@ export const PasswordResetSuccessCard = () => {
                 <span className="label">You will get an email confirmation at</span>
                 <span className="email">{email}</span>
             </div>
-            <button
-                className="return-button bg-[#27AE60] p-[1rem] rounded-[0.75rem] text-white w-[30.125rem]"
-                type="button"
-                aria-label="Return to Login"
-            >
+
+            <Link to={"/login"} className="transition hover:bg-green-600 return-button bg-[#27AE60] p-[1rem] rounded-[0.75rem] text-white w-[30.125rem]">
                 Return to Login
-            </button>
+            </Link>
         </div>
     );
 }

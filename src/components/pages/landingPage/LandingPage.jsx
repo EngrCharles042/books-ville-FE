@@ -17,9 +17,6 @@ export const LandingPage = () => {
   return (
       <>
         <div className="m-auto">
-          {/*{signUp &&*/}
-          {/*    <SignUpSelect/>*/}
-          {/*}*/}
           <Header handleSignUp={handleSignUp} />
           <BuyAndReadBooks/>
           <BestSellingAndPopularBooks/>

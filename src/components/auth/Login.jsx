@@ -1,9 +1,9 @@
 
 import {useState} from "react";
-import axios from "axios";
+import axios from "../../api/axios.jsx";
 import {SweetAlert} from "../../utils/SweetAlert.jsx";
 import {ClipLoader} from "react-spinners";
-import logo from "../../assets/images/booksvillelogo.png"
+import logo from "../../assets/images/landingPageImages/booksvillelogo.png"
 import {FaEye, FaEyeSlash} from "react-icons/fa";
 import {Link, useNavigate} from "react-router-dom";
 
@@ -22,8 +22,6 @@ export const Login = ({ handleStatus, setStatusTitle, setStatusMessage, setStatu
 
     const [clip, setClip] = useState(false);
 
-    const [blur, setBlur] = useState("");
-
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -31,16 +29,16 @@ export const Login = ({ handleStatus, setStatusTitle, setStatusMessage, setStatu
         email:'',
         password:''
     });
+
     const [showPassword, setShowPassword] = useState(false);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
+
     const handleTogglePassword = () => {
         setShowPassword(!showPassword);
     };
-
-
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -50,10 +48,9 @@ export const Login = ({ handleStatus, setStatusTitle, setStatusMessage, setStatu
         }
         try{
             setClip(true);
-            setBlur("opacity-[0.2]");
 
             // Make API call to your Java backend to handle user registration
-            await axios.post()
+            await axios.post('/auth/login', formData)
                 .then(result => {
                     setClip(false)
 
@@ -61,7 +58,6 @@ export const Login = ({ handleStatus, setStatusTitle, setStatusMessage, setStatu
 
                     if (result.data.message === "notVerified") {
                         setTimeout(() => {
-                            setBlur("");
                             setVerified(false);
                         }, 500)
 
@@ -73,10 +69,6 @@ export const Login = ({ handleStatus, setStatusTitle, setStatusMessage, setStatu
             setClip(false);
 
             enableStatus("Oops!", "Something went wrong, Please check your inputs and try again", "bg-red-600")
-
-            setTimeout(() => {
-                setBlur("");
-            }, 2000)
 
             // Handle error (display error message, log, etc.)
             console.error('login failed:', error.message);
@@ -91,6 +83,7 @@ export const Login = ({ handleStatus, setStatusTitle, setStatusMessage, setStatu
             setTimeout(() => {
                 setResendSuccess(false);
             }, 3000);
+
         } catch (error) {
             console.error('Error resending verification email:', error.message);
         }
@@ -99,7 +92,7 @@ export const Login = ({ handleStatus, setStatusTitle, setStatusMessage, setStatu
 
     return (
         <div className="bg-emerald-200 flex flex-col h-[100vh] justify-center items-center px-16 py-12 max-md:px-5">
-            <div className={`${blur}`}>
+            <div>
                 <form onSubmit={handleSubmit} className="shadow-lg bg-white flex w-[564px] max-w-full flex-col mt-[10%] px-11 py-9 rounded-xl max-md:my-10 max-md:px-5">
                     <div className="items-stretch self-center flex gap-1.5">
                         <img  srcSet={logo}
@@ -185,10 +178,11 @@ export const Login = ({ handleStatus, setStatusTitle, setStatusMessage, setStatu
                                 </span>
                     </div>
 
-                    <div className="text-green-500 text-base leading-6 tracking-normal underline self-stretch mt-4 max-md:max-w-full">
+                    <Link to={"/forgot-password"} className="cursor-pointer text-green-500 text-base leading-6 tracking-normal underline self-stretch max-md:max-w-full">
                         Forgot Password
-                    </div>
-                    <div className="self-stretch flex items-stretch justify-between gap-3.5 mt-4 max-md:max-w-full max-md:flex-wrap max-md:justify-center">
+                    </Link>
+
+                    <div className="self-stretch flex items-stretch justify-between gap-3.5 max-md:max-w-full max-md:flex-wrap max-md:justify-center">
                         <div className="bg-gray-200 self-center w-[221px] shrink-0 h-px my-auto" />
                         <div className="text-gray-400 text-sm leading-5">OR</div>
                         <div className="bg-gray-200 self-center w-[203px] shrink-0 h-0.5 my-auto" />
@@ -205,11 +199,11 @@ export const Login = ({ handleStatus, setStatusTitle, setStatusMessage, setStatu
                             </div>
                         </div>
                     </div>
-                    <div className="hover:bg-black text-gray-50 cursor-pointer text-center font-semibold leading-4 whitespace-nowrap justify-center items-center bg-green-500 self-stretch mt-1.5 px-16 py-3 rounded-xl max-md:max-w-full max-md:px-5">
-                        <button type="submit" className="cursor-pointer">
-                            { !clip ? "LOGIN" : <ClipLoader color="#FFFFFF" loading={true} size={20} /> }
-                        </button>
-                    </div>
+
+                    <button type="submit" className="cursor-pointer h-[2.5rem] hover:bg-black text-gray-50 text-base font-semibold leading-4 whitespace-nowrap flex justify-center items-center bg-green-500 self-stretch mt-1.5 px-16 py-3 rounded-xl max-md:max-w-full max-md:px-5">
+                        { !clip ? "LOGIN" : <ClipLoader color="#FFFFFF" loading={true} size={20} /> }
+                    </button>
+
                     <div className="text-green-500 text-sm leading-5 self-center whitespace-nowrap mt-6">
                         <span className=" text-gray-400">Don’t have an account ? </span>
                         <span className="font-semibold underline text-green-500"><Link to={"/user-signup"}>Sign Up here</Link></span>
