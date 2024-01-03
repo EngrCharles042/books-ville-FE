@@ -52,8 +52,6 @@ export const Login = ({ handleStatus, setStatusTitle, setStatusMessage, setStatu
                 .then(result => {
                     setClip(false)
 
-                    // enableStatus("Login Successful", "You have logged in successfully", "bg-green-600")
-
                     if (result.data.message === "notVerified") {
                         setTimeout(() => {
                             setClip(false)

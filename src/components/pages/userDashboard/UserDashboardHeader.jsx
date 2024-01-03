@@ -1,6 +1,11 @@
 import profilePic from '../../../assets/images/userCatImages/profile.png';
+import {ProfilePopUp} from "../../../utils/ProfilePopUp.jsx";
+import {useState} from "react";
 
 export const UserDashboardHeader = () => {
+
+    const [profileClick, setProfileCLick] = useState(false);
+
     return (
         <div className="justify-between items-stretch bg-white flex gap-5 px-16 py-4 max-md:flex-wrap max-md:px-5">
             <div className="justify-between items-stretch flex gap-5 max-md:max-w-full max-md:flex-wrap">
@@ -53,14 +58,23 @@ export const UserDashboardHeader = () => {
                         className="aspect-square object-contain object-center w-[25px] overflow-hidden shrink-0 max-w-full my-auto"
                         alt="notification"
                     />
+                    <div onClick={() => (setProfileCLick(!profileClick))} className="relative cursor-pointer">
                     <img
                         loading="lazy"
                         srcSet={profilePic}
                         className="aspect-square object-contain object-center w-9 overflow-hidden self-stretch shrink-0 max-w-full rounded-[50%]"
                         alt="profile picture"
                     />
+                    </div>
                 </div>
             </div>
+
+            { profileClick &&
+                <div className="absolute right-[2rem] top-[4rem] shadow-2xl">
+                    <ProfilePopUp handleProfilePop={() => (setProfileCLick(!profileClick))} />
+                </div>
+            }
+
         </div>
     );
 }
