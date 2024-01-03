@@ -59,6 +59,9 @@ export const MyBooks = () => {
 
     return (
         <div className="flex flex-col max-w-[1297px] mx-auto items-stretch">
+            <div className="text-black text-6xl mt-[4.5rem] mb-[2rem] font-bold leading-[81.2px] tracking-tight max-w-[484px] max-md:text-4xl">
+                Welcome Sandra,
+            </div>
             <div className="items-stretch flex w-full justify-between gap-5 px-5 max-md:max-w-full max-md:flex-wrap">
                 <div className="text-black text-4xl font-medium leading-7 tracking-wider grow shrink basis-auto max-md:max-w-full">
                     Your Purchased Books

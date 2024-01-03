@@ -1,7 +1,5 @@
-
 import {useState} from "react";
 import axios from "../../api/axios.jsx";
-import {SweetAlert} from "../../utils/SweetAlert.jsx";
 import {ClipLoader} from "react-spinners";
 import logo from "../../assets/images/landingPageImages/booksvillelogo.png"
 import {FaEye, FaEyeSlash} from "react-icons/fa";
@@ -25,7 +23,7 @@ export const Login = ({ handleStatus, setStatusTitle, setStatusMessage, setStatu
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
-        name:'',
+        firstName:'',
         email:'',
         password:''
     });
@@ -54,16 +52,32 @@ export const Login = ({ handleStatus, setStatusTitle, setStatusMessage, setStatu
                 .then(result => {
                     setClip(false)
 
-                    enableStatus("Login Successful", "You have logged in successfully", "bg-green-600")
-
                     if (result.data.message === "notVerified") {
                         setTimeout(() => {
+                            setClip(false)
                             setVerified(false);
                         }, 500)
 
                         return
                     }
                     console.log('User login successful');
+
+                    localStorage.setItem("token", result.data.accessToken);
+                    localStorage.setItem("firstName", result.data.firstName);
+                    localStorage.setItem("email", result.data.email);
+                    localStorage.setItem("role", result.data.role);
+
+                    setClip(false);
+
+                    enableStatus("Login Successful", "You have logged in successfully", "bg-green-600")
+
+                    setTimeout(() => {
+
+                        result.data.role === "USER" ?
+                            navigate("/admin-dashboard") :
+                            navigate("/user-dashboard");
+
+                    }, 1000)
                 });
         } catch (error) {
             setClip(false);
@@ -132,11 +146,12 @@ export const Login = ({ handleStatus, setStatusTitle, setStatusMessage, setStatu
                     </label>
                     <input
                         type="text"
-                        name="name"
+                        name="firstName"
+                        value={formData.firstName}
                         onChange={handleChange}
-                        id="name"
-                        autoComplete="name"
-                        className="text-neutral-500 text-base leading-6 whitespace-nowrap self-stretch rounded border border-[color:var(--Grey-600,#475467)] bg-white justify-center mt-1 pl-3 pr-16 py-3 border-solid items-start max-md:max-w-full max-md:pr-5"
+                        id="first-name"
+                        autoComplete="given-name"
+                        className="text-black text-base leading-6 whitespace-nowrap self-stretch rounded border border-[color:var(--Grey-600,#475467)] bg-white justify-center mt-1 pl-3 pr-16 py-3 border-solid items-start max-md:max-w-full max-md:pr-5"
                     />
                     </div>
 
@@ -152,7 +167,7 @@ export const Login = ({ handleStatus, setStatusTitle, setStatusMessage, setStatu
                         value={formData.email}
                         onChange={handleChange}
                         autoComplete="email"
-                        className="text-neutral-500 text-base leading-6 whitespace-nowrap self-stretch rounded border border-[color:var(--Grey-600,#475467)] bg-white justify-center mt-1 pl-3 pr-16 py-3 border-solid items-start max-md:max-w-full max-md:pr-5"
+                        className="text-black text-base leading-6 whitespace-nowrap self-stretch rounded border border-[color:var(--Grey-600,#475467)] bg-white justify-center mt-1 pl-3 pr-16 py-3 border-solid items-start max-md:max-w-full max-md:pr-5"
                         required
                     />
                     </div>
@@ -170,7 +185,7 @@ export const Login = ({ handleStatus, setStatusTitle, setStatusMessage, setStatu
                         onChange={handleChange}
                         required
                         autoComplete="given-name"
-                        className="text-neutral-500 text-base leading-6 whitespace-nowrap self-stretch rounded border border-[color:var(--Grey-600,#475467)] bg-white justify-center mt-1 pl-3 pr-16 py-3 border-solid items-start max-md:max-w-full max-md:pr-5"
+                        className="text-black text-base leading-6 whitespace-nowrap self-stretch rounded border border-[color:var(--Grey-600,#475467)] bg-white justify-center mt-1 pl-3 pr-16 py-3 border-solid items-start max-md:max-w-full max-md:pr-5"
                     />
 
                     <span className="password-toggle text-green-700 relative top-[-2rem] left-[28rem]" onClick={handleTogglePassword}>
@@ -211,10 +226,6 @@ export const Login = ({ handleStatus, setStatusTitle, setStatusMessage, setStatu
                 </form>
             </div>
         </div>
-
-
-
-
     );
 }
 
