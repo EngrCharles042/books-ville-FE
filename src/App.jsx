@@ -8,6 +8,8 @@ import {LandingPage} from "./components/pages/landingPage/LandingPage.jsx";
 import {Login} from "./components/auth/Login.jsx";
 import {UserSignUpForm} from "./components/auth/UserSignUpForm.jsx";
 import {AdminLogin} from "./components/auth/AdminLogin.jsx";
+import {UserCategories} from "./components/pages/userCategory/UserCategories.jsx";
+import {UserDashboard} from "./components/pages/userDashboard/UserDashboard.jsx";
 
 function App() {
     const [status, setStatus] = useState("")
@@ -77,6 +79,14 @@ function App() {
                         setStatusMessage={setStatusMessage}
                         setStatusColor={setStatusColor}
                     />
+                }/>
+
+                <Route path={"/user-dashboard"} element={
+                    <UserDashboard/>
+                }/>
+
+                <Route path={"/user-categories"} element={
+                    <UserCategories/>
                 }/>
             </Routes>
 

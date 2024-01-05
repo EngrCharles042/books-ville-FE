@@ -133,7 +133,8 @@ export const UserSignUpForm = ({ handleStatus, setStatusTitle, setStatusMessage,
                             onChange={handleChange}
                             id="first-name"
                             autoComplete="given-name"
-                            className="text-neutral-500 text-base leading-6 whitespace-nowrap self-stretch rounded border border-[color:var(--Gray-3,#828282)] bg-white justify-center mt-1 pl-3 pr-16 py-3 border-solid items-start max-md:max-w-full max-md:pr-5"
+                            placeholder="John"
+                            className="text-black text-base leading-6 whitespace-nowrap self-stretch rounded border border-[color:var(--Gray-3,#828282)] bg-white justify-center mt-1 pl-3 pr-16 py-3 border-solid items-start max-md:max-w-full max-md:pr-5"
                         />
                     </div>
                     <div className="text-neutral-800 text-sm flex flex-col font-medium leading-5 self-stretch mt-2 max-md:max-w-full">
@@ -145,7 +146,8 @@ export const UserSignUpForm = ({ handleStatus, setStatusTitle, setStatusMessage,
                             onChange={handleChange}
                             id="last-name"
                             autoComplete="given-name"
-                            className="text-neutral-500 text-base leading-6 whitespace-nowrap self-stretch rounded border border-[color:var(--Gray-3,#828282)] bg-white justify-center mt-1 pl-3 pr-16 py-3 border-solid items-start max-md:max-w-full max-md:pr-5"
+                            placeholder="Doe"
+                            className="text-black text-base leading-6 whitespace-nowrap self-stretch rounded border border-[color:var(--Gray-3,#828282)] bg-white justify-center mt-1 pl-3 pr-16 py-3 border-solid items-start max-md:max-w-full max-md:pr-5"
                         />
                     </div>
                     <div className="text-neutral-800 text-sm font-medium leading-5 self-stretch mt-2 max-md:max-w-full">
@@ -178,7 +180,8 @@ export const UserSignUpForm = ({ handleStatus, setStatusTitle, setStatusMessage,
                                     onChange={handleChange}
                                     id="tel"
                                     autoComplete="tel"
-                                    className="text-neutral-500 text-base leading-6 tracking-normal grow whitespace-nowrap self-start"
+                                    placeholder="080xxxxxxxx"
+                                    className="text-black text-base leading-6 tracking-normal focus:outline-none grow whitespace-nowrap self-start"
                                     style={{ border: '1px solid transparent' }}
                                 />
                             </div>
@@ -195,7 +198,8 @@ export const UserSignUpForm = ({ handleStatus, setStatusTitle, setStatusMessage,
                             onChange={handleChange}
                             id="email"
                             autoComplete="email"
-                            className="text-neutral-500 text-base leading-6 whitespace-nowrap self-stretch rounded border border-[color:var(--Gray-3,#828282)] bg-white justify-center mt-1 pl-3 pr-16 py-3 border-solid items-start max-md:max-w-full max-md:pr-5"
+                            placeholder="JohnD007@gmal.com"
+                            className="text-black text-base leading-6 whitespace-nowrap self-stretch rounded border border-[color:var(--Gray-3,#828282)] bg-white justify-center mt-1 pl-3 pr-16 py-3 border-solid items-start max-md:max-w-full max-md:pr-5"
                         />
                     </div>
                     <div className="text-neutral-800 text-sm flex flex-col font-medium leading-5 self-stretch mt-2 max-md:max-w-full">
@@ -210,7 +214,8 @@ export const UserSignUpForm = ({ handleStatus, setStatusTitle, setStatusMessage,
                             onChange={handleChange}
                             required
                             autoComplete="password"
-                            className="text-neutral-500 text-base leading-6 whitespace-nowrap self-stretch rounded border border-[color:var(--Gray-3,#828282)] bg-white justify-center mt-1 pl-3 pr-16 py-3 border-solid items-start max-md:max-w-full max-md:pr-5"
+                            placeholder="******"
+                            className="text-black text-base leading-6 whitespace-nowrap self-stretch rounded border border-[color:var(--Gray-3,#828282)] bg-white justify-center mt-1 pl-3 pr-16 py-3 border-solid items-start max-md:max-w-full max-md:pr-5"
                         />
                         <span className="password-toggle relative bottom-[2rem] left-[28rem] text-green-700" onClick={handleTogglePassword}>
                             {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -229,7 +234,8 @@ export const UserSignUpForm = ({ handleStatus, setStatusTitle, setStatusMessage,
                             onChange={handleChange}
                             required
                             autoComplete="confirm-password"
-                            className="text-neutral-500 text-base leading-6 whitespace-nowrap self-stretch rounded border border-[color:var(--Gray-3,#828282)] bg-white justify-center mt-1 pl-3 pr-16 py-3 border-solid items-start max-md:max-w-full max-md:pr-5"
+                            placeholder="******"
+                            className="text-black text-base leading-6 whitespace-nowrap self-stretch rounded border border-[color:var(--Gray-3,#828282)] bg-white justify-center mt-1 pl-3 pr-16 py-3 border-solid items-start max-md:max-w-full max-md:pr-5"
                         />
                         <span className="confirmPassword-toggle relative bottom-[2rem] left-[28rem] text-green-700" onClick={handleToggleConfirmPassword}>
                             {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}

@@ -1,4 +1,3 @@
-
 import {useState} from "react";
 import axios from "../../api/axios.jsx";
 import {SweetAlert} from "../../utils/SweetAlert.jsx";
@@ -130,39 +129,39 @@ export const Login = ({ handleStatus, setStatusTitle, setStatusMessage, setStatu
                     )}
 
                     <div className="text-neutral-800 text-sm font-medium flex flex-col leading-5 self-stretch mt-2 max-md:max-w-full">
-                    <label htmlFor="email">
-                        Email Address
-                    </label>
+                        <label htmlFor="email">
+                            Email Address
+                        </label>
 
-                    <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        autoComplete="email"
-                        className="text-neutral-500 text-base leading-6 whitespace-nowrap self-stretch rounded border border-[color:var(--Grey-600,#475467)] bg-white justify-center mt-1 pl-3 pr-16 py-3 border-solid items-start max-md:max-w-full max-md:pr-5"
-                        required
-                    />
+                        <input
+                            id="email"
+                            name="email"
+                            type="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            autoComplete="email"
+                            className="text-neutral-500 text-base leading-6 whitespace-nowrap self-stretch rounded border border-[color:var(--Grey-600,#475467)] bg-white justify-center mt-1 pl-3 pr-16 py-3 border-solid items-start max-md:max-w-full max-md:pr-5"
+                            required
+                        />
                     </div>
 
                     <div className="text-neutral-800 text-sm font-medium flex flex-col leading-5 self-stretch mt-2 max-md:max-w-full">
-                    < label htmlFor="password" >
-                        Password
-                    </label>
+                        < label htmlFor="password" >
+                            Password
+                        </label>
 
-                    <input
-                        type={showPassword ? 'text': 'password'}
-                        name="password"
-                        id="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        required
-                        autoComplete="given-name"
-                        className="text-neutral-500 text-base leading-6 whitespace-nowrap self-stretch rounded border border-[color:var(--Grey-600,#475467)] bg-white justify-center mt-1 pl-3 pr-16 py-3 border-solid items-start max-md:max-w-full max-md:pr-5"
-                    />
+                        <input
+                            type={showPassword ? 'text': 'password'}
+                            name="password"
+                            id="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            required
+                            autoComplete="given-name"
+                            className="text-neutral-500 text-base leading-6 whitespace-nowrap self-stretch rounded border border-[color:var(--Grey-600,#475467)] bg-white justify-center mt-1 pl-3 pr-16 py-3 border-solid items-start max-md:max-w-full max-md:pr-5"
+                        />
 
-                    <span className="password-toggle text-green-700 relative top-[-2rem] left-[28rem]" onClick={handleTogglePassword}>
+                        <span className="password-toggle text-green-700 relative top-[-2rem] left-[28rem]" onClick={handleTogglePassword}>
                                     {showPassword ? <FaEyeSlash /> : <FaEye />}
                                 </span>
                     </div>
@@ -200,10 +199,5 @@ export const Login = ({ handleStatus, setStatusTitle, setStatusMessage, setStatu
                 </form>
             </div>
         </div>
-
-
-
-
     );
 }
-
