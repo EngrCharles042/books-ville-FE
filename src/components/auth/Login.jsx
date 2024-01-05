@@ -25,7 +25,6 @@ export const Login = ({ handleStatus, setStatusTitle, setStatusMessage, setStatu
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
-        name:'',
         email:'',
         password:''
     });
@@ -54,15 +53,18 @@ export const Login = ({ handleStatus, setStatusTitle, setStatusMessage, setStatu
                 .then(result => {
                     setClip(false)
 
-                    enableStatus("Login Successful", "You have logged in successfully", "bg-green-600")
+                    if (result.data.responseMessage === "notVerified") {
 
-                    if (result.data.message === "notVerified") {
                         setTimeout(() => {
                             setVerified(false);
                         }, 500)
 
                         return
                     }
+
+                    enableStatus("Login Successful", "You have logged in successfully", "bg-green-600")
+
+                    console.log(result.data)
                     console.log('User login successful');
                 });
         } catch (error) {
@@ -108,10 +110,10 @@ export const Login = ({ handleStatus, setStatusTitle, setStatusMessage, setStatu
                     </div>
                     { !verified && !resendSuccess && (
                         <div className="w-full bg-red-500 p-4 rounded text-white mt-2">
-                            <p className="text-center">
-                                Your Account has not been verified, please visit your email to proceed.
+                            <p>
+                                Account has not been verified, visit your email to proceed.
                             </p>
-                            <div className="flex justify-between items-center mt-2">
+                            <div className="flex justify-between items-center mt-4">
                                 <p>Did not Get the Mail? </p>
                                 <button
                                     onClick={handleResendVerification}
@@ -126,19 +128,6 @@ export const Login = ({ handleStatus, setStatusTitle, setStatusMessage, setStatu
                             <p className="text-center">Verification mail successfully resent</p>
                         </div>
                     )}
-                    <div className="text-neutral-800 text-sm font-medium flex flex-col leading-5 self-stretch mt-2 max-md:max-w-full">
-                    <label htmlFor="name" >
-                        Name
-                    </label>
-                    <input
-                        type="text"
-                        name="name"
-                        onChange={handleChange}
-                        id="name"
-                        autoComplete="name"
-                        className="text-neutral-500 text-base leading-6 whitespace-nowrap self-stretch rounded border border-[color:var(--Grey-600,#475467)] bg-white justify-center mt-1 pl-3 pr-16 py-3 border-solid items-start max-md:max-w-full max-md:pr-5"
-                    />
-                    </div>
 
                     <div className="text-neutral-800 text-sm font-medium flex flex-col leading-5 self-stretch mt-2 max-md:max-w-full">
                     <label htmlFor="email">
