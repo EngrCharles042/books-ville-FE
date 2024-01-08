@@ -8,6 +8,10 @@ import {LandingPage} from "./components/pages/landingPage/LandingPage.jsx";
 import {Login} from "./components/auth/Login.jsx";
 import {UserSignUpForm} from "./components/auth/UserSignUpForm.jsx";
 import {AdminLogin} from "./components/auth/AdminLogin.jsx";
+import {AdminSideBar} from "./components/pages/admin/AdminSideBar.jsx";
+import {AdminHeader} from "./components/pages/admin/AdminHeader.jsx";
+import {AdminScreenOne} from "./components/pages/admin/AdminScreenOne.jsx";
+import {AdminScreenTwo} from "./components/pages/admin/AdminScreenTwo.jsx";
 
 function App() {
     const [status, setStatus] = useState("")
@@ -32,7 +36,7 @@ function App() {
                 statusColor={statusColor}
             />
             <Routes>
-                <Route path="/" element={ <LandingPage/> }/>
+                <Route path="/" element={ <AdminScreenTwo/> }/>
 
                 <Route path={"/login"} element={
                     <Login
@@ -78,6 +82,7 @@ function App() {
                         setStatusColor={setStatusColor}
                     />
                 }/>
+
             </Routes>
 
         </div>
