@@ -10,6 +10,8 @@ import {UserSignUpForm} from "./components/auth/UserSignUpForm.jsx";
 import {AdminLogin} from "./components/auth/AdminLogin.jsx";
 import {UserCategories} from "./components/pages/userCategory/UserCategories.jsx";
 import {UserDashboard} from "./components/pages/userDashboard/UserDashboard.jsx";
+import { AdminForgotPassword} from './components/auth/admin/AdminForgotPassword';
+import { AdminResetPassword } from './components/auth/admin/AdminResetPassword';
 
 function App() {
     const [status, setStatus] = useState("")
@@ -80,6 +82,25 @@ function App() {
                         setStatusColor={setStatusColor}
                     />
                 }/>
+                
+                <Route path={"/admin-reset-password"} element={
+                    <AdminResetPassword
+                        handleStatus={handleStatus}
+                        setStatusTitle={setStatusTitle}
+                        setStatusMessage={setStatusMessage}
+                        setStatusColor={setStatusColor}
+                    />
+                }/>
+
+                <Route path={"/admin-forgot-password"} element={
+                    <AdminForgotPassword
+                        handleStatus={handleStatus}
+                        setStatusTitle={setStatusTitle}
+                        setStatusMessage={setStatusMessage}
+                        setStatusColor={setStatusColor}
+                    />
+                }/>
+
 
                 <Route path={"/user-dashboard"} element={
                     <UserDashboard/>
