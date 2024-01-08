@@ -13,6 +13,7 @@ import {UserDashboard} from "./components/pages/userDashboard/UserDashboard.jsx"
 import { AdminForgotPassword} from './components/auth/admin/AdminForgotPassword';
 import { AdminResetPassword } from './components/auth/admin/AdminResetPassword';
 
+
 function App() {
     const [status, setStatus] = useState("")
     const [statusTitle, setStatusTitle] = useState("Congratulations")
@@ -112,7 +113,6 @@ function App() {
                     />
                 }/>
             </Routes>
-
         </div>
   )
 }
