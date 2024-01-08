@@ -11,7 +11,7 @@ export const ModalUserProfile = () => {
                 <img
                     className="relative w-[1.04rem] h-[1.04rem] overflow-hidden shrink-0 object-cover"
                     alt=""
-                    src="/userpenalt1@2x.png"
+                    src="/src/assets/images/adminImages/userpenalt1.png"
                 />
                 <div className="relative leading-[1.22rem] font-medium">
                     Account Setting
@@ -24,7 +24,7 @@ export const ModalUserProfile = () => {
                 <img
                     className="relative w-[1.04rem] h-[1.04rem] overflow-hidden shrink-0 object-cover"
                     alt=""
-                    src="/iconoutlinelogout@2x.png"
+                    src="/src/assets/images/adminImages/iconoutlinelogout.png"
                 />
                 <div className="relative leading-[1.22rem] font-medium">Logout</div>
             </div>

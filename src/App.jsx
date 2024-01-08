@@ -8,10 +8,11 @@ import {LandingPage} from "./components/pages/landingPage/LandingPage.jsx";
 import {Login} from "./components/auth/Login.jsx";
 import {UserSignUpForm} from "./components/auth/UserSignUpForm.jsx";
 import {AdminLogin} from "./components/auth/AdminLogin.jsx";
-import {AdminSideBar} from "./components/pages/admin/AdminSideBar.jsx";
-import {AdminHeader} from "./components/pages/admin/AdminHeader.jsx";
-import {AdminScreenOne} from "./components/pages/admin/AdminScreenOne.jsx";
-import {AdminScreenTwo} from "./components/pages/admin/AdminScreenTwo.jsx";
+import {UserCategories} from "./components/pages/userCategory/UserCategories.jsx";
+import {UserDashboard} from "./components/pages/userDashboard/UserDashboard.jsx";
+import { AdminForgotPassword} from './components/auth/admin/AdminForgotPassword';
+import { AdminResetPassword } from './components/auth/admin/AdminResetPassword';
+
 
 function App() {
     const [status, setStatus] = useState("")
@@ -36,7 +37,7 @@ function App() {
                 statusColor={statusColor}
             />
             <Routes>
-                <Route path="/" element={ <AdminScreenTwo/> }/>
+                <Route path="/" element={ <LandingPage/> }/>
 
                 <Route path={"/login"} element={
                     <Login
@@ -82,9 +83,36 @@ function App() {
                         setStatusColor={setStatusColor}
                     />
                 }/>
+                
+                <Route path={"/admin-reset-password"} element={
+                    <AdminResetPassword
+                        handleStatus={handleStatus}
+                        setStatusTitle={setStatusTitle}
+                        setStatusMessage={setStatusMessage}
+                        setStatusColor={setStatusColor}
+                    />
+                }/>
 
+                <Route path={"/admin-forgot-password"} element={
+                    <AdminForgotPassword
+                        handleStatus={handleStatus}
+                        setStatusTitle={setStatusTitle}
+                        setStatusMessage={setStatusMessage}
+                        setStatusColor={setStatusColor}
+                    />
+                }/>
+
+
+                <Route path={"/user-dashboard"} element={
+                    <UserDashboard
+                    />
+                }/>
+
+                <Route path={"/user-categories"} element={
+                    <UserCategories
+                    />
+                }/>
             </Routes>
-
         </div>
   )
 }

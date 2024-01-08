@@ -132,7 +132,7 @@ export const PortalPopup = ({
     return (
         <Portal>
             <div
-                className="flex flex-col fixed inset-0 portalPopupOverlay"
+                className="flex flex-col fixed z-10 bg-white inset-0 portalPopupOverlay"
                 style={popupStyle}
                 onClick={onOverlayClick}
             >

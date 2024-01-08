@@ -21,13 +21,13 @@ export const AdminHeader = () => {
                             <img
                                 className="relative w-[1rem] h-[1rem] object-cover"
                                 alt=""
-                                src="/src/assets/images/vuesaxlinearsearchnormal@2x.png"
+                                src="/src/assets/images/adminImages/vuesaxlinearsearchnormal@2x.png"
                             />
                             <div className="flex flex-row items-start justify-start py-[0.25rem] px-[0.13rem]">
                                 <img
                                     className="relative w-[0rem] h-[1.31rem] object-contain"
                                     alt=""
-                                    src="/src/assets/images/line-13@2x.png"
+                                    src="/src/assets/images/adminImages/line-13@2x.png"
                                 />
                             </div>
                             <div className="relative tracking-[-0.01em] opacity-[0.2]">
@@ -41,26 +41,28 @@ export const AdminHeader = () => {
                             <img
                                 className="absolute top-[0rem] left-[0rem] w-[1.56rem] h-[1.56rem] overflow-hidden object-cover"
                                 alt=""
-                                src="/src/assets/images/iconoutlinebell@2x.png"
+                                src="/src/assets/images/adminImages/iconoutlinebell@2x.png"
                             />
                         </div>
                         <img
                             className="relative rounded-[50%] w-[2.25rem] h-[2.25rem] object-cover cursor-pointer"
                             alt=""
-                            src="/ellipse-6@2x.png"
+                            src="/src/assets/images/adminImages/adminProfile.png"
                             onClick={openModalUserProfile}
                         />
                     </div>
                 </div>
             </div>
             {isModalUserProfileOpen && (
-                <PortalPopup
-                    overlayColor="rgba(113, 113, 113, 0.3)"
-                    placement="Centered"
-                    onOutsideClick={closeModalUserProfile}
-                >
-                    <ModalUserProfile onClose={closeModalUserProfile} />
-                </PortalPopup>
+                <div style={{zIndex: '100'}}>
+                        <PortalPopup
+                            overlayColor="rgba(113, 113, 113, 0.3)"
+                            placement="Centered"
+                            onOutsideClick={closeModalUserProfile}
+                        >
+                            <ModalUserProfile onClose={closeModalUserProfile} />
+                        </PortalPopup>
+                </div>
             )}
         </>
     );
