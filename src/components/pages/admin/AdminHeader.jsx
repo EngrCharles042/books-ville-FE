@@ -1,17 +1,8 @@
 import { useState, useCallback } from "react";
-import {ModalUserProfile} from "./ModalUserProfile.jsx";
-import {PortalPopup} from "./PortalPopup";
+import {AdminProfilePopUp} from "../../../utils/AdminProfilePopUp.jsx";
 
 export const AdminHeader = () => {
-    const [isModalUserProfileOpen, setModalUserProfileOpen] = useState(false);
-
-    const openModalUserProfile = useCallback(() => {
-        setModalUserProfileOpen(true);
-    }, []);
-
-    const closeModalUserProfile = useCallback(() => {
-        setModalUserProfileOpen(false);
-    }, []);
+    const [profileClick, setProfileCLick] = useState(false);
 
     return (
         <>
@@ -48,22 +39,17 @@ export const AdminHeader = () => {
                             className="relative rounded-[50%] w-[2.25rem] h-[2.25rem] object-cover cursor-pointer"
                             alt=""
                             src="/src/assets/images/adminImages/adminProfile.png"
-                            onClick={openModalUserProfile}
+                            onClick={() => (setProfileCLick(!profileClick))}
                         />
                     </div>
                 </div>
             </div>
-            {isModalUserProfileOpen && (
-                <div style={{zIndex: '100'}}>
-                        <PortalPopup
-                            overlayColor="rgba(113, 113, 113, 0.3)"
-                            placement="Centered"
-                            onOutsideClick={closeModalUserProfile}
-                        >
-                            <ModalUserProfile onClose={closeModalUserProfile} />
-                        </PortalPopup>
+
+            { profileClick &&
+                <div className="absolute right-[2rem] top-[3.5rem] shadow-2xl">
+                    <AdminProfilePopUp handleProfilePop={() => (setProfileCLick(!profileClick))} />
                 </div>
-            )}
+            }
         </>
     );
 };

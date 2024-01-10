@@ -1,11 +1,17 @@
 import { useState, useCallback } from "react";
-import {UploadBooks} from "./UploadBooks";
-import {PortalPopup} from "./PortalPopup";
 import {AdminSideBar} from "./AdminSideBar.jsx";
 import {AdminHeader} from "./AdminHeader";
 import {AdminScreenTwo} from "./AdminScreenTwo.jsx";
 
 export const AdminScreenOne = () => {
+    const [formData, setFormData] = useState({
+        author: '',
+        bookTitle: '',
+        genre: '',
+        description: '',
+        price: ''
+    })
+
     const [screen, setScreen] = useState(1);
 
     const [isUploadBooksOpen, setUploadBooksOpen] = useState(false);
@@ -38,20 +44,12 @@ export const AdminScreenOne = () => {
                     </div>
                     <div>
                         <AdminHeader />
-                        {isUploadBooksOpen && (
-                            <PortalPopup
-                                overlayColor="rgba(113, 113, 113, 0.3)"
-                                placement="Centered"
-                                onOutsideClick={closeUploadBooks}
-                            >
-                                <UploadBooks onClose={closeUploadBooks} />
-                            </PortalPopup>
-                        )}
+
                         { screen === 2 ?
                             <AdminScreenTwo/> :
                             screen === 1 ?
                             <div className="mt-10 flex flex-col items-stretch ml-[270px] max-md:w-full max-md:ml-0">
-                                <div className="flex flex-col px-5 max-md:max-w-full">
+                                <form className="flex flex-col px-5 max-md:max-w-full">
                                     <div className="flex w-[939px] max-w-full justify-between gap-5 mt-24 self-start items-start max-md:flex-wrap max-md:mt-10">
                                         <div className="items-center flex gap-3.5">
                                             <img
@@ -67,31 +65,38 @@ export const AdminScreenOne = () => {
                                             Add Book
                                         </div>
                                     </div>
-                                    <div className="text-black text-2xl font-medium leading-8 mt-6 self-start max-md:max-w-full">
+                                    <label className="text-black text-2xl font-medium leading-8 mt-6 self-start max-md:max-w-full">
                                         Book Title
-                                    </div>
-                                    <div className="text-stone-300 text-xs font-medium leading-4 tracking-wide whitespace-nowrap border-[color:var(--Gray-600,#757575)] w-[933px] max-w-full justify-center mt-2 pl-5 pr-16 py-5 rounded-md border-[1.694px] border-solid self-start items-start max-md:pr-5">
-                                        To Kill a Mocking bird
-                                    </div>
-                                    <div className="text-black text-2xl font-medium leading-8 mt-6 self-start max-md:max-w-full">
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="bookTitle"
+                                        value={formData.bookTitle}
+                                        placeholder="To Kill a Mocking bird"
+                                        className="text-stone-300 text-xs font-medium leading-4 tracking-wide whitespace-nowrap border-[color:var(--Gray-600,#757575)] w-[933px] max-w-full justify-center mt-2 pl-5 pr-16 py-5 rounded-md border-[1.694px] border-solid self-start items-start max-md:pr-5"
+                                    />
+
+                                    <label className="text-black text-2xl font-medium leading-8 mt-6 self-start max-md:max-w-full">
                                         Book Author
-                                    </div>
-                                    <div className="text-stone-300 text-xs font-medium leading-4 tracking-wide whitespace-nowrap border-[color:var(--Gray-600,#757575)] w-[933px] max-w-full justify-center mt-2 pl-5 pr-16 py-5 rounded-md border-[1.694px] border-solid self-start items-start max-md:pr-5">
-                                        Harper Lee
-                                    </div>
-                                    <div className="text-black text-2xl font-medium leading-8 mt-6 self-start max-md:max-w-full">
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="author"
+                                        value={formData.author}
+                                        placeholder="Harper Lee"
+                                        className="text-stone-300 text-xs font-medium leading-4 tracking-wide whitespace-nowrap border-[color:var(--Gray-600,#757575)] w-[933px] max-w-full justify-center mt-2 pl-5 pr-16 py-5 rounded-md border-[1.694px] border-solid self-start items-start max-md:pr-5"
+                                    />
+
+                                    <label className="text-black text-2xl font-medium leading-8 mt-6 self-start max-md:max-w-full">
                                         Book Description
-                                    </div>
-                                    <div className="text-stone-300 text-xl font-medium leading-7 tracking-wide items-stretch border-[color:var(--Gray-600,#757575)] w-[933px] max-w-full mt-2 pl-5 pr-2 pt-1.5 pb-11 rounded-md border-[1.694px] border-solid self-start max-md:max-w-full">
-                                        Lorem ipsum dolor sit amet consectetur. Feugiat ac neque sed
-                                        viverra vitae. Ut eget <br />
-                                        malesuada ut vitae urna. Natoque sed eget faucibus sapien arcu
-                                        sit. Integer gravida a<br />
-                                        liquet maecenas est nulla fringilla ultrices non vitae. Vitae sed
-                                        nulla id congue commodo
-                                        <br /> massa ut at.
-                                    </div>
-                                </div>
+                                    </label>
+                                    <textarea
+                                        name="description"
+                                        value={formData.description}
+                                        placeholder="Book's description..."
+                                        className="text-stone-300 text-xs font-medium leading-7 tracking-wide items-stretch border-[color:var(--Gray-600,#757575)] w-[933px] max-w-full mt-2 pl-5 pr-2 pt-1.5 pb-11 rounded-md border-[1.694px] border-solid self-start max-md:max-w-full"
+                                    />
+                                </form>
                             </div> : <></>
                         }
                     </div>

@@ -1,17 +1,19 @@
 import './App.css';
-import {ResetPassword} from "./components/auth/ResetPassword.jsx";
+import {ResetPassword} from "./components/auth/user/ResetPassword.jsx";
 import {StatusCard} from "./utils/StatusCard.jsx";
 import {useState} from "react";
 import {Route, Routes} from "react-router-dom";
-import {ForgotPassword} from "./components/auth/ForgotPassword.jsx";
+import {ForgotPassword} from "./components/auth/user/ForgotPassword.jsx";
 import {LandingPage} from "./components/pages/landingPage/LandingPage.jsx";
-import {Login} from "./components/auth/Login.jsx";
-import {UserSignUpForm} from "./components/auth/UserSignUpForm.jsx";
-import {AdminLogin} from "./components/auth/AdminLogin.jsx";
+import {Login} from "./components/auth/user/Login.jsx";
+import {UserSignUpForm} from "./components/auth/user/UserSignUpForm.jsx";
+import {AdminLogin} from "./components/auth/admin/AdminLogin.jsx";
 import {UserCategories} from "./components/pages/userCategory/UserCategories.jsx";
 import {UserDashboard} from "./components/pages/userDashboard/UserDashboard.jsx";
 import { AdminForgotPassword} from './components/auth/admin/AdminForgotPassword';
 import { AdminResetPassword } from './components/auth/admin/AdminResetPassword';
+import {AdminSignUpForm} from "./components/auth/admin/AdminSignUpForm.jsx";
+import {AdminScreenOne} from "./components/pages/admin/AdminScreenOne.jsx";
 
 
 function App() {
@@ -75,6 +77,15 @@ function App() {
                     />
                 }/>
 
+                <Route path={"/admin-signup"} element={
+                    <AdminSignUpForm
+                        handleStatus={handleStatus}
+                        setStatusTitle={setStatusTitle}
+                        setStatusMessage={setStatusMessage}
+                        setStatusColor={setStatusColor}
+                    />
+                }/>
+
                 <Route path={"/admin-login"} element={
                     <AdminLogin
                         handleStatus={handleStatus}
@@ -83,7 +94,7 @@ function App() {
                         setStatusColor={setStatusColor}
                     />
                 }/>
-                
+
                 <Route path={"/admin-reset-password"} element={
                     <AdminResetPassword
                         handleStatus={handleStatus}
@@ -102,15 +113,16 @@ function App() {
                     />
                 }/>
 
-
-                <Route path={"/user-dashboard"} element={
-                    <UserDashboard
-                    />
+                <Route path={"/admin-dashboard"} element={
+                    <AdminScreenOne/>
                 }/>
 
+                <Route path={"/user-dashboard"} element={<UserDashboard/>}>
+                    <Route path={"/user-dashboard/categories"} element={<UserCategories/>}/>
+                </Route>
+
                 <Route path={"/user-categories"} element={
-                    <UserCategories
-                    />
+                    <UserCategories/>
                 }/>
             </Routes>
         </div>

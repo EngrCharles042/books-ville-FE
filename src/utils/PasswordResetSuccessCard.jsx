@@ -14,7 +14,7 @@ export const PasswordResetSuccessCard = ({email}) => {
                 alt="Password reset success"
             />
             <div className="email-info">
-                <span className="label">You will get an email confirmation at</span>
+                <span className="label">You will get an email confirmation at {" "}</span>
                 <span className="email">{email}</span>
             </div>
 

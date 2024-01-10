@@ -1,13 +1,13 @@
-
 import {useState} from "react";
-import axios from "../../api/axios.jsx";
+import axios from "../../../api/axios.jsx";
+import {SweetAlert} from "../../../utils/SweetAlert.jsx";
 import {ClipLoader} from "react-spinners";
-import logo from "../../assets/images/landingPageImages/booksvillelogo.png"
+import logo from "../../../assets/images/landingPageImages/booksvillelogo.png"
 import {FaEye, FaEyeSlash} from "react-icons/fa";
 import {Link, useNavigate} from "react-router-dom";
 
 
-export const AdminLogin = ({ handleStatus, setStatusTitle, setStatusMessage, setStatusColor }) => {
+export const Login = ({ handleStatus, setStatusTitle, setStatusMessage, setStatusColor }) => {
     const enableStatus = (title, message, color) => {
         handleStatus();
         setStatusTitle(title);
@@ -24,7 +24,6 @@ export const AdminLogin = ({ handleStatus, setStatusTitle, setStatusMessage, set
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
-        name:'',
         email:'',
         password:''
     });
@@ -53,15 +52,24 @@ export const AdminLogin = ({ handleStatus, setStatusTitle, setStatusMessage, set
                 .then(result => {
                     setClip(false)
 
-                    enableStatus("Login Successful", "You have logged in successfully", "bg-green-600")
+                    if (result.data.responseMessage === "notVerified") {
 
-                    if (result.data.message === "notVerified") {
+                        setVerified(false);
                         setTimeout(() => {
-                            setVerified(false);
-                        }, 500)
+                            setVerified(true);
+                        }, 8000)
 
                         return
                     }
+
+                    setTimeout(() => {
+                        navigate("/user-dashboard")
+                    }, 2000)
+
+                    enableStatus("Login Successful", "You have logged in successfully", "bg-green-600")
+
+                    localStorage.setItem("userData", result.data.responseData)
+                    localStorage.setItem("firstName", result.data.responseData.firstName)
                     console.log('User login successful');
                 });
         } catch (error) {
@@ -90,16 +98,7 @@ export const AdminLogin = ({ handleStatus, setStatusTitle, setStatusMessage, set
 
 
     return (
-        <div className="flex">
-            <div>
-                <img
-                    loading="lazy"
-                    src="https://res.cloudinary.com/dkpicxs08/image/upload/v1702585331/BooksVilleSignUpImg_jwjz0b.svg"
-                    alt="authentication image"
-                />
-            </div>
-
-        <div className="bg-emerald-200 flex flex-col justify-center items-center px-16 py-12 max-md:px-5">
+        <div className="bg-emerald-200 flex flex-col h-[100vh] justify-center items-center px-16 py-12 max-md:px-5">
             <div>
                 <form onSubmit={handleSubmit} className="shadow-lg bg-white flex w-[564px] max-w-full flex-col mt-[10%] px-11 py-9 rounded-xl max-md:my-10 max-md:px-5">
                     <div className="items-stretch self-center flex gap-1.5">
@@ -116,10 +115,10 @@ export const AdminLogin = ({ handleStatus, setStatusTitle, setStatusMessage, set
                     </div>
                     { !verified && !resendSuccess && (
                         <div className="w-full bg-red-500 p-4 rounded text-white mt-2">
-                            <p className="text-center">
-                                Your Account has not been verified, please visit your email to proceed.
+                            <p>
+                                Account has not been verified, visit your email to proceed.
                             </p>
-                            <div className="flex justify-between items-center mt-2">
+                            <div className="flex justify-between items-center mt-4">
                                 <p>Did not Get the Mail? </p>
                                 <button
                                     onClick={handleResendVerification}
@@ -134,19 +133,6 @@ export const AdminLogin = ({ handleStatus, setStatusTitle, setStatusMessage, set
                             <p className="text-center">Verification mail successfully resent</p>
                         </div>
                     )}
-                    <div className="text-neutral-800 text-sm font-medium flex flex-col leading-5 self-stretch mt-2 max-md:max-w-full">
-                        <label htmlFor="name" >
-                            Name
-                        </label>
-                        <input
-                            type="text"
-                            name="name"
-                            onChange={handleChange}
-                            id="name"
-                            autoComplete="name"
-                            className="text-neutral-500 text-base leading-6 whitespace-nowrap self-stretch rounded border border-[color:var(--Grey-600,#475467)] bg-white justify-center mt-1 pl-3 pr-16 py-3 border-solid items-start max-md:max-w-full max-md:pr-5"
-                        />
-                    </div>
 
                     <div className="text-neutral-800 text-sm font-medium flex flex-col leading-5 self-stretch mt-2 max-md:max-w-full">
                         <label htmlFor="email">
@@ -219,10 +205,5 @@ export const AdminLogin = ({ handleStatus, setStatusTitle, setStatusMessage, set
                 </form>
             </div>
         </div>
-        </div>
-
-
-
     );
 }
-
