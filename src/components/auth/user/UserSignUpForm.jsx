@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 // import {Link} from "react-router-dom";
-import axios from "../../api/axios.jsx";
-import logo from "../../assets/images/landingPageImages/booksvillelogo.png"
+import axios from "../../../api/axios.jsx";
+import logo from "../../../assets/images/landingPageImages/booksvillelogo.png"
 import {ClipLoader} from "react-spinners";
 import {FaEye, FaEyeSlash} from "react-icons/fa";
 import {Link, useNavigate} from "react-router-dom";

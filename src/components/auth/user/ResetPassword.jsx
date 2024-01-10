@@ -1,9 +1,9 @@
 import {useState} from "react";
-import axios from "../../api/axios.jsx";
-import logo from "../../assets/images/landingPageImages/booksvillelogo.png"
+import axios from "../../../api/axios.jsx";
+import logo from "../../../assets/images/landingPageImages/booksvillelogo.png"
 import {ClipLoader} from "react-spinners";
 import {FaEye, FaEyeSlash} from "react-icons/fa";
-import {PasswordResetSuccessCard} from "../../utils/PasswordResetSuccessCard.jsx";
+import {PasswordResetSuccessCard} from "../../../utils/PasswordResetSuccessCard.jsx";
 import {Link} from "react-router-dom";
 export const ResetPassword = ({ handleStatus, setStatusTitle, setStatusMessage, setStatusColor }) => {
     const [successCard, setSuccessCard] = useState(false)

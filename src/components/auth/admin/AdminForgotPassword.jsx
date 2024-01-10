@@ -103,7 +103,7 @@ export const AdminForgotPassword = ({ handleStatus, setStatusTitle, setStatusMes
 
                     <div className="text-green-500 text-sm leading-5 self-center whitespace-nowrap mt-2">
                         <span className=" text-gray-400">Go back to </span>
-                        <span className="cursor-pointer font-semibold text-green-500 underline"><Link to={"/login"}>Sign In</Link></span>
+                        <span className="cursor-pointer font-semibold text-green-500 underline"><Link to={"/admin-login"}>Sign In</Link></span>
                     </div>
 
                 </form>

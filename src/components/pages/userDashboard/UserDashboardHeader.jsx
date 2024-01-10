@@ -1,13 +1,14 @@
 import profilePic from '../../../assets/images/userCatImages/profile.png';
 import {ProfilePopUp} from "../../../utils/ProfilePopUp.jsx";
 import {useState} from "react";
+import {Link} from "react-router-dom";
 
 export const UserDashboardHeader = () => {
 
     const [profileClick, setProfileCLick] = useState(false);
 
     return (
-        <div className="justify-between items-stretch bg-white flex gap-5 px-16 py-4 max-md:flex-wrap max-md:px-5">
+        <div className="max-w-[1297px] mx-auto justify-between items-stretch bg-white flex gap-5 py-4 max-md:flex-wrap max-md:px-5">
             <div className="justify-between items-stretch flex gap-5 max-md:max-w-full max-md:flex-wrap">
                 <div className="items-stretch flex justify-between gap-1.5">
                     <img
@@ -32,18 +33,18 @@ export const UserDashboardHeader = () => {
                         type="search"
                         name="search"
                         className="text-black text-left text-sm focus:outline-none tracking-normal self-stretch grow whitespace-nowrap w-[20rem]"
-                        placeholder="Search by Author , Title , Series"
+                        placeholder="Search by Author or Title or Series"
                     />
                 </div>
             </div>
             <div className="items-center self-center flex justify-between gap-5 my-auto max-md:max-w-full max-md:flex-wrap">
                 <div className="items-stretch flex justify-between gap-5 my-auto">
-                    <div className="text-black text-xl font-medium leading-7 grow whitespace-nowrap cursor-pointer hover:text-green-500">
+                    <Link to={"/user-dashboard"} className="text-black text-xl font-medium leading-7 grow whitespace-nowrap cursor-pointer hover:text-green-500">
                         Home
-                    </div>
-                    <div className="text-black text-xl font-medium leading-7 cursor-pointer hover:text-green-500">
+                    </Link>
+                    <Link to={"/user-dashboard/categories"} className="text-black text-xl font-medium leading-7 cursor-pointer hover:text-green-500">
                         Categories
-                    </div>
+                    </Link>
                     <div className="text-black text-xl font-medium leading-7 cursor-pointer hover:text-green-500">
                         Cart
                     </div>

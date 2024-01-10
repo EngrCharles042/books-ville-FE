@@ -36,8 +36,8 @@ export const UserCategories = () => {
     );
 
     return (
-        <div className="bg-white flex flex-col items-stretch pb-12">
-            <div className="flex w-full flex-col items-stretch mt-24 mb-10 px-16 max-md:max-w-full max-md:mt-10 max-md:px-5">
+        <div className="bg-white flex flex-col mt-8 items-stretch pb-12">
+            <div className="flex w-full flex-col items-stretch mt-10 mb-10 px-16 max-md:max-w-full max-md:mt-10 max-md:px-5">
                 <div className="text-black text-6xl font-bold leading-[81.2px] tracking-tight max-md:max-w-full max-md:text-4xl">
                     Explore all Deals
                 </div>

@@ -1,8 +1,8 @@
 import {useState} from "react";
-import axios from "../../api/axios.jsx";
-import {SweetAlert} from "../../utils/SweetAlert.jsx";
+import axios from "../../../api/axios.jsx";
+import {SweetAlert} from "../../../utils/SweetAlert.jsx";
 import {ClipLoader} from "react-spinners";
-import logo from "../../assets/images/landingPageImages/booksvillelogo.png"
+import logo from "../../../assets/images/landingPageImages/booksvillelogo.png"
 import {FaEye, FaEyeSlash} from "react-icons/fa";
 import {Link, useNavigate} from "react-router-dom";
 
@@ -54,16 +54,22 @@ export const Login = ({ handleStatus, setStatusTitle, setStatusMessage, setStatu
 
                     if (result.data.responseMessage === "notVerified") {
 
+                        setVerified(false);
                         setTimeout(() => {
-                            setVerified(false);
-                        }, 500)
+                            setVerified(true);
+                        }, 8000)
 
                         return
                     }
 
+                    setTimeout(() => {
+                        navigate("/user-dashboard")
+                    }, 2000)
+
                     enableStatus("Login Successful", "You have logged in successfully", "bg-green-600")
 
-                    console.log(result.data)
+                    localStorage.setItem("userData", result.data.responseData)
+                    localStorage.setItem("firstName", result.data.responseData.firstName)
                     console.log('User login successful');
                 });
         } catch (error) {
