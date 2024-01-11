@@ -44,6 +44,7 @@ export const Login = ({ handleStatus, setStatusTitle, setStatusMessage, setStatu
         if (!verified && !resendSuccess) {
             return;
         }
+
         try{
             setClip(true);
 
@@ -68,8 +69,8 @@ export const Login = ({ handleStatus, setStatusTitle, setStatusMessage, setStatu
 
                     enableStatus("Login Successful", "You have logged in successfully", "bg-green-600")
 
-                    localStorage.setItem("userData", result.data.responseData)
-                    localStorage.setItem("firstName", result.data.responseData.firstName)
+                    localStorage.setItem("userData", JSON.stringify(result.data.responseData))
+
                     console.log('User login successful');
                 });
         } catch (error) {
