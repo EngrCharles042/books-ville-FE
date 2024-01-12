@@ -14,6 +14,8 @@ import { AdminForgotPassword} from './components/auth/admin/AdminForgotPassword'
 import { AdminResetPassword } from './components/auth/admin/AdminResetPassword';
 import {AdminSignUpForm} from "./components/auth/admin/AdminSignUpForm.jsx";
 import {AdminScreenOne} from "./components/pages/admin/AdminScreenOne.jsx";
+import {FlutterWavePayment} from "./components/payment/FlutterWavePayment.jsx";
+import {PaystackPayment} from "./components/payment/PaystackPayment.jsx";
 
 
 function App() {
@@ -31,7 +33,7 @@ function App() {
     }
 
   return (
-        <div className="w-[100vw]" style={{overflowX: "hidden"}}>
+        <div className="w-[100vw] min-h-[100vh]" style={{overflowX: "hidden"}}>
             <StatusCard
                 statusStyle={status}
                 statusTitle={statusTitle}
@@ -123,6 +125,10 @@ function App() {
 
                 <Route path={"/user-categories"} element={
                     <UserCategories/>
+                }/>
+
+                <Route path={"/paystack-payment"} element={
+                    <PaystackPayment/>
                 }/>
             </Routes>
         </div>
