@@ -14,6 +14,7 @@ import { AdminResetPassword } from './components/auth/admin/AdminResetPassword';
 import {AdminSignUpForm} from "./components/auth/admin/AdminSignUpForm.jsx";
 import {AdminScreenOne} from "./components/pages/admin/AdminScreenOne.jsx";
 import {UserCategoryPage} from "./components/pages/userCategory/UserCategoryPage.jsx";
+import {OrderProcessing} from "./components/pages/admin/OrderProcessing.jsx";
 
 
 function App() {
@@ -120,6 +121,10 @@ function App() {
                 <Route path={"/user-dashboard"} element={<UserDashboardPage/>}>
                     <Route path={"/user-dashboard/categories"} element={<UserCategoryPage/>}/>
                 </Route>
+
+                <Route path={"/order-processing"} element={
+                    <OrderProcessing/>
+                }/>
             </Routes>
         </div>
   )
