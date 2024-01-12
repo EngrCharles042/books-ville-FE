@@ -1,5 +1,5 @@
 import {MyBookCard} from "./MyBookCard.jsx";
-import {BookCard} from "../landingPage/BookCard.jsx";
+import {BookCard} from "../landing/BookCard.jsx";
 
 export const MyBooks = () => {
     const purchased = {

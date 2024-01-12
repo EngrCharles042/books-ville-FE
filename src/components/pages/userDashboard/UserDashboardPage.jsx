@@ -1,9 +1,9 @@
 import {UserDashboardHeader} from "./UserDashboardHeader.jsx";
 import {MyBooks} from "./MyBooks.jsx";
 import {Route, Routes} from "react-router-dom";
-import {UserCategories} from "../userCategory/UserCategories.jsx";
+import {UserCategoryPage} from "../userCategory/UserCategoryPage.jsx";
 
-export const UserDashboard = () => {
+export const UserDashboardPage = () => {
 
     return (
     <>
@@ -20,7 +20,7 @@ export const UserDashboard = () => {
 
                 <Route
                     path={"/categories"}
-                    element={<UserCategories/>}
+                    element={<UserCategoryPage/>}
                 />
             </Routes>
         </div>
