@@ -15,7 +15,7 @@ import {AdminSignUpForm} from "./components/auth/admin/AdminSignUpForm.jsx";
 import {AdminScreenOne} from "./components/pages/admin/AdminScreenOne.jsx";
 import {UserCategoryPage} from "./components/pages/userCategory/UserCategoryPage.jsx";
 import {OrderProcessing} from "./components/pages/admin/OrderProcessing.jsx";
-
+import {ViewBook} from "./components/pages/admin/ViewBook.jsx";
 
 function App() {
     const [status, setStatus] = useState("")
@@ -125,6 +125,11 @@ function App() {
                 <Route path={"/order-processing"} element={
                     <OrderProcessing/>
                 }/>
+
+                <Route path={"/view-book"} element={
+                    <ViewBook/>
+                }/>
+
             </Routes>
         </div>
   )
