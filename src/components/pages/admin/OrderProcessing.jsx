@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Modal from "react-modal";
 import unseen from "../../../assets/images/adminImages/unseen.png";
 import {AdminHeader} from "./AdminHeader.jsx";
 import {AdminSideBar} from "./AdminSideBar.jsx";
