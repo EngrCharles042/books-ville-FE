@@ -6,7 +6,6 @@ import {BestSellingAndPopularBooks} from "./BestSellingAndPopularBooks.jsx";
 import {useState} from "react";
 import * as React from "react";
 
-
 export const LandingPage = () => {
   const [signUp, setSignUp] = useState(false);
 
