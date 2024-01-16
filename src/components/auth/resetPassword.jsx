@@ -1,12 +1,12 @@
 import {useState} from "react";
-import axios from "../../../api/axios.jsx";
-import logo from "../../../assets/images/landingPageImages/booksvillelogo.png"
+import axios from "../../api/axios.jsx";
+import logo from "../../assets/images/landingPageImages/booksvillelogo.png"
 import {ClipLoader} from "react-spinners";
 import {FaEye, FaEyeSlash} from "react-icons/fa";
-import {PasswordResetSuccessCard} from "../../../utils/PasswordResetSuccessCard.jsx";
+import {PasswordResetSuccessCard} from "../../utils/PasswordResetSuccessCard.jsx";
 import {Link} from "react-router-dom";
 
-export const AdminResetPassword = ({ handleStatus, setStatusTitle, setStatusMessage, setStatusColor }) => {
+export const ResetPassword = ({ handleStatus, setStatusTitle, setStatusMessage, setStatusColor }) => {
     const [successCard, setSuccessCard] = useState(false)
 
     const queryParams = new URLSearchParams(location.search);
@@ -51,7 +51,7 @@ export const AdminResetPassword = ({ handleStatus, setStatusTitle, setStatusMess
             setClip(true);
 
             // Make API call to your Java backend to handle user registration
-            await axios.post('/auth/admin-reset-forgot-password', formData)
+            await axios.post('/auth/user-reset-forgot-password', formData)
                 .then(result => {
                     setClip(false);
 
@@ -75,12 +75,14 @@ export const AdminResetPassword = ({ handleStatus, setStatusTitle, setStatusMess
 
     return (
         <div className="flex">
-                 <img
+            <div>
+                <img
                     loading="lazy"
                     srcSet="https://res.cloudinary.com/dkpicxs08/image/upload/v1702585331/BooksVilleSignUpImg_jwjz0b.svg"
                     className="flex-shrink-0 object-cover flex-1"
                     alt=""
                 />
+            </div>
         <div className="justify-center items-center bg-emerald-200 flex flex-col px-16 py-12 max-md:px-5">
 
             { successCard &&

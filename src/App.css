@@ -59,7 +59,9 @@ svg {
     0% {
         transform: translateX(0rem);
     }
-
+    5% {
+        transform: translateX(-36.6875rem);
+    }
     10% {
         transform: translateX(-34.6875rem);
     }

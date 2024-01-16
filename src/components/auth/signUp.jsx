@@ -1,11 +1,11 @@
 import {useEffect, useState} from "react";
-import axios from "../../../api/axios.jsx";
-import logo from "../../../assets/images/landingPageImages/booksvillelogo.png"
+import axios from "../../api/axios.jsx";
+import logo from "../../assets/images/landingPageImages/booksvillelogo.png"
 import {ClipLoader} from "react-spinners";
 import {FaEye, FaEyeSlash} from "react-icons/fa";
 import {Link, useNavigate} from "react-router-dom";
 
-export const AdminSignUpForm = ({ handleStatus, setStatusTitle, setStatusMessage, setStatusColor }) => {
+export const SignUp = ({ handleStatus, setStatusTitle, setStatusMessage, setStatusColor }) => {
     const enableStatus = (title, message, color) => {
         handleStatus();
         setStatusTitle(title);
@@ -74,7 +74,7 @@ export const AdminSignUpForm = ({ handleStatus, setStatusTitle, setStatusMessage
             setClip(true);
 
             // Make API call to your Java backend to handle user registration
-            await axios.post('/auth/register-admin', formData)
+            await axios.post('/auth/register-user', formData)
                 .then(result => {
                     setClip(false);
 
@@ -265,7 +265,7 @@ export const AdminSignUpForm = ({ handleStatus, setStatusTitle, setStatusMessage
                         </button>
                         <div className="text-green-500 text-sm leading-5 self-center whitespace-nowrap mt-6">
                             <span className=" text-gray-400">Already have an account ? </span>
-                            <span className="font-semibold text-green-500 underline"><Link to={"/admin-login"}>Log In here</Link></span>
+                            <span className="font-semibold text-green-500 underline"><Link to={"/login"}>Log In here</Link></span>
                         </div>
                     </form>
                 </div>

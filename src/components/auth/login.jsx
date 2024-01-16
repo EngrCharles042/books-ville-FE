@@ -1,13 +1,13 @@
 
 import {useState} from "react";
-import axios from "../../../api/axios.jsx";
+import axios from "../../api/axios.jsx";
 import {ClipLoader} from "react-spinners";
-import logo from "../../../assets/images/landingPageImages/booksvillelogo.png"
+import logo from "../../assets/images/landingPageImages/booksvillelogo.png"
 import {FaEye, FaEyeSlash} from "react-icons/fa";
 import {Link, useNavigate} from "react-router-dom";
 
 
-export const AdminLogin = ({ handleStatus, setStatusTitle, setStatusMessage, setStatusColor }) => {
+export const Login = ({ handleStatus, setStatusTitle, setStatusMessage, setStatusColor }) => {
     const enableStatus = (title, message, color) => {
         handleStatus();
         setStatusTitle(title);
@@ -48,7 +48,7 @@ export const AdminLogin = ({ handleStatus, setStatusTitle, setStatusMessage, set
             setClip(true);
 
             // Make API call to your Java backend to handle user registration
-            await axios.post('/auth/admin/login', formData)
+            await axios.post('/auth/login', formData)
                 .then(result => {
                     setClip(false)
 
@@ -62,11 +62,15 @@ export const AdminLogin = ({ handleStatus, setStatusTitle, setStatusMessage, set
                         return
                     }
 
-                    setTimeout(() => {
-                        navigate("/admin-dashboard")
-                    }, 2000)
-
                     enableStatus("Login Successful", "You have logged in successfully", "bg-green-600")
+
+                    setTimeout(() => {
+                        if (result.data.responseData.role === "ADMIN") {
+                            navigate("/admin-dashboard")
+                        } else if (result.data.responseData.role === "USER") {
+                            navigate("/user-dashboard")
+                        }
+                    }, 2000)
 
                     localStorage.setItem("userData", JSON.stringify(result.data.responseData))
 
@@ -181,7 +185,7 @@ export const AdminLogin = ({ handleStatus, setStatusTitle, setStatusMessage, set
                                     </span>
                         </div>
 
-                        <Link to={"/admin-forgot-password"} className="cursor-pointer text-green-500 text-base leading-6 tracking-normal underline self-stretch max-md:max-w-full">
+                        <Link to={"/forgot-password"} className="cursor-pointer text-green-500 text-base leading-6 tracking-normal underline self-stretch max-md:max-w-full">
                             Forgot Password
                         </Link>
 
@@ -209,7 +213,7 @@ export const AdminLogin = ({ handleStatus, setStatusTitle, setStatusMessage, set
 
                         <div className="text-green-500 text-sm leading-5 self-center whitespace-nowrap mt-6">
                             <span className=" text-gray-400">Don’t have an account ? </span>
-                            <span className="font-semibold underline text-green-500"><Link to={"/admin-signup"}>Sign Up here</Link></span>
+                            <span className="font-semibold underline text-green-500"><Link to={"/signup"}>Sign Up here</Link></span>
                         </div>
                     </form>
                 </div>

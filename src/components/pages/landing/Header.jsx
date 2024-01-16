@@ -1,20 +1,7 @@
 import {Link} from "react-router-dom";
 import {useState} from "react";
 
-export const Header = ({handleSignUp}) => {
-
-    const [register, setRegister] = useState(false)
-    const [login, setLogin] = useState(false)
-
-    const handleRegister = () => {
-        setRegister(!register);
-        setLogin(false);
-    }
-
-    const handleLogin = () => {
-        setLogin(!login);
-        setRegister(false);
-    }
+export const Header = () => {
 
     return (
         <div className="container mx-auto px-1 py-9">
@@ -68,38 +55,16 @@ export const Header = ({handleSignUp}) => {
                 <div className="buttons flex items-center gap-5">
                     {/* Replace the below divs with your actual buttons */}
                     <div className="relative">
-                        <div onClick={handleRegister} className="hover:bg-gray-200 transition cursor-pointer text-green-500 text-base font-semibold leading-7 whitespace-nowrap justify-center items-stretch border grow px-10 py-[1.1rem] rounded-xl border-solid border-green-500">
+                        <Link to={"/signup"} className="hover:bg-gray-200 transition cursor-pointer text-green-500 text-base font-semibold leading-7 whitespace-nowrap justify-center items-stretch border grow px-10 py-[1.1rem] rounded-xl border-solid border-green-500">
                             Sign Up
-                        </div>
-
-                        { register &&
-                            <div className="absolute flex flex-col gap-2 mt-2">
-                                <Link to={"/admin-signup"} className="hover:bg-gray-200 transition cursor-pointer text-green-500 text-base font-semibold leading-7 whitespace-nowrap justify-center items-stretch border grow px-11 py-3 rounded-xl border-solid border-green-500">
-                                    Admin
-                                </Link>
-                                <Link to={"/user-signup"} className="hover:bg-gray-200 transition cursor-pointer text-green-500 text-base font-semibold leading-7 whitespace-nowrap justify-center items-stretch border grow px-11 py-3 rounded-xl border-solid border-green-500">
-                                    Reader
-                                </Link>
-                            </div>
-                        }
+                        </Link>
                     </div>
 
 
                     <div className="relative">
-                        <div onClick={handleLogin} className="transition hover:bg-green-600 cursor-pointer text-white text-base font-semibold leading-7 whitespace-nowrap justify-center items-stretch bg-green-500 grow px-12 py-[1.2rem] rounded-xl">
+                        <Link to="/login" className="transition hover:bg-green-600 cursor-pointer text-white text-base font-semibold leading-7 whitespace-nowrap justify-center items-stretch bg-green-500 grow px-12 py-[1.2rem] rounded-xl">
                             Log In
-                        </div>
-
-                        { login &&
-                            <div className="absolute flex flex-col gap-2 mt-2">
-                                <Link to="/admin-login" className="transition hover:bg-green-600 cursor-pointer text-white text-base font-semibold leading-7 whitespace-nowrap justify-center items-stretch bg-green-500 grow px-11 py-3.5 rounded-xl">
-                                    Admin
-                                </Link>
-                                <Link to="/login" className="transition hover:bg-green-600 cursor-pointer text-white text-base font-semibold leading-7 whitespace-nowrap justify-center items-stretch bg-green-500 grow px-11 py-3.5 rounded-xl">
-                                    Reader
-                                </Link>
-                            </div>
-                        }
+                        </Link>
                     </div>
                 </div>
             </div>
