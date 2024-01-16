@@ -1,10 +1,10 @@
 import {useState} from "react";
-import axios from "../../../api/axios.jsx";
-import logo from "../../../assets/images/landingPageImages/booksvillelogo.png"
+import axios from "../../api/axios.jsx";
+import logo from "../../assets/images/landingPageImages/booksvillelogo.png"
 import {ClipLoader} from "react-spinners";
 import {Link} from "react-router-dom";
 
-export const AdminForgotPassword = ({ handleStatus, setStatusTitle, setStatusMessage, setStatusColor }) => {
+export const ForgotPassword = ({ handleStatus, setStatusTitle, setStatusMessage, setStatusColor }) => {
 
     const enableStatus = (title, message, color) => {
         handleStatus();
@@ -30,7 +30,7 @@ export const AdminForgotPassword = ({ handleStatus, setStatusTitle, setStatusMes
             setClip(true);
 
             // Make API call to your Java backend to handle user registration
-            await axios.post('/auth/admin-forgot-password', formData)
+            await axios.post('/auth/user-forgot-password', formData)
                 .then(result => {
                     setClip(false);
 
@@ -103,7 +103,7 @@ export const AdminForgotPassword = ({ handleStatus, setStatusTitle, setStatusMes
 
                     <div className="text-green-500 text-sm leading-5 self-center whitespace-nowrap mt-2">
                         <span className=" text-gray-400">Go back to </span>
-                        <span className="cursor-pointer font-semibold text-green-500 underline"><Link to={"/admin-login"}>Sign In</Link></span>
+                        <span className="cursor-pointer font-semibold text-green-500 underline"><Link to={"/login"}>Sign In</Link></span>
                     </div>
 
                 </form>
