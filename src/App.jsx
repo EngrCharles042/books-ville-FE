@@ -1,19 +1,17 @@
 import './App.css';
-import {ResetPassword} from "./components/auth/user/ResetPassword.jsx";
 import {StatusCard} from "./utils/StatusCard.jsx";
 import {useState} from "react";
 import {Route, Routes} from "react-router-dom";
-import {ForgotPassword} from "./components/auth/user/ForgotPassword.jsx";
 import {LandingPage} from "./components/pages/landing/LandingPage.jsx";
-import {Login} from "./components/auth/user/Login.jsx";
-import {UserSignUpForm} from "./components/auth/user/UserSignUpForm.jsx";
-import {AdminLogin} from "./components/auth/admin/AdminLogin.jsx";
+import {Login} from "./components/auth/login.jsx";
 import {UserDashboardPage} from "./components/pages/userDashboard/UserDashboardPage.jsx";
-import { AdminForgotPassword} from './components/auth/admin/AdminForgotPassword';
-import { AdminResetPassword } from './components/auth/admin/AdminResetPassword';
-import {AdminSignUpForm} from "./components/auth/admin/AdminSignUpForm.jsx";
+import { ForgotPassword} from './components/auth/forgotPassword.jsx';
+import { ResetPassword } from './components/auth/resetPassword.jsx';
+import {SignUp} from "./components/auth/signUp.jsx";
 import {AdminScreenOne} from "./components/pages/admin/AdminScreenOne.jsx";
 import {UserCategoryPage} from "./components/pages/userCategory/UserCategoryPage.jsx";
+import {PaymentOptions} from "./components/payment/PaymentOptions.jsx";
+import {BookDetails} from "./components/pages/BookDetails.jsx";
 import {OrderProcessing} from "./components/pages/admin/OrderProcessing.jsx";
 import {ViewBook} from "./components/pages/admin/ViewBook.jsx";
 
@@ -32,7 +30,7 @@ function App() {
     }
 
   return (
-        <div className="w-[100vw]" style={{overflowX: "hidden"}}>
+        <div className="w-[100vw] min-h-[100vh]" style={{overflowX: "hidden"}}>
             <StatusCard
                 statusStyle={status}
                 statusTitle={statusTitle}
@@ -51,8 +49,8 @@ function App() {
                     />
                 }/>
 
-                <Route path={"/user-signup"} element={
-                    <UserSignUpForm
+                <Route path={"/signup"} element={
+                    <SignUp
                         handleStatus={handleStatus}
                         setStatusTitle={setStatusTitle}
                         setStatusMessage={setStatusMessage}
@@ -78,42 +76,6 @@ function App() {
                     />
                 }/>
 
-                <Route path={"/admin-signup"} element={
-                    <AdminSignUpForm
-                        handleStatus={handleStatus}
-                        setStatusTitle={setStatusTitle}
-                        setStatusMessage={setStatusMessage}
-                        setStatusColor={setStatusColor}
-                    />
-                }/>
-
-                <Route path={"/admin-login"} element={
-                    <AdminLogin
-                        handleStatus={handleStatus}
-                        setStatusTitle={setStatusTitle}
-                        setStatusMessage={setStatusMessage}
-                        setStatusColor={setStatusColor}
-                    />
-                }/>
-
-                <Route path={"/admin-reset-password"} element={
-                    <AdminResetPassword
-                        handleStatus={handleStatus}
-                        setStatusTitle={setStatusTitle}
-                        setStatusMessage={setStatusMessage}
-                        setStatusColor={setStatusColor}
-                    />
-                }/>
-
-                <Route path={"/admin-forgot-password"} element={
-                    <AdminForgotPassword
-                        handleStatus={handleStatus}
-                        setStatusTitle={setStatusTitle}
-                        setStatusMessage={setStatusMessage}
-                        setStatusColor={setStatusColor}
-                    />
-                }/>
-
                 <Route path={"/admin-dashboard"} element={
                     <AdminScreenOne/>
                 }/>
@@ -122,6 +84,14 @@ function App() {
                     <Route path={"/user-dashboard/categories"} element={<UserCategoryPage/>}/>
                 </Route>
 
+                <Route path={"/flutterwave-payment"} element={
+                    <PaymentOptions/>
+                }/>
+
+                <Route path={"/book-details"} element={
+                    <BookDetails/>
+                }/>
+
                 <Route path={"/order-processing"} element={
                     <OrderProcessing/>
                 }/>
@@ -129,7 +99,6 @@ function App() {
                 <Route path={"/view-book"} element={
                     <ViewBook/>
                 }/>
-
             </Routes>
         </div>
   )

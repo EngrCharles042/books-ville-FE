@@ -4,6 +4,7 @@ import {useState} from "react";
 import {Link} from "react-router-dom";
 
 export const UserDashboardHeader = () => {
+    const [activeNav, setActiveNav] = useState()
 
     const [profileClick, setProfileCLick] = useState(false);
 
