@@ -5,9 +5,53 @@ import pLogo from "../../assets/images/payment/paystackLogo.png"
 import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
 import PayStackPop from "@paystack/inline-js";
 import {Link} from "react-router-dom";
+import axios from "../../api/axios.jsx";
 
 export const PaymentOptions = ({handleBuy}) => {
     const userData = JSON.parse(localStorage.getItem("userData"));
+    //        amount:1000
+    //        charge_response_code:"00"
+    //        charge_response_message:"Approved Successful"
+    //        charged_amount:1000
+    //        created_at:"2024-01-16T08:58:01.000Z"
+    //        currency:"NGN"
+    //        customer:{name: 'Raph Igabor', email: 'eliteibe69@gmail.com', phone_number: '08012345678'}
+    //        flw_ref:"MockFLWRef-1705395481608"
+    //        redirectstatus:undefined
+    //        status:"completed"
+    //        transaction_id:4856331
+    //        tx_ref:1705395472434
+
+    //        message:"Approved"
+    //        redirecturl:"?trxref=T055952794119028&reference=T055952794119028"
+    //        reference:"T055952794119028"
+    //        status:"success"
+    //        trans:"3464923294"
+    //        transaction:"3464923294"
+    //        trxref:"T055952794119028"
+
+    const [formData, setFormData] = useState({
+        amount: "",
+        status: "",
+        referenceId: "",
+        bookEntityId: ""
+    })
+
+    const handleSuccessfulPayment = async (e) => {
+        e.preventDefault()
+
+        try {
+            await axios.post("/transaction/payment", formData, {
+                headers: {
+                    'Authorization': `Bearer ${userData.accessToken}`
+                }
+            }).then(
+                response => alert(response)
+            )
+        } catch (error) {
+            alert(error.message)
+        }
+    }
 
     const flutterWavePublicKey = import.meta.env.VITE_FLUTTER_PUBLIC_KEY
     const payStackPublicKey = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY
@@ -25,6 +69,16 @@ export const PaymentOptions = ({handleBuy}) => {
             lastname: `${userData.lastName}`,
             onSuccess(transaction){
                 alert(transaction.reference)
+
+                setFormData({
+                    amount: 1000,
+                    status: "COMPLETED",
+                    referenceId: transaction.trxref,
+                    bookEntityId: 1
+                })
+
+                handleSuccessfulPayment();
+
                 console.log(transaction)
             },
             onCancel(){
@@ -58,9 +112,21 @@ export const PaymentOptions = ({handleBuy}) => {
         handleFlutterPayment({
             callback: (response) => {
                 console.log(response);
+
+                setFormData({
+                    amount: 1000,
+                    status: "COMPLETED",
+                    referenceId: response.flw_ref,
+                    bookEntityId: 1
+                })
+
+                handleSuccessfulPayment();
+
                 closePaymentModal() // this will close the modal programmatically
             },
-            onClose: () => {},
+            onClose: () => {
+                alert("payment terminated")
+            },
         });
     }
 
