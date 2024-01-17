@@ -1,4 +1,4 @@
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 export const ProfilePopUp = () => {
 
@@ -33,9 +33,9 @@ export const ProfilePopUp = () => {
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/a5e15da7184842f876612ef5685a90f7dc2086541ca5142a4cfe00d29b1d6467?"
                     className="aspect-[1.06] object-contain object-center w-[17px] overflow-hidden shrink-0 max-w-full my-auto"
                 />
-                <div className="text-zinc-700 text-[0.9rem] font-medium leading-5 self-stretch grow whitespace-nowrap">
+                <Link to={"/user-dashboard/subscription"} className="text-zinc-700 text-[0.9rem] font-medium leading-5 self-stretch grow whitespace-nowrap">
                     Subscriptions
-                </div>
+                </Link>
             </div>
             <div className="cursor-pointer items-center flex justify-between gap-3 mt-4 ease-in-out duration-200 hover:gap-1">
                 <img

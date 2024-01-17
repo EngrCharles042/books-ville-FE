@@ -10,6 +10,8 @@ import { ResetPassword } from './components/auth/resetPassword.jsx';
 import {SignUp} from "./components/auth/signUp.jsx";
 import {AdminScreenOne} from "./components/pages/admin/AdminScreenOne.jsx";
 import {UserCategoryPage} from "./components/pages/userCategory/UserCategoryPage.jsx";
+import { UserSubscriptionPage } from './components/pages/userDashboard/UserSubscriptionPage';
+
 import {PaymentOptions} from "./components/payment/PaymentOptions.jsx";
 import {BookDetails} from "./components/pages/BookDetails.jsx";
 import {OrderProcessing} from "./components/pages/admin/OrderProcessing.jsx";
@@ -84,6 +86,10 @@ function App() {
                     <Route path={"/user-dashboard/categories"} element={<UserCategoryPage/>}/>
                 </Route>
 
+                <Route 
+                    path={"/subscription"} 
+                    element={<UserSubscriptionPage/>}
+                />
                 <Route path={"/flutterwave-payment"} element={
                     <PaymentOptions/>
                 }/>
