@@ -16,6 +16,8 @@ import {PaymentOptions} from "./components/payment/PaymentOptions.jsx";
 import {BookDetails} from "./components/pages/BookDetails.jsx";
 import {OrderProcessing} from "./components/pages/admin/OrderProcessing.jsx";
 import {ViewBook} from "./components/pages/admin/ViewBook.jsx";
+import {ReadonlinePage} from "./components/pages/userPurchasedPage/ReadonlinePage.jsx";
+import {PurchasedBooksPage} from "./components/pages/userPurchasedPage/PurchasedBooksPage.jsx";
 
 function App() {
     const [status, setStatus] = useState("")
@@ -104,6 +106,14 @@ function App() {
 
                 <Route path={"/view-book"} element={
                     <ViewBook/>
+                }/>
+
+                <Route path={"/purchased-books"} element={
+                    <PurchasedBooksPage/>
+                }/>
+
+                <Route path={"/read-online"} element={
+                    <ReadonlinePage/>
                 }/>
             </Routes>
         </div>
