@@ -3,7 +3,6 @@ import {Header} from "./Header.jsx";
 import {BuyAndReadBooks} from "./BuyAndReadBooks.jsx";
 import {BestSellingAndPopularBooks} from "./BestSellingAndPopularBooks.jsx";
 
-
 export const LandingPage = () => {
 
   return (
