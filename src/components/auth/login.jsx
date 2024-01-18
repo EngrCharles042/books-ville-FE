@@ -1,4 +1,3 @@
-
 import {useState} from "react";
 import axios from "../../api/axios.jsx";
 import {ClipLoader} from "react-spinners";
@@ -55,9 +54,10 @@ export const Login = ({ handleStatus, setStatusTitle, setStatusMessage, setStatu
                     if (result.data.responseMessage === "notVerified") {
 
                         setVerified(false);
+
                         setTimeout(() => {
                             setVerified(true);
-                        }, 8000)
+                        }, 6000)
 
                         return
                     }
