@@ -33,6 +33,7 @@ export const ProfilePopUp = ({handleProfilePop}) => {
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/a5e15da7184842f876612ef5685a90f7dc2086541ca5142a4cfe00d29b1d6467?"
                     className="aspect-[1.06] object-contain object-center w-[17px] overflow-hidden shrink-0 max-w-full my-auto"
                 />
+
                 <div className="text-zinc-700 text-[0.9rem] font-medium leading-5 self-stretch grow whitespace-nowrap">
                     Subscriptions
                 </div>
@@ -47,7 +48,7 @@ export const ProfilePopUp = ({handleProfilePop}) => {
                     My Saved books
                 </div>
             </div>
-            <div className="cursor-pointer items-center flex justify-between gap-3 mt-4 ease-in-out duration-200 hover:gap-1">
+            <Link to={"/user-dashboard/purchased-books"} className="cursor-pointer items-center flex justify-between gap-3 mt-4 ease-in-out duration-200 hover:gap-1">
                 <img
                     loading="lazy"
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/637c6eb5c0b2c131cc7caa0c975075fa70a7394ca3e4ec5790031d4281aba4ef?"
@@ -56,7 +57,7 @@ export const ProfilePopUp = ({handleProfilePop}) => {
                 <div className="text-zinc-700 text-[0.9rem] font-medium leading-5 self-stretch grow whitespace-nowrap">
                     My Purchased books
                 </div>
-            </div>
+            </Link>
             <div className="cursor-pointer items-center flex justify-between gap-3 mt-4 ease-in-out duration-200 hover:gap-1">
                 <img
                     loading="lazy"
@@ -67,9 +68,6 @@ export const ProfilePopUp = ({handleProfilePop}) => {
                     Payment History
                 </div>
             </div>
-
-            {/*<div className="mt-2" style={{borderTop: "1px solid black"}}>*/}
-            {/*</div>*/}
 
             <div onClick={handleLogout} className="cursor-pointer items-center flex justify-between gap-3 mt-4 ease-in-out duration-200 hover:gap-1">
                 <img

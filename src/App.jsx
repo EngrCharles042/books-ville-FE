@@ -8,14 +8,15 @@ import {UserDashboardPage} from "./components/pages/userDashboard/UserDashboardP
 import { ForgotPassword} from './components/auth/forgotPassword.jsx';
 import { ResetPassword } from './components/auth/resetPassword.jsx';
 import {SignUp} from "./components/auth/signUp.jsx";
-import {AdminScreenOne} from "./components/pages/admin/AdminScreenOne.jsx";
+import {AdminDashboard} from "./components/pages/admin/AdminDashboard.jsx";
 import {UserCategoryPage} from "./components/pages/userCategory/UserCategoryPage.jsx";
-import { UserSubscriptionPage } from './components/pages/userDashboard/UserSubscriptionPage';
-
 import {PaymentOptions} from "./components/payment/PaymentOptions.jsx";
 import {BookDetails} from "./components/pages/BookDetails.jsx";
+import {ReadOnline} from "./components/pages/userDashboard/ReadOnline.jsx";
+import {PurchasedBooks} from "./components/pages/userDashboard/PurchasedBooks.jsx";
+import {ViewBooks} from "./components/pages/admin/ViewBooks.jsx";
 import {OrderProcessing} from "./components/pages/admin/OrderProcessing.jsx";
-import {ViewBook} from "./components/pages/admin/ViewBook.jsx";
+import {UserSubscriptionPage} from "./components/pages/userDashboard/UserSubscriptionPage.jsx";
 
 function App() {
     const [status, setStatus] = useState("")
@@ -78,13 +79,17 @@ function App() {
                     />
                 }/>
 
-                <Route path={"/admin-dashboard"} element={
-                    <AdminScreenOne/>
-                }/>
+                <Route path={"/admin-dashboard"} element={<AdminDashboard/>}>
+                    <Route path={"/admin-dashboard/view-books"} element={<ViewBooks/>}>
+                        <Route path={"/admin-dashboard/view-books/order-processing"} element={<OrderProcessing/>}/>
+                    </Route>
+
+                </Route>
 
                 <Route path={"/user-dashboard"} element={<UserDashboardPage/>}>
                     <Route path={"/user-dashboard/categories"} element={<UserCategoryPage/>}/>
                     <Route path={"/user-dashboard/subscription"} element={<UserSubscriptionPage/>}/>
+                    <Route path={"/user-dashboard/purchased-books"} element={<PurchasedBooks/>}/>
                 </Route>
 
                 <Route path={"/flutterwave-payment"} element={
@@ -95,12 +100,12 @@ function App() {
                     <BookDetails/>
                 }/>
 
-                <Route path={"/order-processing"} element={
-                    <OrderProcessing/>
+                <Route path={"/purchased-books"} element={
+                    <PurchasedBooks/>
                 }/>
 
-                <Route path={"/view-book"} element={
-                    <ViewBook/>
+                <Route path={"/read-online"} element={
+                    <ReadOnline/>
                 }/>
             </Routes>
         </div>

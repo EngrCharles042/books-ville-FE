@@ -1,6 +1,6 @@
 import React from "react";
 import { PricingCard } from "./PricingCard";
-import arrow from "../../../assets/images/userCatImages/arrow_back.png";
+import arrow from "https://cdn.builder.io/api/v1/image/assets/TEMP/1d7dd83f57cf0f0d55ac4589528b86a4f6e45a046fbd6c7d18b6110dd0c11edb?";
 import checkBox from "../../../assets/images/userCatImages/check_box.png";
 import checkBox1 from "../../../assets/images/userCatImages/check_box (1).png";
 import checkBox2 from "../../../assets/images/userCatImages/check_box (2).png";
