@@ -1,6 +1,6 @@
-import {UserDashboardHeader} from "../userDashboard/UserDashboardHeader.jsx";
+import {UserDashboardHeader} from "./UserDashboardHeader.jsx";
 
-export const ReadonlinePage = () => {
+export const ReadOnline = () => {
     return (
         <div className="bg-white flex flex-col items-stretch pr-2 pb-12">
             <div style={{boxShadow: "0px 4px 8px 0px rgba(0, 0, 0, 0.04)", zIndex: "100"}}>

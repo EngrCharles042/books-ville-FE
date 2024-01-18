@@ -31,7 +31,7 @@ export const AdminSideBar = () => {
                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/76583589b5bc81575ed692d66fb4d297ca504948ae38b8622ab17869025867fb?"
                                 className="aspect-square object-contain object-center w-6 overflow-hidden shrink-0 max-w-full"
                             />
-                            <Link to={"/admin-dashboard/book-management"} className="text-zinc-700 text-base focus:text-green-500 font-medium leading-5 self-center grow whitespace-nowrap my-24px">
+                            <Link to={"/admin-dashboard"} className="text-zinc-700 text-base focus:text-green-500 font-medium leading-5 self-center grow whitespace-nowrap my-24px">
                                 Book Management
                             </Link>
                         </div>

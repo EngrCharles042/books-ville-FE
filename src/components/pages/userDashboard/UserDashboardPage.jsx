@@ -2,6 +2,8 @@ import {UserDashboardHeader} from "./UserDashboardHeader.jsx";
 import {MyBooks} from "./MyBooks.jsx";
 import {Route, Routes} from "react-router-dom";
 import {UserCategoryPage} from "../userCategory/UserCategoryPage.jsx";
+import {Subscriptions} from "./Subscriptions.jsx";
+import {PurchasedBooks} from "./PurchasedBooks.jsx";
 
 export const UserDashboardPage = () => {
 
@@ -21,7 +23,17 @@ export const UserDashboardPage = () => {
 
                     <Route
                         path={"/categories"}
-                        element={<UserCategoryPage/>}
+                        element={<UserCategoryPage />}
+                    />
+
+                    <Route
+                        path={"/subscriptions"}
+                        element={<Subscriptions />}
+                    />
+
+                    <Route
+                        path={"/purchased-books"}
+                        element={<PurchasedBooks />}
                     />
                 </Routes>
             </div>

@@ -47,7 +47,7 @@ export const AddNewBook = () => {
                         value={formData.bookTitle}
                         onChange={handleChange}
                         placeholder="To Kill a Mocking bird"
-                        className="text-stone-300 text-xs font-medium leading-4 tracking-wide whitespace-nowrap border-[color:var(--Gray-600,#757575)] w-[933px] max-w-full justify-center mt-2 pl-5 pr-16 py-5 rounded-md border-[1.694px] border-solid self-start items-start max-md:pr-5"
+                        className="text-black text-xs font-medium leading-4 tracking-wide whitespace-nowrap border-[color:var(--Gray-600,#757575)] w-[933px] max-w-full justify-center mt-2 pl-5 pr-16 py-5 rounded-md border-[1.694px] border-solid self-start items-start max-md:pr-5"
                     />
 
                     <label className="text-black text-2xl font-medium leading-8 mt-6 self-start max-md:max-w-full">
@@ -59,7 +59,7 @@ export const AddNewBook = () => {
                         value={formData.author}
                         onChange={handleChange}
                         placeholder="Harper Lee"
-                        className="text-stone-300 text-xs font-medium leading-4 tracking-wide whitespace-nowrap border-[color:var(--Gray-600,#757575)] w-[933px] max-w-full justify-center mt-2 pl-5 pr-16 py-5 rounded-md border-[1.694px] border-solid self-start items-start max-md:pr-5"
+                        className="text-black text-xs font-medium leading-4 tracking-wide whitespace-nowrap border-[color:var(--Gray-600,#757575)] w-[933px] max-w-full justify-center mt-2 pl-5 pr-16 py-5 rounded-md border-[1.694px] border-solid self-start items-start max-md:pr-5"
                     />
 
                     <label className="text-black text-2xl font-medium leading-8 mt-6 self-start max-md:max-w-full">
@@ -70,7 +70,7 @@ export const AddNewBook = () => {
                         value={formData.description}
                         onChange={handleChange}
                         placeholder="Book's description..."
-                        className="text-stone-300 text-xs font-medium leading-7 tracking-wide items-stretch border-[color:var(--Gray-600,#757575)] w-[933px] max-w-full mt-2 pl-5 pr-2 pt-1.5 pb-11 rounded-md border-[1.694px] border-solid self-start max-md:max-w-full"
+                        className="text-black text-xs font-medium leading-7 tracking-wide items-stretch border-[color:var(--Gray-600,#757575)] w-[933px] max-w-full mt-2 pl-5 pr-2 pt-1.5 pb-11 rounded-md border-[1.694px] border-solid self-start max-md:max-w-full"
                     />
                 </form>
             </div>
