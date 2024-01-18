@@ -8,16 +8,17 @@ import {UserDashboardPage} from "./components/pages/userDashboard/UserDashboardP
 import { ForgotPassword} from './components/auth/forgotPassword.jsx';
 import { ResetPassword } from './components/auth/resetPassword.jsx';
 import {SignUp} from "./components/auth/signUp.jsx";
-import {AdminScreenOne} from "./components/pages/admin/AdminScreenOne.jsx";
+import {AdminDashboard} from "./components/pages/admin/AdminDashboard.jsx";
 import {UserCategoryPage} from "./components/pages/userCategory/UserCategoryPage.jsx";
 import { UserSubscriptionPage } from './components/pages/userDashboard/UserSubscriptionPage';
 
 import {PaymentOptions} from "./components/payment/PaymentOptions.jsx";
 import {BookDetails} from "./components/pages/BookDetails.jsx";
-import {OrderProcessing} from "./components/pages/admin/OrderProcessing.jsx";
-import {ViewBook} from "./components/pages/admin/ViewBook.jsx";
 import {ReadonlinePage} from "./components/pages/userPurchasedPage/ReadonlinePage.jsx";
 import {PurchasedBooksPage} from "./components/pages/userPurchasedPage/PurchasedBooksPage.jsx";
+import {AddNewBook} from "./components/pages/admin/AddNewBook.jsx";
+import {ViewBooks} from "./components/pages/admin/ViewBooks.jsx";
+import {OrderProcessing} from "./components/pages/admin/OrderProcessing.jsx";
 
 function App() {
     const [status, setStatus] = useState("")
@@ -80,11 +81,15 @@ function App() {
                     />
                 }/>
 
-                <Route path={"/admin-dashboard"} element={
-                    <AdminScreenOne/>
-                }/>
+                <Route path={"/admin-dashboard"} element={<AdminDashboard/>}>
+                    <Route path={"/admin-dashboard/book-management"} element={<AddNewBook/>}/>
+                    <Route path={"/admin-dashboard/view-books"} element={<ViewBooks/>}>
+                        <Route path={"/admin-dashboard/view-books/order-processing"} element={<OrderProcessing/>}/>
+                    </Route>
 
-                <Route path={"/user-dashboard"} element={<UserDashboardPage/>}>
+                </Route>
+
+                <Route path={"/user-dashboard/"} element={<UserDashboardPage/>}>
                     <Route path={"/user-dashboard/categories"} element={<UserCategoryPage/>}/>
                 </Route>
 
@@ -98,14 +103,6 @@ function App() {
 
                 <Route path={"/book-details"} element={
                     <BookDetails/>
-                }/>
-
-                <Route path={"/order-processing"} element={
-                    <OrderProcessing/>
-                }/>
-
-                <Route path={"/view-book"} element={
-                    <ViewBook/>
                 }/>
 
                 <Route path={"/purchased-books"} element={

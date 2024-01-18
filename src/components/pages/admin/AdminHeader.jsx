@@ -1,5 +1,5 @@
-import { useState, useCallback } from "react";
 import {AdminProfilePopUp} from "../../../utils/AdminProfilePopUp.jsx";
+import {useState} from "react";
 
 export const AdminHeader = () => {
     const [profileClick, setProfileCLick] = useState(false);
