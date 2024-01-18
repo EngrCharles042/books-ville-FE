@@ -11,20 +11,15 @@ export const AdminDashboard = () => {
         <>
             <div className="bg-white gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0 ">
                 <div>
-
                     <AdminSideBar />
-
                 </div>
                 <div>
-
                     <AdminHeader />
-
                 </div>
-
                 <div>
                     <Routes>
                         <Route
-                            path={"/book-management"}
+                            path={"/"}
                             element={<AddNewBook />}
                         />
 
@@ -39,7 +34,6 @@ export const AdminDashboard = () => {
                         />
                     </Routes>
                 </div>
-
             </div>
         </>
     );

@@ -48,13 +48,18 @@ export const PricingCard = ({ title, price, description, headerColor, redirectUr
           </div>
           {Array.from({ length: 6 }).map((_, index) => (
             <span key={index} className="items-stretch flex justify-between gap-1.5 mt-3">
-              <img
-                loading="lazy"
-                src={imageSrc} // Use the dynamic image source here
-                className="aspect-square object-contain object-center w-6 overflow-hidden shrink-0 max-w-full"
-              />
-              <div className="text-black text-xs font-semibold leading-5 self-center grow shrink basis-auto my-auto">
-                Rich Member Profile
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  id="richMemberProfile"
+                  className="mr-2"
+                />
+                <label
+                    htmlFor="richMemberProfile"
+                    className="text-black text-xs font-semibold leading-5 self-center grow shrink basis-auto my-auto"
+                >
+                  Rich Member Profile
+                </label>
               </div>
             </span>
           ))}

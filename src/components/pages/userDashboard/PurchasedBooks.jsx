@@ -1,15 +1,10 @@
-import {UserDashboardHeader} from "../userDashboard/UserDashboardHeader.jsx";
 import restless from "../../../assets/images/userCatImages/restless.png";
 import muslim from "../../../assets/images/userCatImages/bad muslim.svg";
+import {Link} from "react-router-dom";
 
-export const PurchasedBooksPage = () => {
+export const PurchasedBooks = () => {
     return (
-        <div className="bg-white flex flex-col items-stretch pr-2 pb-12">
-
-            <div style={{boxShadow: "0px 4px 8px 0px rgba(0, 0, 0, 0.04)", zIndex: "100"}}>
-                <UserDashboardHeader />
-            </div>
-
+        <div className="bg-white flex flex-col items-stretch mt-10 pr-2 pb-12">
             <span className="self-start flex w-full max-w-[1010px] flex-col mt-5 ml-20 mb-40 max-md:max-w-full max-md:mb-10">
                 <span className="items-stretch flex gap-2 self-start">
                     <img
@@ -17,10 +12,9 @@ export const PurchasedBooksPage = () => {
                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/1d7dd83f57cf0f0d55ac4589528b86a4f6e45a046fbd6c7d18b6110dd0c11edb?"
                         className="aspect-square object-contain object-center w-6 overflow-hidden shrink-0 max-w-full"
                     />
-                    <div
-                        className="text-gray-900 text-base font-semibold leading-6 tracking-normal grow whitespace-nowrap self-start">
+                    <Link to={"/user-dashboard"} className="text-gray-900 text-base font-semibold leading-6 tracking-normal grow whitespace-nowrap self-start">
                         Go back
-                    </div>
+                    </Link>
                 </span>
                 <div className="text-black text-2xl font-semibold leading-8 self-stretch mt-3 max-md:max-w-full">
                     MY PURCHASED BOOKS

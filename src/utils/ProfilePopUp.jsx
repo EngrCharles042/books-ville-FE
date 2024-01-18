@@ -33,7 +33,7 @@ export const ProfilePopUp = () => {
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/a5e15da7184842f876612ef5685a90f7dc2086541ca5142a4cfe00d29b1d6467?"
                     className="aspect-[1.06] object-contain object-center w-[17px] overflow-hidden shrink-0 max-w-full my-auto"
                 />
-                <Link to={"/user-dashboard/subscription"} className="text-zinc-700 text-[0.9rem] font-medium leading-5 self-stretch grow whitespace-nowrap">
+                <Link to={"/user-dashboard/subscriptions"} className="text-zinc-700 text-[0.9rem] font-medium leading-5 self-stretch grow whitespace-nowrap">
                     Subscriptions
                 </Link>
             </div>
@@ -53,9 +53,9 @@ export const ProfilePopUp = () => {
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/637c6eb5c0b2c131cc7caa0c975075fa70a7394ca3e4ec5790031d4281aba4ef?"
                     className="aspect-[1.06] object-contain object-center w-[17px] overflow-hidden shrink-0 max-w-full my-auto"
                 />
-                <div className="text-zinc-700 text-[0.9rem] font-medium leading-5 self-stretch grow whitespace-nowrap">
+                <Link to={"/user-dashboard/purchased-books"} className="text-zinc-700 text-[0.9rem] font-medium leading-5 self-stretch grow whitespace-nowrap">
                     My Purchased books
-                </div>
+                </Link>
             </div>
             <div className="cursor-pointer items-center flex justify-between gap-3 mt-4 ease-in-out duration-200 hover:gap-1">
                 <img
