@@ -84,12 +84,9 @@ function App() {
 
                 <Route path={"/user-dashboard"} element={<UserDashboardPage/>}>
                     <Route path={"/user-dashboard/categories"} element={<UserCategoryPage/>}/>
+                    <Route path={"/user-dashboard/subscription"} element={<UserSubscriptionPage/>}/>
                 </Route>
 
-                <Route 
-                    path={"/subscription"} 
-                    element={<UserSubscriptionPage/>}
-                />
                 <Route path={"/flutterwave-payment"} element={
                     <PaymentOptions/>
                 }/>

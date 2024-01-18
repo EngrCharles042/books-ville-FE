@@ -1,6 +1,6 @@
 import {Link, useNavigate} from "react-router-dom";
 
-export const ProfilePopUp = () => {
+export const ProfilePopUp = ({handleProfilePop}) => {
 
     const navigate = useNavigate();
 
@@ -27,16 +27,16 @@ export const ProfilePopUp = () => {
                     Account Setting
                 </div>
             </div>
-            <div className="cursor-pointer items-center flex justify-between gap-3 mt-4 ease-in-out duration-200 hover:gap-1">
+            <Link to={"/user-dashboard/subscription"} onClick={handleProfilePop} className="cursor-pointer items-center flex justify-between gap-3 mt-4 ease-in-out duration-200 hover:gap-1">
                 <img
                     loading="lazy"
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/a5e15da7184842f876612ef5685a90f7dc2086541ca5142a4cfe00d29b1d6467?"
                     className="aspect-[1.06] object-contain object-center w-[17px] overflow-hidden shrink-0 max-w-full my-auto"
                 />
-                <Link to={"/user-dashboard/subscription"} className="text-zinc-700 text-[0.9rem] font-medium leading-5 self-stretch grow whitespace-nowrap">
+                <div className="text-zinc-700 text-[0.9rem] font-medium leading-5 self-stretch grow whitespace-nowrap">
                     Subscriptions
-                </Link>
-            </div>
+                </div>
+            </Link>
             <div className="cursor-pointer items-center flex justify-between gap-3 mt-4 ease-in-out duration-200 hover:gap-1">
                 <img
                     loading="lazy"
@@ -68,10 +68,10 @@ export const ProfilePopUp = () => {
                 </div>
             </div>
 
-            <div className="mt-2" style={{borderTop: "1px solid black"}}>
-            </div>
+            {/*<div className="mt-2" style={{borderTop: "1px solid black"}}>*/}
+            {/*</div>*/}
 
-            <div onClick={handleLogout} className="cursor-pointer items-center flex justify-between gap-3 mt-2 ease-in-out duration-200 hover:gap-1">
+            <div onClick={handleLogout} className="cursor-pointer items-center flex justify-between gap-3 mt-4 ease-in-out duration-200 hover:gap-1">
                 <img
                     loading="lazy"
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/812c440b-9896-4823-86a9-8fca8dff9d7e?apiKey=ecb6ce71cdf4467d9335c2f7dc302a16&"

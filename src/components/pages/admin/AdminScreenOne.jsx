@@ -42,6 +42,7 @@ export const AdminScreenOne = () => {
                             handleScreenTwo = {handleScreenTwo}
                         />
                     </div>
+
                     <div>
                         <AdminHeader />
 

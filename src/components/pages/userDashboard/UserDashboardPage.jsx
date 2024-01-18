@@ -3,6 +3,7 @@ import {MyBooks} from "./MyBooks.jsx";
 import {Route, Routes} from "react-router-dom";
 import {UserCategoryPage} from "../userCategory/UserCategoryPage.jsx";
 import {useState} from "react";
+import {UserSubscriptionPage} from "./UserSubscriptionPage.jsx";
 
 export const UserDashboardPage = () => {
 
@@ -23,6 +24,11 @@ export const UserDashboardPage = () => {
                     <Route
                         path={"/categories"}
                         element={<UserCategoryPage/>}
+                    />
+
+                    <Route
+                        path={"/subscription"}
+                        element={<UserSubscriptionPage/>}
                     />
                 </Routes>
             </div>
