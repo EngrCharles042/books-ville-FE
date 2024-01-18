@@ -1,6 +1,3 @@
-// PricingCard.jsx
-import React from 'react';
-
 export const PricingCard = ({ title, price, description, headerColor, redirectUrl, imageSrc, headerText }) => {
   const cardHeaderColor = headerColor || 'bg-black';
   const borderColorClass = `border-6 border-${cardHeaderColor}`; // Adjusted this line

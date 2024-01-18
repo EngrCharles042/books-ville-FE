@@ -1,7 +1,8 @@
 import {useCallback} from "react";
+import {Link} from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
-export const AdminSideBar = ({handleScreenOne, handleScreenTwo}) => {
+export const AdminSideBar = () => {
 
     const onContainerClick = useCallback(() => {
         // Please sync "Log Out" to the project
@@ -24,25 +25,25 @@ export const AdminSideBar = ({handleScreenOne, handleScreenTwo}) => {
                                 <span className="text-green-500">Ville</span>
                             </div>
                         </div>
-                        <div onClick={handleScreenOne} className="mt-3 flex justify-between gap-3 px-5 items-stretch cursor-pointer">
+                        <div className="mt-3 flex justify-between gap-3 px-5 items-stretch cursor-pointer">
                             <img
                                 loading="lazy"
                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/76583589b5bc81575ed692d66fb4d297ca504948ae38b8622ab17869025867fb?"
                                 className="aspect-square object-contain object-center w-6 overflow-hidden shrink-0 max-w-full"
                             />
-                            <div className="text-green-500 text-base font-medium leading-5 self-center grow whitespace-nowrap my-24px">
+                            <Link to={"/admin-dashboard/book-management"} className="text-zinc-700 text-base focus:text-green-500 font-medium leading-5 self-center grow whitespace-nowrap my-24px">
                                 Book Management
-                            </div>
+                            </Link>
                         </div>
-                        <div onClick={handleScreenTwo} className="flex justify-between gap-3 px-5 mt-6 items-stretch cursor-pointer">
+                        <div className="flex justify-between gap-3 px-5 mt-6 items-stretch cursor-pointer">
                             <img
                                 loading="lazy"
                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/45768402c325b0f1b75531f5c956eb5a7881ebd63c816897726a949b2e7cc170?"
                                 className="aspect-square object-contain object-center w-6 overflow-hidden shrink-0 max-w-full"
                             />
-                            <div className="text-zinc-700 text-base font-medium leading-5 self-center grow whitespace-nowrap my-24px">
+                            <Link to={"/admin-dashboard/view-books"} className="text-zinc-700 text-base focus:text-green-500 font-medium leading-5 self-center grow whitespace-nowrap my-24px">
                                 Order Processing
-                            </div>
+                            </Link>
                         </div>
                         <div className="flex justify-between gap-3 px-5 mt-6 items-stretch">
                             <img
