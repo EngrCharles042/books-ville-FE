@@ -5,9 +5,44 @@ import pLogo from "../../assets/images/payment/paystackLogo.png"
 import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
 import PayStackPop from "@paystack/inline-js";
 import {Link} from "react-router-dom";
+import axios from "../../api/axios.jsx";
 
 export const PaymentOptions = ({handleBuy}) => {
     const userData = JSON.parse(localStorage.getItem("userData"));
+
+    const [formData, setFormData] = useState({
+        amount: "",
+        status: "",
+        referenceId: "",
+        bookEntityId: ""
+    })
+
+    const setData = (transaction) => {
+        setFormData({
+            amount: 1000,
+            status: "COMPLETED",
+            referenceId: transaction.trxref,
+            bookEntityId: 1
+        })
+    }
+
+    const handleSuccessfulPayment = async (e) => {
+        e.preventDefault()
+
+        alert("continue" + `Bearer ${userData.accessToken}`)
+
+        try {
+            await axios.post("/transaction/payment", formData, {
+                headers: {
+                    'Authorization': `Bearer ${userData.accessToken}`
+                }
+            }).then(
+                response => alert(response)
+            )
+        } catch (error) {
+            alert(error.message)
+        }
+    }
 
     const flutterWavePublicKey = import.meta.env.VITE_FLUTTER_PUBLIC_KEY
     const payStackPublicKey = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY
@@ -25,6 +60,15 @@ export const PaymentOptions = ({handleBuy}) => {
             lastname: `${userData.lastName}`,
             onSuccess(transaction){
                 alert(transaction.reference)
+
+                setData(transaction)
+
+                setTimeout(() => {
+                    console.log(formData)
+                }, 1000)
+
+                handleSuccessfulPayment(e)
+
                 console.log(transaction)
             },
             onCancel(){
@@ -58,9 +102,23 @@ export const PaymentOptions = ({handleBuy}) => {
         handleFlutterPayment({
             callback: (response) => {
                 console.log(response);
+
+                setFormData({
+                    amount: 1000,
+                    status: "COMPLETED",
+                    referenceId: response.flw_ref,
+                    bookEntityId: 1
+                })
+
+                handleSuccessfulPayment();
+
+                alert("success")
+
                 closePaymentModal() // this will close the modal programmatically
             },
-            onClose: () => {},
+            onClose: () => {
+                alert("payment terminated")
+            },
         });
     }
 

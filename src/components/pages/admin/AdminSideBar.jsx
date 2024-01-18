@@ -1,4 +1,5 @@
 import {useCallback} from "react";
+import logo from "../../../assets/images/landingPageImages/image-1@2x.png";
 import {Link} from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
@@ -16,7 +17,7 @@ export const AdminSideBar = () => {
                         <div className="logo-container flex justify-between gap-0.5 px-5">
                             <img
                                 loading="lazy"
-                                src="/src/assets/images/landingPageImages/image-1@2x.png"
+                                src={logo}
                                 className="aspect-square object-contain object-center w-[41px] mr-4 overflow-hidden shrink-0 max-w-full"
                                 alt="Logo"
                             />

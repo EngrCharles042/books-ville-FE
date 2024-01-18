@@ -81,7 +81,7 @@ export const SignUp = ({ handleStatus, setStatusTitle, setStatusMessage, setStat
                     enableStatus("Registration Successful", "Your Registration is Successful, Please proceed to confirm your Email", "bg-green-600")
 
                     setTimeout(() => {
-                        navigate("/admin-login")
+                        navigate("/login")
                     }, 5000)
 
                     // Handle success (redirect, show message, etc.)

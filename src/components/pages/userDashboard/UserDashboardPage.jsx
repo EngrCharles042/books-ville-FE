@@ -27,7 +27,7 @@ export const UserDashboardPage = () => {
                     />
 
                     <Route
-                        path={"/subscriptions"}
+                        path={"/subscription"}
                         element={<Subscriptions />}
                     />
 

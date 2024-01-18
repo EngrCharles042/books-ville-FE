@@ -10,14 +10,13 @@ import { ResetPassword } from './components/auth/resetPassword.jsx';
 import {SignUp} from "./components/auth/signUp.jsx";
 import {AdminDashboard} from "./components/pages/admin/AdminDashboard.jsx";
 import {UserCategoryPage} from "./components/pages/userCategory/UserCategoryPage.jsx";
-import { Subscriptions } from './components/pages/userDashboard/Subscriptions.jsx';
-
 import {PaymentOptions} from "./components/payment/PaymentOptions.jsx";
 import {BookDetails} from "./components/pages/BookDetails.jsx";
 import {ReadOnline} from "./components/pages/userDashboard/ReadOnline.jsx";
 import {PurchasedBooks} from "./components/pages/userDashboard/PurchasedBooks.jsx";
 import {ViewBooks} from "./components/pages/admin/ViewBooks.jsx";
 import {OrderProcessing} from "./components/pages/admin/OrderProcessing.jsx";
+import {Subscriptions} from "./components/pages/userDashboard/Subscriptions.jsx";
 
 function App() {
     const [status, setStatus] = useState("")
@@ -89,7 +88,7 @@ function App() {
 
                 <Route path={"/user-dashboard"} element={<UserDashboardPage/>}>
                     <Route path={"/user-dashboard/categories"} element={<UserCategoryPage/>}/>
-                    <Route path={"/user-dashboard/subscriptions"} element={<Subscriptions/>}/>
+                    <Route path={"/user-dashboard/subscription"} element={<Subscriptions/>}/>
                     <Route path={"/user-dashboard/purchased-books"} element={<PurchasedBooks/>}/>
                 </Route>
 
