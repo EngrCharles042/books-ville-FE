@@ -1,21 +1,24 @@
-import {UserDashboardHeader} from "./UserDashboardHeader.jsx";
+import { UserDashboardHeader } from "./UserDashboardHeader.jsx";
 
 export const ReadOnline = () => {
-    return (
-        <div className="bg-white flex flex-col items-stretch pr-2 pb-12">
-            <div style={{boxShadow: "0px 4px 8px 0px rgba(0, 0, 0, 0.04)", zIndex: "100"}}>
-                <UserDashboardHeader />
-            </div>
-            <span
-                className="justify-between items-stretch self-center flex w-full max-w-[1240px] gap-5 mt-4 px-5 max-md:max-w-full max-md:flex-wrap">
+  return (
+    <div className="bg-white flex flex-col items-stretch pr-2 pb-12">
+      <div
+        style={{
+          boxShadow: "0px 4px 8px 0px rgba(0, 0, 0, 0.04)",
+          zIndex: "100",
+        }}
+      >
+        <UserDashboardHeader />
+      </div>
+      <span className="justify-between items-stretch self-center flex w-full max-w-[1240px] gap-5 mt-4 px-5 max-md:max-w-full max-md:flex-wrap">
         <span className="items-stretch self-center flex gap-2 my-auto">
           <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/258ec259519f31f0a7941ac6fdd06e4dd67e46376af8afc8e701d47406c42050?"
-              className="aspect-square object-contain object-center w-6 overflow-hidden shrink-0 max-w-full"
+            loading="lazy"
+            src="https://cdn.builder.io/api/v1/image/assets/TEMP/258ec259519f31f0a7941ac6fdd06e4dd67e46376af8afc8e701d47406c42050?"
+            className="aspect-square object-contain object-center w-6 overflow-hidden shrink-0 max-w-full"
           />
-          <div
-              className="text-gray-900 text-base font-semibold leading-6 tracking-normal grow whitespace-nowrap self-start">
+          <div className="text-gray-900 text-base font-semibold leading-6 tracking-normal grow whitespace-nowrap self-start">
             Go back
           </div>
         </span>
@@ -27,21 +30,20 @@ export const ReadOnline = () => {
             Chapters
           </div>
           <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/6d3bc2ccb3f7f5b1c7b1c86e32d44d16d6c55ca6bf177ecb408fe0c943519ab2?"
-              className="aspect-square object-contain object-center w-6 overflow-hidden self-center shrink-0 max-w-full my-auto"
+            loading="lazy"
+            src="https://cdn.builder.io/api/v1/image/assets/TEMP/6d3bc2ccb3f7f5b1c7b1c86e32d44d16d6c55ca6bf177ecb408fe0c943519ab2?"
+            className="aspect-square object-contain object-center w-6 overflow-hidden self-center shrink-0 max-w-full my-auto"
           />
         </span>
       </span>
-            <span
-                className="justify-center items-stretch bg-white self-center flex w-full max-w-[1294px] flex-col mt-4 mb-80 pl-6 pr-20 py-4 rounded-2xl max-md:max-w-full max-md:mb-10 max-md:px-5">
+      <span className="justify-center items-stretch bg-white self-center flex w-full max-w-[1294px] flex-col mt-4 mb-80 pl-6 pr-20 py-4 rounded-2xl max-md:max-w-full max-md:mb-10 max-md:px-5">
         <div className="text-gray-900 text-2xl font-bold leading-8 max-md:max-w-full">
           Chapter 1
         </div>
         <div className="text-black text-base leading-6 tracking-normal mt-2 max-md:max-w-full">
           Alesbian artist wants to make the most of her summer in Paris in this
           belle epoque romance.
-          <br/>
+          <br />
           Manuela del Carmen Caceres Galvan would like to be thoroughly
           debauched before returning to Venezuela and entering into a loveless
           marriage for the benefit of her family’s finances. After she bonds
@@ -66,14 +68,14 @@ export const ReadOnline = () => {
           embrace, and encourage. It’s with that support that these characters
           are able to be their full, vibrant selves and open themselves up to
           love and be loved.
-          <br/>
+          <br />
           Empowering and exhilarating.
-          <br/>
+          <br />
         </div>
         <div className="text-black text-base leading-6 tracking-normal max-md:max-w-full">
           Alesbian artist wants to make the most of her summer in Paris in this
           belle epoque romance.
-          <br/>
+          <br />
           Manuela del Carmen Caceres Galvan would like to be thoroughly
           debauched before returning to Venezuela and entering into a loveless
           marriage for the benefit of her family’s finances. After she bonds
@@ -98,14 +100,14 @@ export const ReadOnline = () => {
           embrace, and encourage. It’s with that support that these characters
           are able to be their full, vibrant selves and open themselves up to
           love and be loved.
-          <br/>
+          <br />
           Empowering and exhilarating.
-          <br/>
+          <br />
         </div>
         <div className="text-black text-base leading-6 tracking-normal max-md:max-w-full">
           Alesbian artist wants to make the most of her summer in Paris in this
           belle epoque romance.
-          <br/>
+          <br />
           Manuela del Carmen Caceres Galvan would like to be thoroughly
           debauched before returning to Venezuela and entering into a loveless
           marriage for the benefit of her family’s finances. After she bonds
@@ -130,9 +132,9 @@ export const ReadOnline = () => {
           embrace, and encourage. It’s with that support that these characters
           are able to be their full, vibrant selves and open themselves up to
           love and be loved.
-          <br/>
+          <br />
           Empowering and exhilarating.
-          <br/>
+          <br />
         </div>
         <div className="text-gray-900 text-2xl font-bold leading-8 mt-8 max-md:max-w-full">
           Chapter 2
@@ -140,7 +142,7 @@ export const ReadOnline = () => {
         <div className="text-black text-base leading-6 tracking-normal mt-2 max-md:max-w-full">
           Alesbian artist wants to make the most of her summer in Paris in this
           belle epoque romance.
-          <br/>
+          <br />
           Manuela del Carmen Caceres Galvan would like to be thoroughly
           debauched before returning to Venezuela and entering into a loveless
           marriage for the benefit of her family’s finances. After she bonds
@@ -165,11 +167,11 @@ export const ReadOnline = () => {
           embrace, and encourage. It’s with that support that these characters
           are able to be their full, vibrant selves and open themselves up to
           love and be loved.
-          <br/>
+          <br />
           Empowering and exhilarating.
-          <br/>
+          <br />
         </div>
       </span>
-        </div>
-    );
-}
+    </div>
+  );
+};

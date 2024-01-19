@@ -1,85 +1,44 @@
-import { useCallback } from "react";
-import { useNavigate } from "react-router-dom";
-
-export const UploadBooks = () => {
-    const navigate = useNavigate();
-
-    const onIconclearClick = useCallback(() => {
-        navigate("/");
-    }, [navigate]);
-
-    const onButtonDefaultContainerClick = useCallback(() => {
-        navigate("/");
-    }, [navigate]);
-
-    return (
-        <div className="relative flex flex-row items-start justify-start gap-[0.63rem] max-w-full max-h-full overflow-auto text-left text-[0.88rem] text-gray-9001 font-body-2-regular">
-            <div className="relative shadow-[0px_4px_8px_-2px_rgba(33,_33,_33,_0.07),_0px_12px_16px_-4px_rgba(33,_33,_33,_0.1)] w-[22.63rem] h-[33.75rem] z-[0]">
-                <div className="absolute h-full w-full top-[0%] right-[0%] bottom-[0%] left-[0%] rounded-xl bg-base-white box-border border-[1px] border-solid border-gray-100" />
-                <b className="absolute top-[1.5rem] left-[1.5rem] text-[1.5rem] leading-[150%] font-assistive-text-medium-12">
-                    Upload Book
-                </b>
-                <img
-                    className="absolute top-[1.88rem] right-[1.5rem] w-[1.5rem] h-[1.5rem] overflow-hidden object-cover hidden cursor-pointer"
-                    alt=""
-                    src="/iconclear@2x.png"
-                    onClick={onIconclearClick}
-                />
-                <div className="absolute right-[1.5rem] bottom-[1.5rem] flex flex-row items-end justify-end gap-[1rem] text-main-primary-color">
-                    <div
-                        className="rounded-md overflow-hidden flex flex-row items-center justify-center py-[0.75rem] px-[1rem] gap-[0.5rem] cursor-pointer"
-                        onClick={onButtonDefaultContainerClick}
-                    >
-                        <img
-                            className="relative w-[1.25rem] h-[1.25rem] overflow-hidden shrink-0 object-cover hidden"
-                            alt=""
-                            src="/iconadd@2x.png"
-                        />
-                        <div className="relative tracking-[2px] leading-[1.25rem] uppercase font-medium">
-                            Cancel
-                        </div>
-                        <img
-                            className="relative w-[1.25rem] h-[1.25rem] overflow-hidden shrink-0 object-cover hidden"
-                            alt=""
-                            src="/iconadd@2x.png"
-                        />
-                    </div>
-                    <div className="rounded-md bg-main-primary-color overflow-hidden flex flex-row items-center justify-center py-[0.75rem] px-[1rem] gap-[0.5rem] text-base-white border-[1px] border-solid border-main-primary-color">
-                        <img
-                            className="relative w-[1.25rem] h-[1.25rem] overflow-hidden shrink-0 object-cover hidden"
-                            alt=""
-                            src="/iconadd@2x.png"
-                        />
-                        <div className="relative tracking-[2px] leading-[1.25rem] uppercase font-medium">
-                            Continue
-                        </div>
-                        <img
-                            className="relative w-[1.25rem] h-[1.25rem] overflow-hidden shrink-0 object-cover hidden"
-                            alt=""
-                            src="/iconadd@2x.png"
-                        />
-                    </div>
-                </div>
-                <div className="absolute bottom-[2.25rem] left-[1.5rem] leading-[1.25rem] text-gray-7001 hidden">
-                    Footer textrow for additional information
-                </div>
-                <div className="absolute w-[calc(100%_-_48px)] top-[5.75rem] left-[1.5rem] text-[1rem] leading-[150%] hidden">
-                    Dialog body text
-                </div>
+export const DownloadBooks = () => {
+  return (
+    <div>
+      <div className="shadow-lg flex max-w-[362px] flex-col justify-center items-stretch">
+        <div className="border border-[color:var(--Gray-100,#F5F5F5)] bg-white flex w-full flex-col items-stretch px-6 py-7 rounded-xl border-solid">
+          <span className="flex items-center justify-between gap-5">
+            <div className="text-neutral-800 text-2xl font-bold leading-9 my-auto">
+              Upload book
             </div>
-            <div className="my-0 mx-[!important] absolute top-[11.38rem] left-[7.31rem] shrink-0 flex flex-col items-center justify-start gap-[0.94rem] z-[1] text-center text-main-text font-assistive-text-medium-12">
-                <img
-                    className="relative w-[3rem] h-[3rem] overflow-hidden shrink-0 object-cover"
-                    alt=""
-                    src="/filearrowupalt@2x.png"
-                />
-                <div className="relative leading-[1.25rem]">Upload file here</div>
-                <div className="relative leading-[1.25rem]">{`or `}</div>
-                <b className="relative leading-[140%] capitalize text-main-primary-color">
-                    Browse files
-                </b>
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/86e4204a60fdd377f325c81195b1a519581b7bbd4a52935896c8d71c56b2e31b?"
+              className="aspect-square object-contain object-center w-6 overflow-hidden self-stretch shrink-0 max-w-full"
+            />
+          </span>
+          <span className="flex flex-col self-center items-center mt-20 max-w-[105px]">
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/ed1cfbfb96d1ceacff02d070ae42da5024bd9ae5b2349187bde6cad0ac1a1e5f?"
+              className="aspect-square object-contain object-center w-12 overflow-hidden max-w-full"
+            />
+            <div className="text-gray-900 text-center text-sm leading-5 self-stretch w-full mt-4">
+              Upload file here
             </div>
+            <div className="text-gray-900 text-center text-sm leading-5 whitespace-nowrap mt-4">
+              or{" "}
+            </div>
+            <div className="text-green-600 text-center text-sm font-bold leading-5 capitalize self-stretch w-full mt-4">
+              Browse files
+            </div>
+          </span>
+          <span className="justify-between items-center flex gap-5 mt-40 self-center">
+            <div className="hover:bg-green-600 hover:text-white cursor-pointer text-green-500 text-sm font-medium leading-5 tracking-[2px] uppercase whitespace-nowrap justify-center items-stretch border self-stretch grow px-4 py-3 rounded-md border-solid border-green-600">
+              Cancel
+            </div>
+            <div className="hover:bg-green-600 hover:text-white cursor-pointer text-green-500 text-sm font-medium leading-5 tracking-[2px] uppercase whitespace-nowrap justify-center items-stretch border self-stretch grow px-4 py-3 rounded-md border-solid border-green-600">
+              Continue
+            </div>
+          </span>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
-
