@@ -5,7 +5,7 @@ import {AddNewBook} from "./AddNewBook.jsx";
 import {ViewBooks} from "./ViewBooks.jsx";
 import {OrderProcessing} from "./OrderProcessing.jsx";
 
-export const AdminDashboard = () => {
+export const AdminDashboard = ({ handleStatus, setStatusTitle, setStatusMessage, setStatusColor }) => {
 
     return (
         <>
@@ -20,7 +20,12 @@ export const AdminDashboard = () => {
                     <Routes>
                         <Route
                             path={"/"}
-                            element={<AddNewBook />}
+                            element={<AddNewBook
+                                handleStatus={handleStatus}
+                                setStatusTitle={setStatusTitle}
+                                setStatusMessage={setStatusMessage}
+                                setStatusColor={setStatusColor}
+                            />}
                         />
 
                         <Route

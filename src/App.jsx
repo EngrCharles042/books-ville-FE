@@ -79,7 +79,13 @@ function App() {
                     />
                 }/>
 
-                <Route path={"/admin-dashboard"} element={<AdminDashboard/>}>
+                <Route path={"/admin-dashboard"} element={<AdminDashboard
+                    handleStatus={handleStatus}
+                    setStatusTitle={setStatusTitle}
+                    setStatusMessage={setStatusMessage}
+                    setStatusColor={setStatusColor}
+                />
+                }>
                     <Route path={"/admin-dashboard/view-books"} element={<ViewBooks/>}>
                         <Route path={"/admin-dashboard/view-books/order-processing"} element={<OrderProcessing/>}/>
                     </Route>

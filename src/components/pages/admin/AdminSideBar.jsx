@@ -1,19 +1,27 @@
-import {useCallback} from "react";
 import logo from "../../../assets/images/landingPageImages/image-1@2x.png";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+
 
 // eslint-disable-next-line react/prop-types
 export const AdminSideBar = () => {
+    const navigate = useNavigate()
 
-    const onContainerClick = useCallback(() => {
-        // Please sync "Log Out" to the project
-    }, []);
+    const handleLogout = () => {
+        // Remove user from local storage
+        localStorage.removeItem('token');
+        localStorage.removeItem('firstname');
+        localStorage.removeItem('lastname');
+        localStorage.removeItem('email');
+
+        // Redirect to the home page
+        navigate('/');
+    };
 
     return (
         <>
             <div className="bg-white shadow-[0px_6px_16px_rgba(0,0,0,0.1599999964237213)] fixed max-h-[100vh] max-w-[260px] ">
                 <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
-                    <div className="flex-col fill-white overflow-hidden relative flex aspect-[0.25390625] grow items-stretch pl-4 pr-16 py-12 max-md:pr-5">
+                    <div className="flex-col fill-white overflow-hidden relative flex aspect-[0.25390625] grow items-stretch pl-4 pr-16 py-[3.5rem] max-md:pr-5">
                         <div className="logo-container flex justify-between gap-0.5 px-5">
                             <img
                                 loading="lazy"
@@ -26,7 +34,7 @@ export const AdminSideBar = () => {
                                 <span className="text-green-500">Ville</span>
                             </div>
                         </div>
-                        <div className="mt-3 flex justify-between gap-3 px-5 items-stretch cursor-pointer">
+                        <div className="mt-5 flex justify-between gap-3 px-5 items-stretch cursor-pointer">
                             <img
                                 loading="lazy"
                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/76583589b5bc81575ed692d66fb4d297ca504948ae38b8622ab17869025867fb?"
@@ -56,13 +64,13 @@ export const AdminSideBar = () => {
                                 Settings
                             </div>
                         </div>
-                        <div onClick={onContainerClick} className="flex justify-between gap-3 px-5 mt-6 items-stretch cursor-pointer">
+                        <div onClick={handleLogout} className="flex justify-between gap-3 px-5 mt-6 items-stretch cursor-pointer">
                             <img
                                 loading="lazy"
                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/0b0f64bb3768851a0f3eb62907d28a48ad69b7e99ad44239cda8932bc0fdef2c?"
                                 className="aspect-square object-contain object-center w-6 overflow-hidden shrink-0 max-w-full"
                             />
-                            <div className="text-zinc-700 text-base font-medium leading-5 self-center grow whitespace-nowrap my-24px">
+                            <div className="text-red-500 text-base font-medium leading-5 self-center grow whitespace-nowrap my-24px">
                                 Logout
                             </div>
                         </div>
