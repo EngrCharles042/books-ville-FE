@@ -1,4 +1,4 @@
-export const DownloadBookModal = ({ onCancel, onContinue }) => {
+export const UploadBookModal = ({ onCancel, onContinue }) => {
   return (
     <div>
       <div className="flex flex-col">

@@ -90,7 +90,8 @@ export const PurchasedBooks = () => {
                         zIndex: 1000,
                       },
                       content: {
-                        maxWidth: "500px",
+                        maxWidth: "400px",
+                        maxHeight: "500px",
                         margin: "auto",
                         background: "white",
                         borderRadius: "8px",
@@ -167,7 +168,8 @@ export const PurchasedBooks = () => {
                         zIndex: 1000,
                       },
                       content: {
-                        maxWidth: "500px",
+                        maxWidth: "400px",
+                        maxHeight: "500px",
                         margin: "auto",
                         background: "white",
                         borderRadius: "8px",
