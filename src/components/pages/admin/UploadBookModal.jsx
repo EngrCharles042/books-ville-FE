@@ -4,7 +4,7 @@ export const UploadBookModal = ({ onCancel, onContinue }) => {
       <div className="flex flex-col">
         <span className="flex items-center justify-between gap-5">
           <div className="text-neutral-800 text-2xl font-bold leading-9 my-auto">
-            Download files
+            Upload Books
           </div>
           <img
             loading="lazy"

@@ -2,63 +2,6 @@ export const SavedBooks = () => {
   return (
     <>
       <div className="bg-white flex flex-col items-stretch pb-12">
-        <div className="justify-between items-stretch shadow-sm bg-white flex w-full gap-5 px-16 py-4 max-md:max-w-full max-md:flex-wrap max-md:px-5">
-          <div className="items-stretch flex justify-between gap-5 max-md:max-w-full max-md:flex-wrap">
-            <span className="items-stretch flex justify-between gap-1.5">
-              <img
-                loading="lazy"
-                srcSet="..."
-                className="aspect-square object-contain object-center w-[41px] overflow-hidden shrink-0 max-w-full"
-              />
-              <div className="text-green-500 text-xl font-semibold leading-7 self-center grow whitespace-nowrap my-auto">
-                Books<span className="text-green-500">Ville</span>
-              </div>
-            </span>
-            <span className="items-stretch border border-[color:var(--Gray-3,#828282)] shadow-sm bg-white flex gap-3 px-3 py-2.5 rounded-lg border-solid self-start max-md:pr-5">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/f3194a30a8ecff0adf8e8e1c99c596ee95b69525498eb475d2c8b9d1de9ae186?"
-                className="aspect-square object-contain object-center w-4 justify-center items-center overflow-hidden self-center shrink-0 max-w-full my-auto"
-              />
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/ba16c4d1578404ee548de207b0969ae061f61ec7befb35368cd4929342205051?"
-                className="aspect-[0.05] object-contain object-center w-px stroke-[1px] stroke-zinc-500 overflow-hidden shrink-0 max-w-full"
-              />
-              <div className="text-zinc-500 text-center text-sm tracking-normal self-center grow whitespace-nowrap my-auto">
-                Search by Author , Title , Series
-              </div>
-            </span>
-          </div>
-          <div className="items-center self-center flex justify-between gap-5 my-auto max-md:max-w-full max-md:flex-wrap">
-            <span className="items-stretch flex justify-between gap-5 my-auto">
-              <div className="text-black text-xl font-medium leading-7 grow whitespace-nowrap">
-                Home
-              </div>
-              <div className="text-black text-xl font-medium leading-7">
-                Categories
-              </div>
-              <div className="text-black text-xl font-medium leading-7">
-                Cart
-              </div>
-              <div className="text-black text-xl font-medium leading-7 grow whitespace-nowrap">
-                Services
-              </div>
-            </span>
-            <div className="items-center self-stretch flex justify-between gap-5">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/d86f4ed656e2079859c5e4b2dafb14586645a6837ac7f70b45656898073c1f80?"
-                className="aspect-square object-contain object-center w-[25px] overflow-hidden shrink-0 max-w-full my-auto"
-              />
-              <img
-                loading="lazy"
-                srcSet="..."
-                className="aspect-square object-contain object-center w-9 overflow-hidden self-stretch shrink-0 max-w-full rounded-[50%]"
-              />
-            </div>
-          </div>
-        </div>
         <div className="self-center flex w-full max-w-[1172px] flex-col mt-4 mb-40 items-start max-md:max-w-full max-md:mb-10">
           <span className="items-stretch flex gap-2">
             <img
