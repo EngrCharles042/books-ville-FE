@@ -2,7 +2,7 @@
 export const StatusCard = ({ message, statusTitle, statusStyle, statusColor }) => {
 
     return (
-        <div className={`fixed ${statusStyle} top-4 left-[100vw] z-[200]`}>
+        <div className={`fixed ${statusStyle} top-4 left-[100vw] z-[2000]`}>
             <div className="items-stretch bg-green-100 min-w-[33.6875rem] flex gap-3 p-4 rounded-lg max-md:flex-wrap">
                 <header className={`${statusColor} flex w-[5px] shrink-0 h-10 flex-col rounded-sm`} />
                 <div className="items-stretch flex grow basis-[0%] flex-col max-md:max-w-full">

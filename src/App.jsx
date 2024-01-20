@@ -31,7 +31,7 @@ function App() {
 
     setTimeout(() => {
       setStatus("");
-    }, 5000);
+    }, 2000);
   };
 
   return (
@@ -92,15 +92,6 @@ function App() {
             />
           }
         />
-
-        <Route path={"/admin-dashboard"} element={<AdminDashboard />}>
-          <Route path={"/admin-dashboard/view-books"} element={<ViewBooks />}>
-            <Route
-              path={"/admin-dashboard/view-books/order-processing"}
-              element={<OrderProcessing />}
-            />
-          </Route>
-        </Route>
 
         <Route path={"/admin-dashboard"} element={<AdminDashboard
             handleStatus={handleStatus}
