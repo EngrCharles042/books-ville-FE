@@ -17,6 +17,8 @@ import { PurchasedBooks } from "./components/pages/userDashboard/PurchasedBooks.
 import { ViewBooks } from "./components/pages/admin/ViewBooks.jsx";
 import { OrderProcessing } from "./components/pages/admin/OrderProcessing.jsx";
 import { Subscriptions } from "./components/pages/userDashboard/Subscriptions.jsx";
+import { SavedBooks } from "./components/pages/userDashboard/SavedBooks.jsx";
+import { AccountSetting } from "./components/pages/userDashboard/AccountSetting.jsx";
 
 function App() {
   const [status, setStatus] = useState("");
@@ -109,6 +111,8 @@ function App() {
           <Route path={"/user-dashboard/categories"} element={<UserCategoryPage />}/>
           <Route path={"/user-dashboard/subscription"} element={<Subscriptions />}/>
           <Route path={"/user-dashboard/purchased-books"} element={<PurchasedBooks />}/>
+          <Route path={"/user-dashboard/saved-books"} element={<SavedBooks />}/>
+          <Route path={"/user-dashboard/profile-books"} element={<AccountSetting />}/>
         </Route>
 
         <Route path={"/flutterwave-payment"} element={<PaymentOptions />} />
