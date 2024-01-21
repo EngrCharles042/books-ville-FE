@@ -95,24 +95,46 @@ function App() {
           }
         />
 
-        <Route path={"/admin-dashboard"} element={<AdminDashboard
-            handleStatus={handleStatus}
-            setStatusTitle={setStatusTitle}
-            setStatusMessage={setStatusMessage}
-            setStatusColor={setStatusColor}
-        />
-        }>
-            <Route path={"/admin-dashboard/view-books"} element={<ViewBooks/>}>
-                <Route path={"/admin-dashboard/view-books/order-processing"} element={<OrderProcessing/>}/>
-            </Route>
+        <Route
+          path={"/admin-dashboard"}
+          element={
+            <AdminDashboard
+              handleStatus={handleStatus}
+              setStatusTitle={setStatusTitle}
+              setStatusMessage={setStatusMessage}
+              setStatusColor={setStatusColor}
+            />
+          }
+        >
+          <Route path={"/admin-dashboard/view-books"} element={<ViewBooks />}>
+            <Route
+              path={"/admin-dashboard/view-books/order-processing"}
+              element={<OrderProcessing />}
+            />
+          </Route>
         </Route>
 
         <Route path={"/user-dashboard"} element={<UserDashboardPage />}>
-          <Route path={"/user-dashboard/categories"} element={<UserCategoryPage />}/>
-          <Route path={"/user-dashboard/subscription"} element={<Subscriptions />}/>
-          <Route path={"/user-dashboard/purchased-books"} element={<PurchasedBooks />}/>
-          <Route path={"/user-dashboard/saved-books"} element={<SavedBooks />}/>
-          <Route path={"/user-dashboard/profile-books"} element={<AccountSetting />}/>
+          <Route
+            path={"/user-dashboard/categories"}
+            element={<UserCategoryPage />}
+          />
+          <Route
+            path={"/user-dashboard/subscription"}
+            element={<Subscriptions />}
+          />
+          <Route
+            path={"/user-dashboard/purchased-books"}
+            element={<PurchasedBooks />}
+          />
+          <Route
+            path={"/user-dashboard/saved-books"}
+            element={<SavedBooks />}
+          />
+          <Route
+            path={"/user-dashboard/profile"}
+            element={<AccountSetting />}
+          />
         </Route>
 
         <Route path={"/flutterwave-payment"} element={<PaymentOptions />} />
