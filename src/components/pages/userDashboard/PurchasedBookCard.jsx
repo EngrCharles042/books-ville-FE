@@ -21,21 +21,18 @@ export const PurchasedBookCard = ({
   };
 
   return (
-    <div>
+    <>
       <div className="self-stretch mt-6 max-md:max-w-full">
         <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
-          <div className="flex flex-col items-stretch w-[24%] max-md:w-full max-md:ml-0">
-            <div className="justify-center items-center shadow-lg bg-slate-50 flex grow flex-col w-full pr-9 max-md:mt-3.5 max-md:pr-5">
-              <img
-                loading="lazy"
-                src={image}
-                className="aspect-[0.73] object-contain object-center w-[202px] overflow-hidden"
-                alt=""
-              />
-            </div>
+          <div className="flex flex-col items-stretch w-1/5 max-md:w-full max-md:ml-0">
+            <img
+              loading="lazy"
+              src={image}
+              className="aspect-[0.73] object-contain object-center w-[202px] shadow-lg overflow-hidden shrink-0 max-w-full grow max-md:mt-3"
+            />
           </div>
-          <div className="flex flex-col items-stretch w-[76%] ml-5 max-md:w-full max-md:ml-0">
-            <span className="flex flex-col max-md:max-w-full max-md:mt-3.5">
+          <div className="flex flex-col items-stretch w-4/5 max-md:w-full max-md:ml-0">
+            <span className="flex grow flex-col max-md:max-w-full max-md:mt-3">
               <div className="text-neutral-800 text-2xl font-semibold leading-8 self-stretch max-md:max-w-full">
                 {title}
               </div>
@@ -45,7 +42,7 @@ export const PurchasedBookCard = ({
               <div className="text-black text-sm leading-5 self-stretch mt-2 max-md:max-w-full">
                 {description}
               </div>
-              <span className="items-stretch flex gap-3 mt-2 self-start">
+              <span className="items-stretch flex gap-3 mt-2 pr-9 self-start max-md:pr-5">
                 <div className="text-neutral-500 text-sm leading-5 grow whitespace-nowrap">
                   {genre}
                 </div>
@@ -100,6 +97,6 @@ export const PurchasedBookCard = ({
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
