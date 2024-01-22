@@ -52,7 +52,7 @@ svg {
 }
 
 .slide-in {
-    animation: statusSlide 5s ease-in-out;
+    animation: statusSlide 2.5s ease-in-out;
 }
 
 @keyframes statusSlide {
@@ -73,6 +73,9 @@ svg {
     }
     90% {
         transform: translateX(-34.6875rem);
+    }
+    95% {
+        transform: translateX(-36.6875rem);
     }
     100% {
         transform: translateX(0rem);
