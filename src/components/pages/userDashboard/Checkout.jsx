@@ -1,65 +1,28 @@
+import { useState } from "react";
+import Modal from "react-modal";
+import { PaymentInfoModal } from "./PaymentInfoModal.jsx";
+import image1 from "../../../assets/images/landingPageImages/img_1.png";
+import image2 from "../../../assets/images/landingPageImages/img_2.png";
+import image3 from "../../../assets/images/landingPageImages/img_3.png";
+import image4 from "../../../assets/images/landingPageImages/img_4.png";
+import restless from "../../../assets/images/userCatImages/restless.png";
+import muslim from "../../../assets/images/userCatImages/bad muslim.svg";
+
 export const Checkout = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleDownloadClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <>
       <div className="bg-white flex flex-col items-stretch pb-3">
-        <div className="justify-between items-stretch shadow-sm bg-white flex w-full gap-5 px-16 py-4 max-md:max-w-full max-md:flex-wrap max-md:px-5">
-          <div className="items-stretch flex justify-between gap-5 max-md:max-w-full max-md:flex-wrap">
-            <span className="items-stretch flex justify-between gap-1.5">
-              <img
-                loading="lazy"
-                srcSet="..."
-                className="aspect-square object-contain object-center w-[41px] overflow-hidden shrink-0 max-w-full"
-              />
-              <div className="text-green-500 text-xl font-semibold leading-7 self-center grow whitespace-nowrap my-auto">
-                Books<span className="text-green-500">Ville</span>
-              </div>
-            </span>
-            <span className="items-stretch border border-[color:var(--Gray-3,#828282)] shadow-sm bg-white flex gap-3 px-3 py-2.5 rounded-lg border-solid self-start max-md:pr-5">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/ceeea2f2948954022816e71018ab049d885ff6e6cc69b46669a5737133c1100a?"
-                className="aspect-square object-contain object-center w-4 justify-center items-center overflow-hidden self-center shrink-0 max-w-full my-auto"
-              />
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/ba16c4d1578404ee548de207b0969ae061f61ec7befb35368cd4929342205051?"
-                className="aspect-[0.05] object-contain object-center w-px stroke-[1px] stroke-zinc-500 overflow-hidden shrink-0 max-w-full"
-              />
-              <div className="text-zinc-500 text-center text-sm tracking-normal self-center grow whitespace-nowrap my-auto">
-                Search by Author , Title , Series
-              </div>
-            </span>
-          </div>
-          <div className="items-center self-center flex justify-between gap-5 my-auto px-0.5 max-md:max-w-full max-md:flex-wrap">
-            <span className="items-stretch flex justify-between gap-5 my-auto">
-              <div className="text-black text-xl font-medium leading-7 grow whitespace-nowrap">
-                Home
-              </div>
-              <div className="text-black text-xl font-medium leading-7">
-                Categories
-              </div>
-              <div className="text-green-500 text-xl font-medium leading-7">
-                Cart
-              </div>
-              <div className="text-black text-xl font-medium leading-7 grow whitespace-nowrap">
-                Services
-              </div>
-            </span>
-            <div className="items-center self-stretch flex justify-between gap-5">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/c7310c8722dc5cdf70636b3635cffd469b3852098076188b3c9b0a6a147dd6a0?"
-                className="aspect-square object-contain object-center w-[25px] overflow-hidden shrink-0 max-w-full my-auto"
-              />
-              <img
-                loading="lazy"
-                srcSet="..."
-                className="aspect-square object-contain object-center w-9 overflow-hidden self-stretch shrink-0 max-w-full rounded-[50%]"
-              />
-            </div>
-          </div>
-        </div>
-        <span className="flex w-full flex-col mt-5 px-16 max-md:max-w-full max-md:px-5">
+        <span className="flex w-full flex-col mt-[4rem] px-16 max-md:max-w-full max-md:px-5">
           <span className="items-stretch flex gap-2 self-start">
             <img
               loading="lazy"
@@ -71,13 +34,16 @@ export const Checkout = () => {
             </div>
           </span>
           <div className="self-stretch mt-8 max-md:max-w-full">
+            <div className="text-black text-2xl font-semibold leading-8 max-w-[177px]">
+              YOUR CART (2)
+            </div>
             <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
               <div className="flex flex-col items-stretch w-[65%] max-md:w-full max-md:ml-0">
                 <span className="flex flex-col items-stretch mt-16 max-md:max-w-full max-md:mt-10">
                   <div className="items-stretch flex justify-between gap-2 max-md:max-w-full max-md:flex-wrap">
                     <img
                       loading="lazy"
-                      srcSet="..."
+                      src={restless}
                       className="aspect-[0.71] object-contain object-center w-20 overflow-hidden shrink-0 max-w-full"
                     />
                     <span className="items-stretch self-center flex justify-between gap-5 my-auto pr-8 max-md:max-w-full max-md:flex-wrap max-md:pr-5">
@@ -112,7 +78,7 @@ export const Checkout = () => {
                   <div className="items-stretch flex justify-between gap-2 mt-3 max-md:max-w-full max-md:flex-wrap">
                     <img
                       loading="lazy"
-                      srcSet="..."
+                      src={muslim}
                       className="aspect-[0.78] object-contain object-center w-20 overflow-hidden shrink-0 max-w-full"
                     />
                     <span className="items-stretch self-center flex justify-between gap-5 my-auto max-md:max-w-full max-md:flex-wrap">
@@ -190,9 +156,38 @@ export const Checkout = () => {
                       7500
                     </div>
                   </span>
-                  <span className="text-white text-sm font-semibold leading-5 whitespace-nowrap justify-center items-center bg-green-500 mt-12 mb-11 px-16 py-3 rounded-xl max-md:my-10 max-md:px-5">
+                  <span
+                    className="text-white text-sm text-center font-semibold leading-5 whitespace-nowrap justify-center items-center bg-green-500 mt-12 mb-11 px-16 py-3 rounded-xl max-md:my-10 max-md:px-5"
+                    onClick={handleDownloadClick}
+                  >
                     CHECKOUT
                   </span>
+                  <Modal
+                    isOpen={isModalOpen}
+                    onRequestClose={handleCloseModal}
+                    style={{
+                      overlay: {
+                        backgroundColor: "rgba(0, 0, 0, 0.5)",
+                        zIndex: 1000,
+                      },
+                      content: {
+                        maxWidth: "550px",
+                        maxHeight: "800px",
+                        margin: "auto",
+                        background: "white",
+                        borderRadius: "8px",
+                        padding: "20px",
+                      },
+                    }}
+                  >
+                    <PaymentInfoModal
+                      onCancel={handleCloseModal}
+                      onContinue={() => {
+                        // Handle continue logic here
+                        handleCloseModal();
+                      }}
+                    />
+                  </Modal>
                 </span>
               </div>
             </div>
@@ -206,7 +201,7 @@ export const Checkout = () => {
                 <span className="justify-center items-stretch shadow-sm flex grow flex-col px-8 max-md:mt-9 max-md:px-5">
                   <img
                     loading="lazy"
-                    srcSet="..."
+                    srcSet={image1}
                     className="aspect-[0.65] object-contain object-center w-full overflow-hidden"
                   />
                   <div className="text-black text-xl font-semibold leading-6 mt-2.5">
@@ -227,7 +222,7 @@ export const Checkout = () => {
                 <span className="items-stretch shadow-sm flex grow flex-col max-md:mt-8">
                   <img
                     loading="lazy"
-                    srcSet="..."
+                    srcSet={image2}
                     className="aspect-[0.65] object-contain object-center w-full overflow-hidden"
                   />
                   <div className="text-black text-xl font-semibold leading-6 mt-2.5">
@@ -248,7 +243,7 @@ export const Checkout = () => {
                 <span className="items-start shadow-sm flex grow flex-col max-md:mt-8">
                   <img
                     loading="lazy"
-                    srcSet="..."
+                    srcSet={image3}
                     className="aspect-[0.66] object-contain object-center w-full overflow-hidden self-stretch"
                   />
                   <div className="text-black text-xl font-semibold leading-6 mt-2.5 max-md:mr-0.5">
@@ -269,7 +264,7 @@ export const Checkout = () => {
                 <span className="items-stretch shadow-sm flex grow flex-col max-md:mt-8">
                   <img
                     loading="lazy"
-                    srcSet="..."
+                    srcSet={image4}
                     className="aspect-[0.64] object-contain object-center w-full overflow-hidden"
                   />
                   <div className="text-black text-xl font-semibold leading-6 mt-2.5">

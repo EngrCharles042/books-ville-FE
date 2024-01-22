@@ -6,6 +6,7 @@ import { Subscriptions } from "./Subscriptions.jsx";
 import { PurchasedBooks } from "./PurchasedBooks.jsx";
 import { SavedBooks } from "./SavedBooks.jsx";
 import { AccountSetting } from "./AccountSetting.jsx";
+import { Checkout } from "./Checkout.jsx";
 
 export const UserDashboardPage = () => {
   return (
@@ -34,6 +35,8 @@ export const UserDashboardPage = () => {
             <Route path={"/saved-books"} element={<SavedBooks />} />
 
             <Route path={"/profile"} element={<AccountSetting />} />
+
+            <Route path={"/cart"} element={<Checkout />} />
           </Routes>
         </div>
       </div>

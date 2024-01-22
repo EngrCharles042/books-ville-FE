@@ -1,4 +1,4 @@
-export const PaymentInfo = () => {
+export const PaymentInfoModal = () => {
   return (
     <>
       <span className="bg-white flex max-w-[568px] flex-col px-10 py-11 rounded-xl max-md:px-5">
