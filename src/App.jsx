@@ -19,6 +19,7 @@ import { OrderProcessing } from "./components/pages/admin/OrderProcessing.jsx";
 import { Subscriptions } from "./components/pages/userDashboard/Subscriptions.jsx";
 import { SavedBooks } from "./components/pages/userDashboard/SavedBooks.jsx";
 import { AccountSetting } from "./components/pages/userDashboard/AccountSetting.jsx";
+import { Checkout } from "./components/pages/userDashboard/Checkout.jsx";
 
 function App() {
   const [status, setStatus] = useState("");
@@ -135,6 +136,7 @@ function App() {
             path={"/user-dashboard/profile"}
             element={<AccountSetting />}
           />
+          <Route path={"/user-dashboard/cart"} element={<Checkout />} />
         </Route>
 
         <Route path={"/flutterwave-payment"} element={<PaymentOptions />} />
