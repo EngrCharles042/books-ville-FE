@@ -1,8 +1,23 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "../../../api/axios.jsx";
+import { ClipLoader } from "react-spinners";
 
-export const AccountSetting = () => {
+export const AccountSetting = ({
+  setDep,
+  handleStatus,
+  setStatusTitle,
+  setStatusMessage,
+  setStatusColor,
+}) => {
   const userData = JSON.parse(localStorage.getItem("userData"));
+
+  const [formData, setFormData] = useState({
+    email: `${userData.email}`,
+    firstName: `${userData.firstName}`,
+    lastName: `${userData.lastName}`,
+    phoneNumber: `${userData.phoneNumber}`,
+  });
 
   const [display, setDisplay] = useState("profile");
 
@@ -14,21 +29,56 @@ export const AccountSetting = () => {
     setDisplay("password");
   };
 
+  const [clip, setClip] = useState(false);
+
   const navigate = useNavigate();
+
+  const enableStatus = (title, message, color) => {
+    handleStatus();
+    setStatusTitle(title);
+    setStatusMessage(message);
+    setStatusColor(color);
+  };
 
   const handleGoBack = () => {
     navigate(-1);
   };
 
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phoneNumber: "",
-  });
-
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setClip(true);
+
+      await axios
+        .put("/user/account-info", formData, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        .then((response) => {
+          setClip(false);
+
+          enableStatus(
+            "Congratulations",
+            "Update Successful",
+            "Your contact information has been updated successfully",
+          );
+          console.log(response.data.data);
+        });
+
+      // Trigger the UseEffect in the User Component to effect user's details
+      setDep();
+    } catch (error) {
+      setClip(false);
+
+      enableStatus("error", "Oops!", "Something went wrong please try again");
+
+      console.log(error.message);
+    }
   };
 
   return (
@@ -85,7 +135,10 @@ export const AccountSetting = () => {
             </span>
           </div>
 
-          <form className="flex flex-col w-[436px] mx-auto">
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col w-[436px] mx-auto"
+          >
             <div className="text-gray-900 text-2xl font-bold leading-8 mt-10 max-md:mt-10">
               Account
             </div>
@@ -110,60 +163,6 @@ export const AccountSetting = () => {
             </div>
 
             <div>
-              <label
-                htmlFor="first-name"
-                className="text-gray-900 text-base font-semibold leading-6 tracking-normal self-center mt-4 max-md:max-w-full"
-              >
-                First Name
-              </label>
-              <span className="relative text-gray-600">
-                <input
-                  type="text"
-                  name="firstName"
-                  value={userData.firstName}
-                  onChange={handleChange}
-                  id="first-name"
-                  autoComplete="given-name"
-                  placeholder="Sandra"
-                  disabled
-                  className="items-stretch border border-[color:var(--Grey-300,#D0D5DD)] bg-gray-200 self-center flex w-full max-w-full justify-between gap-5 mt-2 px-4 py-3 rounded-lg border-solid max-md:flex-wrap"
-                />
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/4227aace2b02c354625d34b529b0c7dcf5504222140cf00bf95310754c1f3ef3?"
-                  className="absolute top-[2.7rem] right-4 aspect-square object-contain object-center w-5 overflow-hidden shrink-0 max-w-full"
-                />
-              </span>
-            </div>
-
-            <div className="mt-5">
-              <label
-                htmlFor="last-name"
-                className="text-gray-900 text-base font-semibold leading-6 tracking-normal self-center mt-4 max-md:max-w-full"
-              >
-                Last Name
-              </label>
-              <span className="relative text-gray-600">
-                <input
-                  type="text"
-                  name="lastName"
-                  value={userData.lastName}
-                  onChange={handleChange}
-                  id="last-name"
-                  autoComplete="given-name"
-                  placeholder="Bloyd"
-                  disabled
-                  className="items-stretch border border-[color:var(--Grey-300,#D0D5DD)] bg-gray-200 self-center flex w-full max-w-full justify-between gap-5 mt-2 px-4 py-3 rounded-lg border-solid max-md:flex-wrap"
-                />
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/4227aace2b02c354625d34b529b0c7dcf5504222140cf00bf95310754c1f3ef3?"
-                  className="absolute top-[2.7rem] right-4 aspect-square object-contain object-center w-5 overflow-hidden shrink-0 max-w-full"
-                />
-              </span>
-            </div>
-
-            <div className="mt-5">
               <label
                 htmlFor="email"
                 className="text-gray-900 text-base font-semibold leading-6 tracking-normal self-center mt-4 max-md:max-w-full"
@@ -192,6 +191,58 @@ export const AccountSetting = () => {
 
             <div className="mt-5">
               <label
+                htmlFor="first-name"
+                className="text-gray-900 text-base font-semibold leading-6 tracking-normal self-center mt-4 max-md:max-w-full"
+              >
+                First Name
+              </label>
+              <span className="relative text-gray-600">
+                <input
+                  type="text"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  id="first-name"
+                  autoComplete="given-name"
+                  placeholder="Sandra"
+                  className="items-stretch border border-[color:var(--Grey-300,#D0D5DD)] self-center flex w-full max-w-full justify-between gap-5 mt-2 px-4 py-3 rounded-lg border-solid max-md:flex-wrap"
+                />
+                {/*<img*/}
+                {/*  loading="lazy"*/}
+                {/*  src="https://cdn.builder.io/api/v1/image/assets/TEMP/4227aace2b02c354625d34b529b0c7dcf5504222140cf00bf95310754c1f3ef3?"*/}
+                {/*  className="absolute top-[2.7rem] right-4 aspect-square object-contain object-center w-5 overflow-hidden shrink-0 max-w-full"*/}
+                {/*/>*/}
+              </span>
+            </div>
+
+            <div className="mt-5">
+              <label
+                htmlFor="last-name"
+                className="text-gray-900 text-base font-semibold leading-6 tracking-normal self-center mt-4 max-md:max-w-full"
+              >
+                Last Name
+              </label>
+              <span className="relative text-gray-600">
+                <input
+                  type="text"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  id="last-name"
+                  autoComplete="given-name"
+                  placeholder="Bloyd"
+                  className="items-stretch border border-[color:var(--Grey-300,#D0D5DD)] self-center flex w-full max-w-full justify-between gap-5 mt-2 px-4 py-3 rounded-lg border-solid max-md:flex-wrap"
+                />
+                {/*<img*/}
+                {/*  loading="lazy"*/}
+                {/*  src="https://cdn.builder.io/api/v1/image/assets/TEMP/4227aace2b02c354625d34b529b0c7dcf5504222140cf00bf95310754c1f3ef3?"*/}
+                {/*  className="absolute top-[2.7rem] right-4 aspect-square object-contain object-center w-5 overflow-hidden shrink-0 max-w-full"*/}
+                {/*/>*/}
+              </span>
+            </div>
+
+            <div className="mt-5">
+              <label
                 htmlFor="phone-number"
                 className="text-gray-900 text-base font-semibold leading-6 tracking-normal self-center mt-4 max-md:max-w-full"
               >
@@ -205,15 +256,25 @@ export const AccountSetting = () => {
                   onChange={handleChange}
                   id="phone-number"
                   autoComplete="phone-number"
-                  placeholder={userData.phoneNumber}
+                  placeholder={formData.phoneNumber}
                   className="items-stretch border border-[color:var(--Grey-300,#D0D5DD)] self-center flex w-full max-w-full justify-between gap-5 mt-2 px-4 py-3 rounded-lg border-solid max-md:flex-wrap"
                 />
               </span>
             </div>
 
-            <span className="cursor-pointer transition hover:bg-green-600 text-white text-center text-base font-semibold leading-6 tracking-normal whitespace-nowrap justify-center items-center bg-green-500 self-center w-full max-w-full mt-6 px-16 py-3 rounded-lg max-md:px-5">
-              Save
-            </span>
+            <button
+              style={!clip ? {} : { backgroundColor: "" }}
+              type="submit"
+              name="submit"
+              value="Save Changes"
+              className="cursor-pointer transition hover:bg-green-600 text-white text-center text-base font-semibold leading-6 tracking-normal whitespace-nowrap justify-center items-center bg-green-500 self-center w-full max-w-full mt-6 px-16 py-3 rounded-lg max-md:px-5"
+            >
+              {!clip ? (
+                "Save"
+              ) : (
+                <ClipLoader color="#FFFFFF" loading={true} size={20} />
+              )}
+            </button>
           </form>
         </span>
       </div>
