@@ -214,12 +214,12 @@ export const AccountSetting = ({
                 }}
               >
                 <ImageUploadModal
-                  // formData={formData}
+                  formData={formData}
                   onCancel={handleCloseModal}
-                  // handleStatus={handleStatus}
-                  // setStatusTitle={setStatusTitle}
-                  // setStatusMessage={setStatusMessage}
-                  // setStatusColor={setStatusColor}
+                  handleStatus={handleStatus}
+                  setStatusTitle={setStatusTitle}
+                  setStatusMessage={setStatusMessage}
+                  setStatusColor={setStatusColor}
                 />
               </Modal>
             </div>
