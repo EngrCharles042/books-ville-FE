@@ -42,25 +42,28 @@ export const UserDashboardHeader = () => {
         <div className="items-stretch flex justify-between gap-5 my-auto">
           <Link
             to={"/user-dashboard"}
-            className="text-black text-xl font-medium leading-7 grow whitespace-nowrap cursor-pointer hover:text-green-500"
+            className="text-black text-xl font-medium leading-7 grow whitespace-nowrap cursor-pointer hover:text-green-500 focus:text-green-500"
           >
             Home
           </Link>
           <Link
             to={"/user-dashboard/categories"}
-            className="text-black text-xl font-medium leading-7 cursor-pointer hover:text-green-500"
+            className="text-black text-xl font-medium leading-7 cursor-pointer hover:text-green-500 focus:text-green-500"
           >
             Categories
           </Link>
           <Link
             to={"/user-dashboard/cart"}
-            className="text-black text-xl font-medium leading-7 cursor-pointer hover:text-green-500"
+            className="text-black text-xl font-medium leading-7 cursor-pointer hover:text-green-500 focus:text-green-500"
           >
             Cart
           </Link>
-          <div className="text-black text-xl font-medium leading-7 grow whitespace-nowrap cursor-pointer hover:text-green-500">
+          <Link
+            to={"/user-dashboard"}
+            className="text-black text-xl font-medium leading-7 grow whitespace-nowrap cursor-pointer hover:text-green-500 focus:text-green-500"
+          >
             Services
-          </div>
+          </Link>
         </div>
         <div className="items-center self-stretch flex justify-between gap-5">
           <img

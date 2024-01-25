@@ -8,7 +8,12 @@ import { SavedBooks } from "./SavedBooks.jsx";
 import { AccountSetting } from "./AccountSetting.jsx";
 import { Checkout } from "./Checkout.jsx";
 
-export const UserDashboardPage = () => {
+export const UserDashboardPage = ({
+  handleStatus,
+  setStatusTitle,
+  setStatusMessage,
+  setStatusColor,
+}) => {
   return (
     <>
       <div className="m-auto pb-[5rem]">
@@ -34,7 +39,17 @@ export const UserDashboardPage = () => {
 
             <Route path={"/saved-books"} element={<SavedBooks />} />
 
-            <Route path={"/profile"} element={<AccountSetting />} />
+            <Route
+              path={"/profile"}
+              element={
+                <AccountSetting
+                  handleStatus={handleStatus}
+                  setStatusTitle={setStatusTitle}
+                  setStatusMessage={setStatusMessage}
+                  setStatusColor={setStatusColor}
+                />
+              }
+            />
 
             <Route path={"/cart"} element={<Checkout />} />
           </Routes>
