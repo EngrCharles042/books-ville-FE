@@ -10,6 +10,8 @@ export const ImageUploadModal = ({
   setStatusMessage,
   setStatusColor,
 }) => {
+  const userData = JSON.parse(localStorage.getItem("userData"));
+
   const [clip, setClip] = useState(false);
 
   const enableStatus = (title, message, color) => {
@@ -26,56 +28,54 @@ export const ImageUploadModal = ({
     },
   });
 
-  const uploadSingleFile = async (e) => {
-    e.preventDefault();
-
+  function uploadSingleFile(profilePic) {
     const formData = new FormData();
-    formData.append("profilePic");
+    formData.append("profilePic", profilePic);
 
-    const token = localStorage.getItem("token");
+    axios
+      .patch("/user/profile-pic", formData, {
+        headers: {
+          Authorization: `Bearer ${userData.accessToken}`,
+          "Content-Type": "multipart/form-data", // Specify content type for file upload
+        },
+      })
+      .then((response) => {
+        localStorage.setItem("profilePicture", response.data.responseData);
 
-    try {
-      setClip(true);
+        setClip(false);
 
-      await axios
-        .post("/user/profile-pic", formData, {
-          headers: {
-            Authorization: `Bearer ${formData.accessToken}`,
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((response) => {
-          setClip(false);
+        enableStatus(
+          "Congratulations",
+          "Your picture have been successfully added",
+          "bg-green-600",
+        );
 
-          enableStatus(
-            "Congratulations",
-            "Your picture have been successfully added",
-            "bg-green-600",
-          );
+        setTimeout(() => {
+          onCancel();
+        }, 2000);
+      })
+      .catch((error) => {
+        setClip(false);
 
-          setTimeout(() => {
-            onCancel();
-          }, 2000);
-        });
-    } catch (error) {
-      setClip(false);
+        enableStatus(
+          "Oops!",
+          "Something went wrong, Picture Upload failed",
+          "bg-red-600",
+        );
 
-      enableStatus(
-        "Oops!",
-        "Something went wrong, Picture Upload failed",
-        "bg-red-600",
-      );
-    }
-  };
+        console.error(error.message);
+      });
+  }
 
   return (
-    <div className="items-stretch bg-white flex max-w-[399px] flex-col p-8 rounded-lg">
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          uploadSingleFile(uploadedFiles[0]);
-        }}
-      >
+    <div
+      onSubmit={(e) => {
+        e.preventDefault();
+        uploadSingleFile(uploadedFiles[0]);
+      }}
+      className="items-stretch bg-white flex max-w-[399px] flex-col p-8 rounded-lg"
+    >
+      <form>
         <div className="items-center flex flex-col px-14 py-0.5">
           <div className="text-gray-900 text-center text-base font-semibold tracking-normal w-full">
             Upload your Image
@@ -84,7 +84,10 @@ export const ImageUploadModal = ({
             PNG, JPG and GIF file are allowed
           </div>
         </div>
-        <div className="items-stretch border border-[color:var(--Gray-200,#E5E7EB)] bg-white flex w-full flex-col mt-8 p-12 rounded-lg border-dashed">
+        <div
+          {...getRootProps()}
+          className="items-stretch border border-[color:var(--Gray-200,#E5E7EB)] bg-white flex w-full flex-col mt-8 p-12 rounded-lg border-dashed"
+        >
           <img
             loading="lazy"
             src="https://cdn.builder.io/api/v1/image/assets/TEMP/e97cc01fb14e8a911a049a88e861fed731df96bab189e261a33bc1e2641cac5f?"
@@ -92,6 +95,7 @@ export const ImageUploadModal = ({
           />
           <div className="justify-between items-stretch flex gap-1.5 mt-5">
             <div className="text-gray-800 text-base font-medium leading-6 tracking-normal grow whitespace-nowrap">
+              <input {...getInputProps()} />
               Drop your files here or
             </div>
             <div className="text-blue-500 text-center text-base font-semibold leading-6 tracking-normal whitespace-nowrap">
@@ -101,9 +105,23 @@ export const ImageUploadModal = ({
           <div className="text-gray-400 text-center text-sm font-medium leading-5 tracking-normal self-center whitespace-nowrap mt-1.5">
             Maximum size: 50MB
           </div>
+
+          {uploadedFiles.map((file) => (
+            <div
+              key={file.name}
+              style={{
+                marginTop: "8px",
+                padding: "",
+                backgroundColor: "#888888",
+                borderRadius: "4px",
+              }}
+            >
+              {file.name}
+            </div>
+          ))}
         </div>
 
-        <span className="justify-between items-center flex gap-5 mt-10 self-center">
+        <span className="justify-between items-center flex gap-5 mt-5 self-center">
           <div
             onClick={onCancel}
             className="hover:bg-red-600 hover:text-white cursor-pointer text-center text-red-500 text-sm font-medium leading-5 tracking-[2px] uppercase whitespace-nowrap justify-center items-stretch border self-stretch grow px-4 py-3 rounded-md border-solid border-red-600"
@@ -112,7 +130,8 @@ export const ImageUploadModal = ({
           </div>
           <button
             style={!clip ? {} : { backgroundColor: "" }}
-            type="submit"
+            // onClick={handleChangeAvatar}
+            type={"submit"}
             className={`hover:bg-green-600 hover:text-white cursor-pointer ${!clip ? "" : "bg-green-500"} ${!clip ? "text-green-500" : "text-white"} text-sm font-medium leading-5 tracking-[2px] uppercase whitespace-nowrap justify-center items-stretch border self-stretch grow px-4 py-3 rounded-md border-solid border-green-600`}
           >
             {!clip ? (
