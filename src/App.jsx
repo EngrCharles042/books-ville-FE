@@ -115,7 +115,17 @@ function App() {
           </Route>
         </Route>
 
-        <Route path={"/user-dashboard"} element={<UserDashboardPage />}>
+        <Route
+          path={"/user-dashboard"}
+          element={
+            <UserDashboardPage
+              handleStatus={handleStatus}
+              setStatusTitle={setStatusTitle}
+              setStatusMessage={setStatusMessage}
+              setStatusColor={setStatusColor}
+            />
+          }
+        >
           <Route
             path={"/user-dashboard/categories"}
             element={<UserCategoryPage />}
@@ -134,7 +144,14 @@ function App() {
           />
           <Route
             path={"/user-dashboard/profile"}
-            element={<AccountSetting />}
+            element={
+              <AccountSetting
+                handleStatus={handleStatus}
+                setStatusTitle={setStatusTitle}
+                setStatusMessage={setStatusMessage}
+                setStatusColor={setStatusColor}
+              />
+            }
           />
           <Route path={"/user-dashboard/cart"} element={<Checkout />} />
         </Route>

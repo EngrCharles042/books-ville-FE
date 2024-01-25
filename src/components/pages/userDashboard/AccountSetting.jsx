@@ -2,9 +2,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../../../api/axios.jsx";
 import { ClipLoader } from "react-spinners";
+import { FaLock, FaLockOpen } from "react-icons/fa";
+import Modal from "react-modal";
+import { ImageUploadModal } from "./ImageUploadModal.jsx";
 
 export const AccountSetting = ({
-  setDep,
   handleStatus,
   setStatusTitle,
   setStatusMessage,
@@ -40,6 +42,37 @@ export const AccountSetting = ({
     setStatusColor(color);
   };
 
+  const [isFirstNamePadlockOpen, setIsFirstNamePadlockOpen] = useState(false);
+  const [isLastNamePadlockOpen, setIsLastNamePadlockOpen] = useState(false);
+  const [isPhoneNumberPadlockOpen, setIsPhoneNumberPadlockOpen] =
+    useState(false);
+
+  const handlePadlockClick = (padlockType) => {
+    switch (padlockType) {
+      case "firstName":
+        setIsFirstNamePadlockOpen(!isFirstNamePadlockOpen);
+        break;
+      case "lastName":
+        setIsLastNamePadlockOpen(!isLastNamePadlockOpen);
+        break;
+      case "phoneNumber":
+        setIsPhoneNumberPadlockOpen(!isPhoneNumberPadlockOpen);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleProfileClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   const handleGoBack = () => {
     navigate(-1);
   };
@@ -56,26 +89,27 @@ export const AccountSetting = ({
       await axios
         .put("/user/account-info", formData, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${userData.accessToken}`,
           },
         })
         .then((response) => {
           setClip(false);
 
           enableStatus(
-            "Congratulations",
             "Update Successful",
             "Your contact information has been updated successfully",
+            "bg-green-600",
           );
-          console.log(response.data.data);
+          console.log(response.data.responseData);
         });
-
-      // Trigger the UseEffect in the User Component to effect user's details
-      setDep();
     } catch (error) {
       setClip(false);
 
-      enableStatus("error", "Oops!", "Something went wrong please try again");
+      enableStatus(
+        "Oops!",
+        "Something went wrong please try again",
+        "bg-red-600",
+      );
 
       console.log(error.message);
     }
@@ -159,7 +193,35 @@ export const AccountSetting = ({
                 loading="lazy"
                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/68fc7dc94bfd300bbf2ecb7ce9c917c726fb967fbccf26dc88a79e4e873ff255?"
                 className="cursor-pointer hover:scale-150 transition aspect-square absolute top-[5.5rem] right-0 object-contain object-center overflow-hidden ml-4 mt-6 max-md:ml-2.5"
+                onClick={handleProfileClick}
               />
+              <Modal
+                isOpen={isModalOpen}
+                onRequestClose={handleCloseModal}
+                style={{
+                  overlay: {
+                    backgroundColor: "rgba(0, 0, 0, 0.5)",
+                    zIndex: 1000,
+                  },
+                  content: {
+                    maxWidth: "400px",
+                    maxHeight: "500px",
+                    margin: "auto",
+                    background: "white",
+                    borderRadius: "8px",
+                    padding: "20px",
+                  },
+                }}
+              >
+                <ImageUploadModal
+                  // formData={formData}
+                  onCancel={handleCloseModal}
+                  // handleStatus={handleStatus}
+                  // setStatusTitle={setStatusTitle}
+                  // setStatusMessage={setStatusMessage}
+                  // setStatusColor={setStatusColor}
+                />
+              </Modal>
             </div>
 
             <div>
@@ -177,15 +239,11 @@ export const AccountSetting = ({
                   onChange={handleChange}
                   id="email"
                   autoComplete="email"
-                  placeholder="SandraBloyd@gmail.com"
+                  placeholder={formData.email}
                   disabled
                   className="items-stretch border border-[color:var(--Grey-300,#D0D5DD)] bg-gray-200 self-center flex w-full max-w-full justify-between gap-5 mt-2 px-4 py-3 rounded-lg border-solid max-md:flex-wrap"
                 />
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/4227aace2b02c354625d34b529b0c7dcf5504222140cf00bf95310754c1f3ef3?"
-                  className="absolute top-[2.7rem] right-4 aspect-square object-contain object-center w-5 overflow-hidden shrink-0 max-w-full"
-                />
+                <FaLock className="absolute top-[2.7rem] right-4 cursor-pointer aspect-square object-contain object-center w-5 overflow-hidden shrink-0 max-w-full" />
               </span>
             </div>
 
@@ -204,14 +262,23 @@ export const AccountSetting = ({
                   onChange={handleChange}
                   id="first-name"
                   autoComplete="given-name"
-                  placeholder="Sandra"
+                  placeholder={userData.firstName}
                   className="items-stretch border border-[color:var(--Grey-300,#D0D5DD)] self-center flex w-full max-w-full justify-between gap-5 mt-2 px-4 py-3 rounded-lg border-solid max-md:flex-wrap"
+                  disabled={!isFirstNamePadlockOpen}
                 />
-                {/*<img*/}
-                {/*  loading="lazy"*/}
-                {/*  src="https://cdn.builder.io/api/v1/image/assets/TEMP/4227aace2b02c354625d34b529b0c7dcf5504222140cf00bf95310754c1f3ef3?"*/}
-                {/*  className="absolute top-[2.7rem] right-4 aspect-square object-contain object-center w-5 overflow-hidden shrink-0 max-w-full"*/}
-                {/*/>*/}
+                <FaLock
+                  onClick={() => handlePadlockClick("firstName")}
+                  className={`absolute top-[2.7rem] right-4 cursor-pointer aspect-square object-contain object-center w-5 overflow-hidden shrink-0 max-w-full ${
+                    isFirstNamePadlockOpen ? "hidden" : ""
+                  }`}
+                />
+                <FaLockOpen
+                  onClick={() => handlePadlockClick("firstName")}
+                  color="green"
+                  className={`absolute top-[2.7rem] right-4 cursor-pointer aspect-square object-contain object-center w-5 overflow-hidden shrink-0 max-w-full ${
+                    isFirstNamePadlockOpen ? "" : "hidden"
+                  }`}
+                />
               </span>
             </div>
 
@@ -230,14 +297,23 @@ export const AccountSetting = ({
                   onChange={handleChange}
                   id="last-name"
                   autoComplete="given-name"
-                  placeholder="Bloyd"
+                  placeholder={userData.lastName}
                   className="items-stretch border border-[color:var(--Grey-300,#D0D5DD)] self-center flex w-full max-w-full justify-between gap-5 mt-2 px-4 py-3 rounded-lg border-solid max-md:flex-wrap"
+                  disabled={!isLastNamePadlockOpen}
                 />
-                {/*<img*/}
-                {/*  loading="lazy"*/}
-                {/*  src="https://cdn.builder.io/api/v1/image/assets/TEMP/4227aace2b02c354625d34b529b0c7dcf5504222140cf00bf95310754c1f3ef3?"*/}
-                {/*  className="absolute top-[2.7rem] right-4 aspect-square object-contain object-center w-5 overflow-hidden shrink-0 max-w-full"*/}
-                {/*/>*/}
+                <FaLock
+                  onClick={() => handlePadlockClick("lastName")}
+                  className={`absolute top-[2.7rem] right-4 cursor-pointer aspect-square object-contain object-center w-5 overflow-hidden shrink-0 max-w-full ${
+                    isLastNamePadlockOpen ? "hidden" : ""
+                  }`}
+                />
+                <FaLockOpen
+                  onClick={() => handlePadlockClick("lastName")}
+                  color="green"
+                  className={`absolute top-[2.7rem] right-4 cursor-pointer aspect-square object-contain object-center w-5 overflow-hidden shrink-0 max-w-full ${
+                    isLastNamePadlockOpen ? "" : "hidden"
+                  }`}
+                />
               </span>
             </div>
 
@@ -248,7 +324,7 @@ export const AccountSetting = ({
               >
                 Phone Number
               </label>
-              <span className=" text-gray-600">
+              <span className="relative text-gray-600">
                 <input
                   type="tel"
                   name="phoneNumber"
@@ -256,8 +332,22 @@ export const AccountSetting = ({
                   onChange={handleChange}
                   id="phone-number"
                   autoComplete="phone-number"
-                  placeholder={formData.phoneNumber}
+                  placeholder={userData.phoneNumber}
                   className="items-stretch border border-[color:var(--Grey-300,#D0D5DD)] self-center flex w-full max-w-full justify-between gap-5 mt-2 px-4 py-3 rounded-lg border-solid max-md:flex-wrap"
+                  disabled={!isPhoneNumberPadlockOpen}
+                />
+                <FaLock
+                  onClick={() => handlePadlockClick("phoneNumber")}
+                  className={`absolute top-[2.7rem] right-4 cursor-pointer aspect-square object-contain object-center w-5 overflow-hidden shrink-0 max-w-full ${
+                    isPhoneNumberPadlockOpen ? "hidden" : ""
+                  }`}
+                />
+                <FaLockOpen
+                  onClick={() => handlePadlockClick("phoneNumber")}
+                  color="green"
+                  className={`absolute top-[2.7rem] right-4 cursor-pointer aspect-square object-contain object-center w-5 overflow-hidden shrink-0 max-w-full ${
+                    isPhoneNumberPadlockOpen ? "" : "hidden"
+                  }`}
                 />
               </span>
             </div>
