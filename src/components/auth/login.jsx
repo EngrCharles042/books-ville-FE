@@ -4,6 +4,8 @@ import { ClipLoader } from "react-spinners";
 import logo from "../../assets/images/landingPageImages/booksvillelogo.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
+import {useGoogleLogin} from '@react-oauth/google';
+import {jwtDecode} from "jwt-decode";
 
 export const Login = ({
   handleStatus,
@@ -40,6 +42,30 @@ export const Login = ({
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
+
+  const login = useGoogleLogin({
+    onSuccess: (tokenResponse) => {
+      console.log(tokenResponse)
+
+      enableStatus(
+          "Login Successful",
+          "You have logged in successfully",
+          "bg-green-600",
+      );
+
+      setTimeout(() => {
+          navigate("/user-dashboard");
+      }, 2500);
+    },
+    onError: (tokenResponse) => {
+      enableStatus(
+          "Oops!",
+          "Something went wrong, Please check your inputs and try again",
+          "bg-red-600",
+      );
+    }
+
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -205,7 +231,7 @@ export const Login = ({
 
             <Link
               to={"/forgot-password"}
-              className="cursor-pointer text-green-500 text-base leading-6 tracking-normal underline self-stretch max-md:max-w-full"
+              className="cursor-pointer w-fit text-green-500 text-base leading-6 tracking-normal underline self-stretch max-md:max-w-full"
             >
               Forgot Password
             </Link>
@@ -215,7 +241,7 @@ export const Login = ({
               <div className="text-gray-400 text-sm leading-5">OR</div>
               <div className="bg-gray-200 self-center w-[203px] shrink-0 h-0.5 my-auto" />
             </div>
-            <div className="justify-center items-center self-stretch border border-[color:var(--Grey-300,#D0D5DD)] bg-white flex flex-col mt-3 px-16 py-3 rounded-lg border-solid max-md:max-w-full max-md:px-5">
+            <div onClick={login} className="hover:bg-gray-300 transition cursor-pointer justify-center items-center self-stretch border border-[color:var(--Grey-300,#D0D5DD)] bg-white flex flex-col mt-3 px-16 py-3 rounded-lg border-solid max-md:max-w-full max-md:px-5">
               <div className="flex items-stretch gap-2">
                 <img
                   loading="lazy"
