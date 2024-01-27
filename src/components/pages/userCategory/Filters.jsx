@@ -1,15 +1,5 @@
 import {useEffect, useState} from "react";
 export const Filters = () => {
-    // const [filledData] = useState(
-    //     () => {
-    //         const data = new FormData();
-    //
-    //         data.append('FANTASY', 'FANTASY')
-    //         data.append('ROMANCE', 'ROMANCE')
-    //
-    //         return data;
-    //     }
-    // )
 
     const [formData, setFormData] = useState({
         FANTASY: '',
@@ -37,21 +27,13 @@ export const Filters = () => {
             data.append('FANTASY', `${formData.FANTASY}`)
             data.append('ROMANCE', `${formData.ROMANCE}`)
 
-            // if (
-            //     data.get('FANTASY').length === 0 &&
-            //     data.get('ROMANCE').length === 0
-            // ) {
-            //     getData(filledData)
-            // } else {
-            //     getData(data);
-            // }
         }
 
         handleSubmit();
     }, [formData]);
 
     return (
-        <form className="justify-center items-stretch bg-white flex max-w-[18rem] flex-col px-8 py-7 rounded-md">
+        <form className="sticky justify-center items-stretch bg-white flex max-w-[18rem] flex-col px-8 py-7 rounded-md">
             <div className="overflow-hidden text-zinc-900 text-ellipsis whitespace-nowrap text-3xl font-bold">
                 Filters
             </div>

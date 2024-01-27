@@ -104,10 +104,9 @@ export const Login = ({
           }
         }, 2500);
 
-        localStorage.setItem(
-          "userData",
-          JSON.stringify(result.data.responseData),
-        );
+        localStorage.setItem("userData", JSON.stringify(result.data.responseData));
+
+        localStorage.setItem("profilePicture", JSON.stringify(result.data.responseData.profilePicture));
 
         console.log("User login successful");
       });

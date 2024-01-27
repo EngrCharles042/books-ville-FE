@@ -92,7 +92,7 @@ export const SignUp = ({
 
         setTimeout(() => {
           navigate("/login");
-        }, 5000);
+        }, 2500);
 
         // Handle success (redirect, show message, etc.)
         console.log(result.data);

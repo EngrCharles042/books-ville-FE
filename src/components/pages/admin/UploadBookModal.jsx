@@ -55,7 +55,7 @@ export const UploadBookModal = ({ onCancel, formData, handleStatus, setStatusTit
 
             setTimeout(() => {
               onCancel();
-            }, 2000)
+            }, 2500)
           }
       )
     } catch (error) {
