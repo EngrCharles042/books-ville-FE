@@ -7,13 +7,36 @@ import { PurchasedBooks } from "./PurchasedBooks.jsx";
 import { SavedBooks } from "./SavedBooks.jsx";
 import { AccountSetting } from "./AccountSetting.jsx";
 import { Checkout } from "./Checkout.jsx";
+import {useEffect, useState} from "react";
+import axios from "../../../api/axios.jsx";
 
-export const UserDashboardPage = ({
-  handleStatus,
-  setStatusTitle,
-  setStatusMessage,
-  setStatusColor,
-}) => {
+export const UserDashboardPage = ({handleStatus, setStatusTitle, setStatusMessage, setStatusColor}) => {
+
+  const [dependency, setDependency] = useState(false)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await axios.get("/user", {
+        headers: {
+          'Authorization': `Bearer ${JSON.parse(localStorage.getItem("userData")).accessToken}`
+        }
+      }).then(
+          response => {
+            setUser(response.data.responseData)
+          }
+      )
+    }
+
+    fetchData()
+
+  }, [dependency]);
+
+  const [user, setUser] = useState();
+
+  const setDep = () => {
+    setDependency(!dependency);
+  }
+
   return (
     <>
       <div className="m-auto pb-[5rem]">
@@ -24,7 +47,9 @@ export const UserDashboardPage = ({
             zIndex: "100",
           }}
         >
-          <UserDashboardHeader />
+          <UserDashboardHeader
+            userData={user}
+          />
         </div>
 
         <div className="pt-[3rem]">
@@ -47,6 +72,8 @@ export const UserDashboardPage = ({
                   setStatusTitle={setStatusTitle}
                   setStatusMessage={setStatusMessage}
                   setStatusColor={setStatusColor}
+                  userData={user}
+                  setDep={setDep}
                 />
               }
             />

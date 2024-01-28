@@ -9,7 +9,9 @@ export const ImageUploadModal = ({
   setStatusTitle,
   setStatusMessage,
   setStatusColor,
+  setDep
 }) => {
+
   const userData = JSON.parse(localStorage.getItem("userData"));
 
   const [clip, setClip] = useState(false);
@@ -22,25 +24,31 @@ export const ImageUploadModal = ({
   };
 
   const [uploadedFiles, setUploadedFiles] = useState([]);
+
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: (acceptedFiles) => {
       setUploadedFiles(acceptedFiles);
     },
   });
 
-  function uploadSingleFile(profilePic) {
+  const handleUpload = (e) => {
+    e.preventDefault()
+
+    setClip(true)
+
     const formData = new FormData();
-    formData.append("profilePic", profilePic);
+    formData.append("profilePic", uploadedFiles[0]);
 
     axios
       .patch("/user/profile-pic", formData, {
         headers: {
           Authorization: `Bearer ${userData.accessToken}`,
-          "Content-Type": "multipart/form-data", // Specify content type for file upload
+          "Content-Type": "multipart/form-data"
         },
       })
       .then((response) => {
-        localStorage.setItem("profilePicture", response.data.responseData);
+
+        localStorage.setItem("profilePicture", JSON.stringify(response.data.responseData));
 
         setClip(false);
 
@@ -52,7 +60,10 @@ export const ImageUploadModal = ({
 
         setTimeout(() => {
           onCancel();
-        }, 2000);
+        }, 2500);
+
+        setDep();
+
       })
       .catch((error) => {
         setClip(false);
@@ -68,13 +79,7 @@ export const ImageUploadModal = ({
   }
 
   return (
-    <div
-      onSubmit={(e) => {
-        e.preventDefault();
-        uploadSingleFile(uploadedFiles[0]);
-      }}
-      className="items-stretch bg-white flex max-w-[399px] flex-col p-8 rounded-lg"
-    >
+    <div onSubmit={handleUpload} className="items-stretch bg-white flex max-w-[399px] flex-col p-8 rounded-lg">
       <form>
         <div className="items-center flex flex-col px-14 py-0.5">
           <div className="text-gray-900 text-center text-base font-semibold tracking-normal w-full">
@@ -98,7 +103,7 @@ export const ImageUploadModal = ({
               <input {...getInputProps()} />
               Drop your files here or
             </div>
-            <div className="text-blue-500 text-center text-base font-semibold leading-6 tracking-normal whitespace-nowrap">
+            <div className="cursor-pointer hover:text-blue-600 transition text-blue-500 text-center text-base font-semibold leading-6 tracking-normal whitespace-nowrap">
               browse
             </div>
           </div>

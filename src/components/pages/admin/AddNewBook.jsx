@@ -135,9 +135,13 @@ export const AddNewBook = ({handleStatus, setStatusTitle, setStatusMessage, setS
                                 className="text-black text-xs font-medium leading-4 tracking-wide whitespace-nowrap border-[color:var(--Gray-600,#757575)] w-full justify-center mt-2 pl-5 pr-16 py-5 rounded-md border-[1.694px] border-solid self-start items-start max-md:pr-5"
                             >
                                 <option value="" selected disabled>Select a Genre</option>
-                                <option value="FICTION">Fiction</option>
-                                <option value="COMICS">Comics</option>
+                                <option value="ADVENTURE">Adventure</option>
+                                <option value="FANTASY">Fantasy</option>
+                                <option value="HORROR">Horror</option>
+                                <option value="MUSICAL">Musical</option>
+                                <option value="NON_FICTION">Non Fiction</option>
                                 <option value="ROMANCE">Romance</option>
+                                <option value="SPIRITUAL">Spiritual</option>
                             </select>
                         </div>
                     </div>

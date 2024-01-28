@@ -3,8 +3,7 @@ import { ProfilePopUp } from "../../../utils/ProfilePopUp.jsx";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-export const UserDashboardHeader = () => {
-  // const [activeNav, setActiveNav] = useState()
+export const UserDashboardHeader = ({userData}) => {
 
   const [profileClick, setProfileCLick] = useState(false);
 
@@ -78,7 +77,7 @@ export const UserDashboardHeader = () => {
           >
             <img
               loading="lazy"
-              srcSet={profilePic}
+              srcSet={userData?.profilePicture}
               className="aspect-square object-contain object-center w-9 overflow-hidden self-stretch shrink-0 max-w-full rounded-[50%]"
               alt="profile picture"
             />

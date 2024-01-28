@@ -7,13 +7,7 @@ import Modal from "react-modal";
 import { ImageUploadModal } from "./ImageUploadModal.jsx";
 import {ChangePassword} from "./ChangePassword.jsx";
 
-export const AccountSetting = ({
-  handleStatus,
-  setStatusTitle,
-  setStatusMessage,
-  setStatusColor,
-}) => {
-  const userData = JSON.parse(localStorage.getItem("userData"));
+export const AccountSetting = ({handleStatus, setStatusTitle, setStatusMessage, setStatusColor, userData, setDep}) => {
 
   const [formData, setFormData] = useState({
     email: `${userData.email}`,
@@ -46,8 +40,7 @@ export const AccountSetting = ({
   const [isFirstNamePadlockOpen, setIsFirstNamePadlockOpen] = useState(false);
   const [isLastNamePadlockOpen, setIsLastNamePadlockOpen] = useState(false);
 
-  const [isPhoneNumberPadlockOpen, setIsPhoneNumberPadlockOpen] =
-    useState(false);
+  const [isPhoneNumberPadlockOpen, setIsPhoneNumberPadlockOpen] = useState(false);
 
   const handlePadlockClick = (padlockType) => {
     switch (padlockType) {
@@ -172,69 +165,72 @@ export const AccountSetting = ({
           </div>
 
           { display === "profile" &&
-              <form
-                  onSubmit={handleSubmit}
-                  className="flex flex-col w-[436px] mx-auto"
-              >
-                <div className="text-gray-900 text-2xl font-bold leading-8 mt-10 max-md:mt-10">
-                  Account
-                </div>
-                <div className="text-gray-500 text-sm leading-5 whitespace-nowrap">
-                  Manage your Booksville account
-                </div>
+              <div>
 
-                <div className="w-fit mx-auto relative">
-                  <div className="flex-col justify-end overflow-hidden self-center relative flex aspect-square w-[100px] border border-black rounded-[50%] max-w-full mt-10 pl-16 pt-12 pb-0.5 items-start max-md:pl-5">
+                <Modal
+                    isOpen={isModalOpen}
+                    onRequestClose={handleCloseModal}
+                    style={{
+                      overlay: {
+                        backgroundColor: "rgba(0, 0, 0, 0.5)",
+                        zIndex: 1000,
+                      },
+                      content: {
+                        maxWidth: "400px",
+                        maxHeight: "500px",
+                        margin: "auto",
+                        background: "white",
+                        borderRadius: "8px",
+                        padding: "20px",
+                      },
+                    }}
+                >
+                  <ImageUploadModal
+                      setDep={setDep}
+                      onCancel={handleCloseModal}
+                      handleStatus={handleStatus}
+                      setStatusTitle={setStatusTitle}
+                      setStatusMessage={setStatusMessage}
+                      setStatusColor={setStatusColor}
+                  />
+                </Modal>
+
+                <form
+                    onSubmit={handleSubmit}
+                    className="flex flex-col w-[436px] mx-auto"
+                >
+                  <div className="text-gray-900 text-2xl font-bold leading-8 mt-10 max-md:mt-10">
+                    Account
+                  </div>
+                  <div className="text-gray-500 text-sm leading-5 whitespace-nowrap">
+                    Manage your Booksville account
+                  </div>
+
+                  <div className="w-fit mx-auto relative">
+                    <div className="flex-col justify-end overflow-hidden self-center relative flex aspect-square w-[100px] border border-black rounded-[50%] max-w-full mt-10 pl-16 pt-12 pb-0.5 items-start max-md:pl-5">
+                      <img
+                          loading="lazy"
+                          srcSet={userData?.profilePicture}
+                          className="absolute h-full w-full object-cover object-center inset-0"
+                      />
+                    </div>
+
                     <img
                         loading="lazy"
-                        srcSet="https://res.cloudinary.com/dpfqbb9pl/image/upload/v1701612334/fkoby8jmumgdzfxcycrh.jpg"
-                        className="absolute h-full w-full object-cover object-center inset-0"
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/68fc7dc94bfd300bbf2ecb7ce9c917c726fb967fbccf26dc88a79e4e873ff255?"
+                        className="cursor-pointer hover:scale-150 transition aspect-square absolute top-[5.5rem] right-0 object-contain object-center overflow-hidden ml-4 mt-6 max-md:ml-2.5"
+                        onClick={handleProfileClick}
                     />
                   </div>
 
-                  <img
-                      loading="lazy"
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/68fc7dc94bfd300bbf2ecb7ce9c917c726fb967fbccf26dc88a79e4e873ff255?"
-                      className="cursor-pointer hover:scale-150 transition aspect-square absolute top-[5.5rem] right-0 object-contain object-center overflow-hidden ml-4 mt-6 max-md:ml-2.5"
-                      onClick={handleProfileClick}
-                  />
-                  <Modal
-                      isOpen={isModalOpen}
-                      onRequestClose={handleCloseModal}
-                      style={{
-                        overlay: {
-                          backgroundColor: "rgba(0, 0, 0, 0.5)",
-                          zIndex: 1000,
-                        },
-                        content: {
-                          maxWidth: "400px",
-                          maxHeight: "500px",
-                          margin: "auto",
-                          background: "white",
-                          borderRadius: "8px",
-                          padding: "20px",
-                        },
-                      }}
-                  >
-                    <ImageUploadModal
-                        formData={formData}
-                        onCancel={handleCloseModal}
-                        handleStatus={handleStatus}
-                        setStatusTitle={setStatusTitle}
-                        setStatusMessage={setStatusMessage}
-                        setStatusColor={setStatusColor}
-                    />
-                  </Modal>
-                </div>
-
-                <div>
-                  <label
-                      htmlFor="email"
-                      className="text-gray-900 text-base font-semibold leading-6 tracking-normal self-center mt-4 max-md:max-w-full"
-                  >
-                    Email Address
-                  </label>
-                  <span className="relative text-gray-600">
+                  <div>
+                    <label
+                        htmlFor="email"
+                        className="text-gray-900 text-base font-semibold leading-6 tracking-normal self-center mt-4 max-md:max-w-full"
+                    >
+                      Email Address
+                    </label>
+                    <span className="relative text-gray-600">
                 <input
                     type="email"
                     name="email"
@@ -248,16 +244,16 @@ export const AccountSetting = ({
                 />
                 <FaLock className="absolute top-[2.7rem] right-4 cursor-pointer aspect-square object-contain object-center w-5 overflow-hidden shrink-0 max-w-full" />
               </span>
-                </div>
+                  </div>
 
-                <div className="mt-5">
-                  <label
-                      htmlFor="first-name"
-                      className="text-gray-900 text-base font-semibold leading-6 tracking-normal self-center mt-4 max-md:max-w-full"
-                  >
-                    First Name
-                  </label>
-                  <span className="relative text-gray-600">
+                  <div className="mt-5">
+                    <label
+                        htmlFor="first-name"
+                        className="text-gray-900 text-base font-semibold leading-6 tracking-normal self-center mt-4 max-md:max-w-full"
+                    >
+                      First Name
+                    </label>
+                    <span className="relative text-gray-600">
                 <input
                     type="text"
                     name="firstName"
@@ -283,16 +279,16 @@ export const AccountSetting = ({
                     }`}
                 />
               </span>
-                </div>
+                  </div>
 
-                <div className="mt-5">
-                  <label
-                      htmlFor="last-name"
-                      className="text-gray-900 text-base font-semibold leading-6 tracking-normal self-center mt-4 max-md:max-w-full"
-                  >
-                    Last Name
-                  </label>
-                  <span className="relative text-gray-600">
+                  <div className="mt-5">
+                    <label
+                        htmlFor="last-name"
+                        className="text-gray-900 text-base font-semibold leading-6 tracking-normal self-center mt-4 max-md:max-w-full"
+                    >
+                      Last Name
+                    </label>
+                    <span className="relative text-gray-600">
                 <input
                     type="text"
                     name="lastName"
@@ -318,16 +314,16 @@ export const AccountSetting = ({
                     }`}
                 />
               </span>
-                </div>
+                  </div>
 
-                <div className="mt-5">
-                  <label
-                      htmlFor="phone-number"
-                      className="text-gray-900 text-base font-semibold leading-6 tracking-normal self-center mt-4 max-md:max-w-full"
-                  >
-                    Phone Number
-                  </label>
-                  <span className="relative text-gray-600">
+                  <div className="mt-5">
+                    <label
+                        htmlFor="phone-number"
+                        className="text-gray-900 text-base font-semibold leading-6 tracking-normal self-center mt-4 max-md:max-w-full"
+                    >
+                      Phone Number
+                    </label>
+                    <span className="relative text-gray-600">
                 <input
                     type="tel"
                     name="phoneNumber"
@@ -353,22 +349,23 @@ export const AccountSetting = ({
                     }`}
                 />
               </span>
-                </div>
+                  </div>
 
-                <button
-                    style={!clip ? {} : { backgroundColor: "" }}
-                    type="submit"
-                    name="submit"
-                    value="Save Changes"
-                    className="cursor-pointer transition hover:bg-green-600 text-white text-center text-base font-semibold leading-6 tracking-normal whitespace-nowrap justify-center items-center bg-green-500 self-center w-full max-w-full mt-6 px-16 py-3 rounded-lg max-md:px-5"
-                >
-                  {!clip ? (
-                      "Save"
-                  ) : (
-                      <ClipLoader color="#FFFFFF" loading={true} size={20} />
-                  )}
-                </button>
-              </form>
+                  <button
+                      style={!clip ? {} : { backgroundColor: "" }}
+                      type="submit"
+                      name="submit"
+                      value="Save Changes"
+                      className="cursor-pointer transition hover:bg-green-600 text-white text-center text-base font-semibold leading-6 tracking-normal whitespace-nowrap justify-center items-center bg-green-500 self-center w-full max-w-full mt-6 px-16 py-3 rounded-lg max-md:px-5"
+                  >
+                    {!clip ? (
+                        "Save"
+                    ) : (
+                        <ClipLoader color="#FFFFFF" loading={true} size={20} />
+                    )}
+                  </button>
+                </form>
+              </div>
           }
 
           { display === "password" &&
