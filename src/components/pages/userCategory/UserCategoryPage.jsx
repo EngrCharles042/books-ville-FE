@@ -1,12 +1,6 @@
-import restless from "../../../assets/images/userCatImages/restless.png";
-import summer from "../../../assets/images/userCatImages/summer.png";
-import girl from "../../../assets/images/userCatImages/girl.png";
-import ninth from "../../../assets/images/userCatImages/ninth.png";
-import maybe from "../../../assets/images/userCatImages/maybe.png";
 import { Filters } from "./Filters.jsx";
 import {useEffect, useState} from "react";
 import { BookDetails } from "../BookDetails.jsx";
-import { useNavigate } from "react-router-dom";
 import axios from "../../../api/axios.jsx";
 import {BookDisplayCard} from "./comps/BookDisplayCard.jsx";
 
@@ -67,6 +61,7 @@ export const UserCategoryPage = () => {
                           bookTitle={book.bookTitle}
                           bookAuthor={book.author}
                           genre={book.genre}
+                          price={book.price}
                           bookDescription={book.description}
                           handleDetails={handleDetails}
                       />

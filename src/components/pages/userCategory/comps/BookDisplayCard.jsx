@@ -1,6 +1,6 @@
 import restless from "../../../../assets/images/userCatImages/restless.png";
 
-export const BookDisplayCard = ({bookCover, bookTitle, bookAuthor, bookDescription, genre, handleDetails}) => {
+export const BookDisplayCard = ({bookCover, bookTitle, bookAuthor, bookDescription, genre, price, handleDetails}) => {
     return(
         <>
             <div className="justify-between content-start flex-wrap w-[867px] max-w-full self-start">
@@ -35,7 +35,7 @@ export const BookDisplayCard = ({bookCover, bookTitle, bookAuthor, bookDescripti
                                 </div>
                             </div>
                             <div className="text-neutral-800 text-base font-bold leading-6 self-stretch mt-3 max-md:max-w-full">
-                                ₦ 15,000
+                                {price}
                             </div>
                             <div
                                 onClick={handleDetails}

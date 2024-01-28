@@ -7,13 +7,7 @@ import Modal from "react-modal";
 import { ImageUploadModal } from "./ImageUploadModal.jsx";
 import {ChangePassword} from "./ChangePassword.jsx";
 
-export const AccountSetting = ({
-  handleStatus,
-  setStatusTitle,
-  setStatusMessage,
-  setStatusColor,
-}) => {
-  const userData = JSON.parse(localStorage.getItem("userData"));
+export const AccountSetting = ({handleStatus, setStatusTitle, setStatusMessage, setStatusColor, userData, setDep}) => {
 
   const [formData, setFormData] = useState({
     email: `${userData.email}`,
@@ -46,8 +40,7 @@ export const AccountSetting = ({
   const [isFirstNamePadlockOpen, setIsFirstNamePadlockOpen] = useState(false);
   const [isLastNamePadlockOpen, setIsLastNamePadlockOpen] = useState(false);
 
-  const [isPhoneNumberPadlockOpen, setIsPhoneNumberPadlockOpen] =
-    useState(false);
+  const [isPhoneNumberPadlockOpen, setIsPhoneNumberPadlockOpen] = useState(false);
 
   const handlePadlockClick = (padlockType) => {
     switch (padlockType) {
@@ -193,6 +186,7 @@ export const AccountSetting = ({
                     }}
                 >
                   <ImageUploadModal
+                      setDep={setDep}
                       onCancel={handleCloseModal}
                       handleStatus={handleStatus}
                       setStatusTitle={setStatusTitle}
@@ -216,7 +210,7 @@ export const AccountSetting = ({
                     <div className="flex-col justify-end overflow-hidden self-center relative flex aspect-square w-[100px] border border-black rounded-[50%] max-w-full mt-10 pl-16 pt-12 pb-0.5 items-start max-md:pl-5">
                       <img
                           loading="lazy"
-                          srcSet={userData.profilePicture}
+                          srcSet={userData?.profilePicture}
                           className="absolute h-full w-full object-cover object-center inset-0"
                       />
                     </div>

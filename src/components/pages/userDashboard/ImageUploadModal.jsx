@@ -9,6 +9,7 @@ export const ImageUploadModal = ({
   setStatusTitle,
   setStatusMessage,
   setStatusColor,
+  setDep
 }) => {
 
   const userData = JSON.parse(localStorage.getItem("userData"));
@@ -60,6 +61,9 @@ export const ImageUploadModal = ({
         setTimeout(() => {
           onCancel();
         }, 2500);
+
+        setDep();
+
       })
       .catch((error) => {
         setClip(false);

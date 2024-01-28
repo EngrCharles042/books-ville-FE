@@ -18,7 +18,7 @@ export const BookCard = ({image, name, author, price}) => {
                     N {price}
                 </div>
                 <div className="transition hover:bg-green-600 cursor-pointer text-center text-white text-sm font-medium leading-5 uppercase whitespace-nowrap justify-center items-center border bg-green-500 mt-3.5 px-16 py-7 rounded-md border-solid border-green-600 max-md:px-5">
-                    ADD TO CART
+                    View Book
                 </div>
             </div>
         </div>
