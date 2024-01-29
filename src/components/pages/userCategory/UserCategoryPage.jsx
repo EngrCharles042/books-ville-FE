@@ -5,18 +5,23 @@ import axios from "../../../api/axios.jsx";
 import {BookDisplayCard} from "./comps/BookDisplayCard.jsx";
 
 export const UserCategoryPage = () => {
+  const [bookPage, setBookPage] = useState(0)
 
   const [books, setBooks] = useState([]);
 
+  const [viewBook, setViewBook] = useState();
+
   useEffect(() => {
     const loadBooks = async () => {
-        const response = await axios.get("/book/books");
+        const response = await axios
+            .get(`/book/books?pageNo=${bookPage}`)
 
         setBooks(response.data.responseData.content);
+        setViewBook(response.data.responseData.content[0])
     }
 
     loadBooks()
-  }, []);
+  }, [bookPage]);
 
   const [details, setDetails] = useState(false);
 
@@ -24,9 +29,27 @@ export const UserCategoryPage = () => {
     setDetails(!details);
   };
 
+  const handleViewBook = (viewedBook) => {
+    setViewBook(viewedBook);
+  }
+
+  const nextPage = () => {
+    setBookPage(bookPage + 1)
+  }
+
+  const prevPage = () => {
+    if (bookPage > 0) {
+      setBookPage(bookPage - 1)
+    }
+  }
+
   return (
     <div className="bg-white flex flex-col items-stretch pb-12">
-      {details && <BookDetails />}
+      {details &&
+          <BookDetails
+              viewedBook={viewBook}
+          />
+      }
 
       {!details && (
         <div className="flex w-full flex-col items-stretch mb-10 px-16 max-md:max-w-full max-md:mt-10 max-md:px-5">
@@ -57,6 +80,8 @@ export const UserCategoryPage = () => {
                   <>
                     {books.map( book => (
                       <BookDisplayCard
+                          book={book}
+                          handleViewBook={handleViewBook}
                           bookCover={book.bookCover}
                           bookTitle={book.bookTitle}
                           bookAuthor={book.author}
@@ -67,6 +92,36 @@ export const UserCategoryPage = () => {
                       />
                     ))}
                   </>
+
+                  {books.length > 0 &&
+                      <div className="flex gap-4 justify-end">
+                        <button onClick={prevPage} className="flex hover:bg-red-500 py-1 w-[8rem] transition items-center gap-2 border border-black rounded-lg px-4 justify-center">
+                          <div>
+                            <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/1d7dd83f57cf0f0d55ac4589528b86a4f6e45a046fbd6c7d18b6110dd0c11edb?"
+                                className="aspect-square object-contain object-center w-6 overflow-hidden shrink-0 max-w-full"
+                            />
+                          </div>
+                          <p>
+                            Back
+                          </p>
+                        </button>
+
+                        <button onClick={nextPage} className="flex items-center hover:bg-green-500 py-1 w-[8rem] transition gap-2 border border-black rounded-lg px-4 justify-center">
+                          <p>
+                            Next
+                          </p>
+                          <div>
+                            <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/1d7dd83f57cf0f0d55ac4589528b86a4f6e45a046fbd6c7d18b6110dd0c11edb?"
+                                className="aspect-square object-contain rotate-180 object-center w-6 overflow-hidden shrink-0 max-w-full"
+                            />
+                          </div>
+                        </button>
+                      </div>
+                  }
                 </div>
               </div>
             </div>

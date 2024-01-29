@@ -5,7 +5,6 @@ import logo from "../../assets/images/landingPageImages/booksvillelogo.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import {useGoogleLogin} from '@react-oauth/google';
-import {jwtDecode} from "jwt-decode";
 
 export const Login = ({
   handleStatus,
@@ -57,6 +56,7 @@ export const Login = ({
           navigate("/user-dashboard");
       }, 2500);
     },
+
     onError: (tokenResponse) => {
       enableStatus(
           "Oops!",
