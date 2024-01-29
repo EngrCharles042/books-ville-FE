@@ -4,7 +4,7 @@ import { PaymentOptions } from "../payment/PaymentOptions.jsx";
 import Modal from "react-modal";
 import { useNavigate } from "react-router-dom";
 
-export const BookDetails = () => {
+export const BookDetails = ({viewedBook}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleDownloadClick = () => {
@@ -46,11 +46,11 @@ export const BookDetails = () => {
             </span>
             <div className="text-black text-xl font-medium leading-7">/</div>
             <span className="text-black text-xl font-medium leading-7 whitespace-nowrap items-stretch aspect-[2.3214285714285716] justify-center">
-              Fiction
+              {viewedBook?.genre}
             </span>
             <div className="text-black text-xl font-medium leading-7">/</div>
             <span className="text-stone-300 text-xl font-medium leading-7 whitespace-nowrap items-stretch grow justify-center">
-              Again,but Better
+              {viewedBook?.bookTitle}
             </span>
           </span>
 
@@ -60,7 +60,7 @@ export const BookDetails = () => {
                 <div className="justify-center shadow-sm bg-slate-50 flex grow flex-col w-fit items-start max-md:max-w-full max-md:mt-5 max-md:pr-5">
                   <img
                     loading="lazy"
-                    srcSet={restless}
+                    srcSet={viewedBook?.bookCover}
                     className="aspect-[0.75] object-contain object-center w-[302px] overflow-hidden max-w-full"
                   />
                 </div>
@@ -68,25 +68,22 @@ export const BookDetails = () => {
               <div className="flex flex-col items-stretch w-[67%] max-md:w-full max-md:ml-0">
                 <span className="justify-center items-stretch flex grow flex-col mt-1.5 max-md:max-w-full max-md:mt-7">
                   <div className="text-neutral-800 text-3xl font-bold leading-10 max-md:max-w-full">
-                    Again,but Better
+                    {viewedBook?.bookTitle}
                   </div>
                   <div className="text-black text-2xl leading-9 mt-6 max-md:max-w-full">
-                    by <span className="text-black">Barbara Dee</span>
+                    by <span className="text-black">{viewedBook?.author}</span>
                   </div>
                   <div className="text-black text-base font-light leading-7 mt-6 max-md:max-w-full">
-                    Lorem ipsum dolor sit amet consectetur. Eget hendrerit vitae
-                    lectus duis nulla facilisis libero amet. Sed ac faucibus
-                    arcu eget id eu. Egestas et quis tortor euismod lectus.
-                    Turpis ut neque sit sit maecenas scelerisque.
+                    {viewedBook?.description}
                   </div>
                   <div className="text-red-700 text-sm leading-7 max-md:max-w-full">
                     Read more
                   </div>
                   <div className="text-neutral-500 text-xl leading-7 mt-4">
-                    Fiction
+                    {viewedBook?.genre}
                   </div>
                   <div className="text-black text-2xl font-bold leading-8 mt-4 max-md:max-w-full">
-                    N15,000
+                    {viewedBook?.price === 0 ? "FREE" : viewedBook?.price}
                   </div>
                   <span className="flex gap-2 mt-4 items-start max-md:max-w-full max-md:flex-wrap max-md:mr-2.5 max-md:pr-5">
                     <span
