@@ -27,19 +27,19 @@ export const PaymentOptions = ({ handleBuy }) => {
     });
   };
 
-  const handleSuccessfulPayment = async (e) => {
+  const handleSuccessfulPayment = async (e, transaction) => {
     e.preventDefault();
 
     alert("continue" + `Bearer ${userData.accessToken}`);
 
     try {
       await axios
-        .post("/transaction/payment", formData, {
+        .post("/transaction/pay", transaction, {
           headers: {
             Authorization: `Bearer ${userData.accessToken}`,
           },
         })
-        .then((response) => alert(response));
+        .then((response) => alert(response.data));
     } catch (error) {
       alert(error.message);
     }
@@ -62,13 +62,15 @@ export const PaymentOptions = ({ handleBuy }) => {
       onSuccess(transaction) {
         alert(transaction.reference);
 
-        setData(transaction);
+        handleSuccessfulPayment(e, transaction)
+
+        // setData(transaction);
 
         setTimeout(() => {
           console.log(formData);
         }, 1000);
 
-        handleSuccessfulPayment(e);
+        // handleSuccessfulPayment(e);
 
         console.log(transaction);
       },
