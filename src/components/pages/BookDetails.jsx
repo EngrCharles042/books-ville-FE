@@ -4,7 +4,7 @@ import { PaymentOptions } from "../payment/PaymentOptions.jsx";
 import Modal from "react-modal";
 import { useNavigate } from "react-router-dom";
 
-export const BookDetails = ({viewedBook}) => {
+export const BookDetails = ({ viewedBook, handleStatus, setStatusTitle, setStatusMessage, setStatusColor }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleDownloadClick = () => {
@@ -35,7 +35,14 @@ export const BookDetails = ({viewedBook}) => {
           },
         }}
       >
-        <PaymentOptions handleBuy={handleCloseModal} />
+        <PaymentOptions
+            book={viewedBook}
+            handleStatus={handleStatus}
+            setStatusTitle={setStatusTitle}
+            setStatusMessage={setStatusMessage}
+            setStatusColor={setStatusColor}
+            handleBuy={handleCloseModal}
+        />
       </Modal>
 
       <div className="bg-white flex flex-col items-stretch pb-12 mt-8">

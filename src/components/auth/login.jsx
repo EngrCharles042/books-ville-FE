@@ -167,7 +167,7 @@ export const Login = ({
               Welcome back to BooksVille
             </div>
             {!verified && !resendSuccess && (
-              <div className="w-full bg-red-500 p-4 rounded text-white mt-2">
+              <div className="w-full bg-red-300 p-4 rounded text-white mt-2">
                 <p className="text-center">
                   Your Account has not been verified, please visit your email to
                   proceed.
@@ -176,7 +176,7 @@ export const Login = ({
                   <p>Did not Get the Mail? </p>
                   <button
                     onClick={handleResendVerification}
-                    className="rounded p-2 bg-blue-800"
+                    className="rounded p-2 bg-red-800"
                   >
                     Resend Verification Mail
                   </button>

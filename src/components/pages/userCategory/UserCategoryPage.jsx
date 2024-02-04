@@ -4,7 +4,7 @@ import { BookDetails } from "../BookDetails.jsx";
 import axios from "../../../api/axios.jsx";
 import {BookDisplayCard} from "./comps/BookDisplayCard.jsx";
 
-export const UserCategoryPage = () => {
+export const UserCategoryPage = ({ handleStatus, setStatusTitle, setStatusMessage, setStatusColor }) => {
   const [bookPage, setBookPage] = useState(0)
 
   const [books, setBooks] = useState([]);
@@ -47,6 +47,10 @@ export const UserCategoryPage = () => {
     <div className="bg-white flex flex-col items-stretch pb-12">
       {details &&
           <BookDetails
+              handleStatus={handleStatus}
+              setStatusTitle={setStatusTitle}
+              setStatusMessage={setStatusMessage}
+              setStatusColor={setStatusColor}
               viewedBook={viewBook}
           />
       }
