@@ -1,7 +1,15 @@
 import {ClipLoader} from "react-spinners";
 import {useState} from "react";
+import axios from "../../../api/axios.jsx";
 
-export const ChangePassword = () => {
+export const ChangePassword = ({ handleStatus, setStatusTitle, setStatusMessage, setStatusColor }) => {
+    const enableStatus = (title, message, color) => {
+        handleStatus();
+        setStatusTitle(title);
+        setStatusMessage(message);
+        setStatusColor(color);
+    };
+
     const [formData, setFormDate] = useState({
         oldPassword: '',
         newPassword: '',
@@ -14,8 +22,42 @@ export const ChangePassword = () => {
         setFormDate({ ...formData, [e.target.name]: e.target.value })
     }
 
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        setClip(true)
+
+        try {
+            await axios.patch("http://localhost:8080/api/v1/user/change-password", formData, {
+                headers: {
+                    'Authorization': `Bearer ${JSON.parse(localStorage.getItem("userData")).accessToken}`
+                }
+            }).then(
+                response => {
+                    setClip(false)
+
+                    enableStatus(
+                        "Password Update Successful",
+                        "Your Password has has been updated successfully",
+                        "bg-green-600",
+                    );
+
+                    console.log(response.data.responseMessage)
+                }
+            )
+        } catch (error) {
+            setClip(false)
+
+            enableStatus(
+                "Oops!",
+                "Something went wrong please try again",
+                "bg-red-600",
+            );
+        }
+    }
+
     return(
-        <form className="flex flex-col w-[436px] mx-auto">
+        <form onSubmit={handleSubmit} className="flex flex-col w-[436px] mx-auto">
             <div className="text-gray-900 text-2xl font-bold leading-8 mt-10 max-md:mt-10">
                 Password
             </div>
