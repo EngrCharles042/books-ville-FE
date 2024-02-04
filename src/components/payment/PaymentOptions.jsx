@@ -8,40 +8,41 @@ import { Link } from "react-router-dom";
 import axios from "../../api/axios.jsx";
 
 // eslint-disable-next-line react/prop-types
-export const PaymentOptions = ({ handleBuy }) => {
-  const userData = JSON.parse(localStorage.getItem("userData"));
-
-  const [formData, setFormData] = useState({
-    amount: "",
-    status: "",
-    referenceId: "",
-    bookEntityId: "",
-  });
-
-  const setData = (transaction) => {
-    setFormData({
-      amount: 1000,
-      status: "COMPLETED",
-      referenceId: transaction.trxref,
-      bookEntityId: 1,
-    });
+export const PaymentOptions = ({ handleBuy, handleStatus, setStatusTitle, setStatusMessage, setStatusColor, book }) => {
+  const enableStatus = (title, message, color) => {
+    handleStatus();
+    setStatusTitle(title);
+    setStatusMessage(message);
+    setStatusColor(color);
   };
 
-  const handleSuccessfulPayment = async (e, transaction) => {
+  const userData = JSON.parse(localStorage.getItem("userData"));
+
+  const handleSuccessfulPayment = async (e, transaction, url) => {
     e.preventDefault();
 
     alert("continue" + `Bearer ${userData.accessToken}`);
 
     try {
       await axios
-        .post("/transaction/pay", transaction, {
+        .post(`/transaction/${url}/${book.id}`, transaction, {
           headers: {
             Authorization: `Bearer ${userData.accessToken}`,
           },
         })
-        .then((response) => alert(response.data));
+        .then((response) => {
+          enableStatus(
+              "Payment successful",
+              "Your Payment is Successful",
+              "bg-green-600",
+          );
+        });
     } catch (error) {
-      alert(error.message);
+      enableStatus(
+          "Oops!",
+          "Something went wrong, Please try again later",
+          "bg-red-600",
+      );
     }
   };
 
@@ -62,20 +63,16 @@ export const PaymentOptions = ({ handleBuy }) => {
       onSuccess(transaction) {
         alert(transaction.reference);
 
-        handleSuccessfulPayment(e, transaction)
-
-        // setData(transaction);
-
-        setTimeout(() => {
-          console.log(formData);
-        }, 1000);
-
-        // handleSuccessfulPayment(e);
+        handleSuccessfulPayment(e, transaction, "paystack")
 
         console.log(transaction);
       },
       onCancel() {
-        alert("You have canceled the transaction");
+        enableStatus(
+            "Canceled",
+            "You canceled the transaction",
+            "bg-red-600",
+        );
       },
     });
   };
@@ -103,23 +100,17 @@ export const PaymentOptions = ({ handleBuy }) => {
   const payWithFlutter = () => {
     handleFlutterPayment({
       callback: (response) => {
-        console.log(response);
 
-        setFormData({
-          amount: 1000,
-          status: "COMPLETED",
-          referenceId: response.flw_ref,
-          bookEntityId: 1,
-        });
-
-        handleSuccessfulPayment();
-
-        alert("success");
+        handleSuccessfulPayment(e, response, "flutter")
 
         closePaymentModal(); // this will close the modal programmatically
       },
       onClose: () => {
-        alert("payment terminated");
+        enableStatus(
+            "Canceled",
+            "You canceled the transaction",
+            "bg-red-600",
+        );
       },
     });
   };
