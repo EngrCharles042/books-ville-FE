@@ -56,7 +56,15 @@ export const UserDashboardPage = ({handleStatus, setStatusTitle, setStatusMessag
           <Routes>
             <Route path={"/"} element={<MyBooks />} />
 
-            <Route path={"/categories"} element={<UserCategoryPage />} />
+            <Route path={"/categories"} element={
+              <UserCategoryPage
+                  handleStatus={handleStatus}
+                  setStatusTitle={setStatusTitle}
+                  setStatusMessage={setStatusMessage}
+                  setStatusColor={setStatusColor}
+              />
+            }
+            />
 
             <Route path={"/subscription"} element={<Subscriptions />} />
 

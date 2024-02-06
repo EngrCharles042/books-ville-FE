@@ -10,7 +10,11 @@ export const UserCategoryPage = ({
   setStatusMessage,
   setStatusColor,
 }) => {
-  const [bookPage, setBookPage] = useState(0);
+  const [isLast, setIsLast] = useState()
+
+  const [page, setPage] = useState(0);
+
+  const [bookPage, setBookPage] = useState();
 
   const [books, setBooks] = useState([]);
 
@@ -20,14 +24,15 @@ export const UserCategoryPage = ({
 
   useEffect(() => {
     const loadBooks = async () => {
-      const response = await axios.get(`/book/books?pageNo=${bookPage}`);
+      const response = await axios.get(`/book/books?pageNo=${page}`);
 
       setBooks(response.data.responseData.content);
+      setIsLast(response.data.responseData.last)
       setViewBook(response.data.responseData.content[0]);
     };
 
     loadBooks();
-  }, [bookPage]);
+  }, [page]);
 
   const [details, setDetails] = useState(false);
 
@@ -40,45 +45,47 @@ export const UserCategoryPage = ({
   };
 
   const nextPage = () => {
-    setBookPage(bookPage + 1);
-  };
-
-  const prevPage = () => {
-    if (bookPage > 0) {
-      setBookPage(bookPage - 1);
+    if (!isLast) {
+      setPage(bookPage + 1)
     }
   };
 
-  const [filterData, setFilterData] = useState();
-
-  const getFilterData = (data) => {
-    setFilterData(data);
-    // You can also add logic to handle pagination when filters change, e.g., setBookPage(0);
+  const prevPage = () => {
+    if (page > 0) {
+      setPage(bookPage - 1);
+    }
   };
 
-  const filterBooks = () => {
-    axios
-      .post("/user/filter-books", filterData, {
-        headers: {
-          Authorization: `Bearer ${userData.accessToken}`,
-        },
-      })
-      .then((response) => {
-        const responseData = response.data.responseData;
-
-        setBooks(responseData.content);
-        setBookPage(responseData.content[0]);
-        console.log(responseData);
-      })
-      .catch((error) => {
-        // Handle error
-        console.error(error.message);
-      });
-  };
-
-  useEffect(() => {
-    filterBooks();
-  }, [filterData, bookPage]);
+  // const [filterData, setFilterData] = useState();
+  //
+  // const getFilterData = (data) => {
+  //   setFilterData(data);
+  //   // You can also add logic to handle pagination when filters change, e.g., setBookPage(0);
+  // };
+  //
+  // const filterBooks = () => {
+  //   axios
+  //     .post("/user/filter-books", filterData, {
+  //       headers: {
+  //         Authorization: `Bearer ${userData.accessToken}`,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       const responseData = response.data.responseData;
+  //
+  //       setBooks(responseData.content);
+  //       setBookPage(responseData.content[0]);
+  //       console.log(responseData);
+  //     })
+  //     .catch((error) => {
+  //       // Handle error
+  //       console.error(error.message);
+  //     });
+  // };
+  //
+  // useEffect(() => {
+  //   filterBooks();
+  // }, [filterData, bookPage]);
 
   return (
     <div className="bg-white flex flex-col items-stretch pb-12">
@@ -100,7 +107,7 @@ export const UserCategoryPage = ({
           <div className="mt-6 max-md:max-w-full">
             <div className="h-[100%] gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
               <div className="h-fit flex flex-col items-stretch w-[22%] max-md:w-full max-md:ml-0">
-                <Filters getData={getFilterData} />
+                <Filters />
               </div>
 
               <div className="flex flex-col items-stretch w-[78%] ml-5 max-md:w-full max-md:ml-0">

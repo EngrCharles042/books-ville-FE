@@ -34,7 +34,7 @@ export const ViewBooks = () => {
     }
 
     const prevPage = () => {
-        if (bookPage > 0) {
+        if (page > 0) {
             setPage(bookPage - 1)
         }
     }

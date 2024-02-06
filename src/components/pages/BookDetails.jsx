@@ -3,8 +3,16 @@ import { useState } from "react";
 import { PaymentOptions } from "../payment/PaymentOptions.jsx";
 import Modal from "react-modal";
 import { useNavigate } from "react-router-dom";
+import axios from "../../api/axios.jsx";
 
 export const BookDetails = ({ viewedBook, handleStatus, setStatusTitle, setStatusMessage, setStatusColor }) => {
+  const enableStatus = (title, message, color) => {
+    handleStatus();
+    setStatusTitle(title);
+    setStatusMessage(message);
+    setStatusColor(color);
+  };
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleDownloadClick = () => {
@@ -14,6 +22,60 @@ export const BookDetails = ({ viewedBook, handleStatus, setStatusTitle, setStatu
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+
+  const handleSaveBook = async () => {
+    try {
+      await axios.get(`/book/save/${viewedBook.id}`, {
+        headers: {
+          'Authorization': `Bearer ${JSON.parse(localStorage.getItem("userData")).accessToken}`
+        }
+      }).then(
+          response => {
+            console.log(response.data.responseData);
+
+            enableStatus(
+                "Save Successful",
+                "Book has been saved successfully",
+                "bg-green-600",
+            );
+          }
+      )
+    } catch (error) {
+
+      enableStatus(
+          "Oops!",
+          "Something went wrong please try again",
+          "bg-red-600",
+      );
+    }
+  }
+
+  const handleAddToCart = async () => {
+    try {
+      await axios.get(`/cart/addToCart/${viewedBook.id}`, {
+        headers: {
+          'Authorization': `Bearer ${JSON.parse(localStorage.getItem("userData")).accessToken}`
+        }
+      }).then(
+          response => {
+            console.log(response.data.responseData);
+
+            enableStatus(
+                "Save Successful",
+                "Book has been saved successfully",
+                "bg-green-600",
+            );
+          }
+      )
+    } catch (error) {
+
+      enableStatus(
+          "Oops!",
+          "Something went wrong please try again",
+          "bg-red-600",
+      );
+    }
+  }
 
   return (
     <div>
@@ -102,7 +164,7 @@ export const BookDetails = ({ viewedBook, handleStatus, setStatusTitle, setStatu
                     <span className="hover:bg-gray-200 transition cursor-pointer  max-w-[12.7rem] h-[3.8rem] text-center py-[1.2rem] text-green-600 text-base font-medium leading-5 uppercase justify-center items-stretch self-stretch grow rounded-md border-[1.174px] border-solid border-green-600 max-md:px-5">
                       ADD TO CART
                     </span>
-                    <div className="transition hover:border-solid hover:border-green-600 cursor-pointer max-w-[12.7rem] h-[3.8rem] text-center py-[1.2rem] text-rose-500 text-base font-medium leading-5 uppercase justify-center items-stretch self-stretch grow rounded-md max-md:px-5 border-[1.174px] border-white">
+                    <div onClick={handleSaveBook} className="transition hover:border-solid hover:border-green-600 cursor-pointer max-w-[12.7rem] h-[3.8rem] text-center py-[1.2rem] text-rose-500 text-base font-medium leading-5 uppercase justify-center items-stretch self-stretch grow rounded-md max-md:px-5 border-[1.174px] border-white">
                       ADD TO SAVED
                     </div>
                   </span>

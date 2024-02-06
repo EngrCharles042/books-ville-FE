@@ -128,7 +128,14 @@ function App() {
         >
           <Route
             path={"/user-dashboard/categories"}
-            element={<UserCategoryPage />}
+            element={
+              <UserCategoryPage
+                handleStatus={handleStatus}
+                setStatusTitle={setStatusTitle}
+                setStatusMessage={setStatusMessage}
+                setStatusColor={setStatusColor}
+              />
+            }
           />
           <Route
             path={"/user-dashboard/subscription"}

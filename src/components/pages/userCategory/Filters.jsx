@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const Filters = ({ getData }) => {
+export const Filters = () => {
   const [filledData, setFilledData] = useState(() => {
     const data = new FormData();
 
@@ -61,11 +61,11 @@ export const Filters = ({ getData }) => {
       data.append("rating", formData.rating);
     }
 
-    if (data.get("FANTASY").length === 0 && data.get("ROMANCE").length === 0) {
-      getData(filledData);
-    } else {
-      getData(data);
-    }
+    // if (data.get("FANTASY").length === 0 && data.get("ROMANCE").length === 0) {
+    //   getData(filledData);
+    // } else {
+    //   getData(data);
+    // }
   };
 
   useEffect(() => {
