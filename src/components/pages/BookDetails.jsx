@@ -26,6 +26,8 @@ export const BookDetails = ({ viewedBook, handleStatus, setStatusTitle, setStatu
   const handleSaveBook = async (e) => {
     e.preventDefault()
 
+    console.log(viewedBook.id)
+
     try {
       await axios.get(`/book/save/${viewedBook.id}`, {
         headers: {
@@ -66,8 +68,10 @@ export const BookDetails = ({ viewedBook, handleStatus, setStatusTitle, setStatu
     const formData = new FormData();
     formData.append("id", viewedBook.id)
 
+    console.log(viewedBook.id)
+
     try {
-      await axios.post(`/cart/addToCart`, formData, {
+      await axios.post('/cart/addToCart', formData, {
         headers: {
           'Authorization': `Bearer ${JSON.parse(localStorage.getItem("userData")).accessToken}`
         }

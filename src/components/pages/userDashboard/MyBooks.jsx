@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import axios from "../../../api/axios.jsx";
 import * as React from "react";
 import {Link} from "react-router-dom";
+import { useAxios } from "../../../hooks/useAxios.js";
 
 export const MyBooks = () => {
     const [savedBooks, setSavedBooks] = useState([]);
@@ -32,8 +33,7 @@ export const MyBooks = () => {
 
         getSavedBooks();
         getPurchasedBooks();
-
-    }, []);
+    }, [])
 
     const recommended = {
         image1: "/src/assets/images/landingPageImages/img_7.png",
