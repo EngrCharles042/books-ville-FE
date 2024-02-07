@@ -70,7 +70,15 @@ export const UserDashboardPage = ({handleStatus, setStatusTitle, setStatusMessag
 
             <Route path={"/purchased-books"} element={<PurchasedBooks />} />
 
-            <Route path={"/saved-books"} element={<SavedBooks />} />
+            <Route path={"/saved-books"} element={
+              <SavedBooks
+                  handleStatus={handleStatus}
+                  setStatusTitle={setStatusTitle}
+                  setStatusMessage={setStatusMessage}
+                  setStatusColor={setStatusColor}
+              />
+            }
+            />
 
             <Route
               path={"/profile"}

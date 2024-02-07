@@ -12,7 +12,7 @@ export const ViewBooks = () => {
 
     useEffect(() => {
         const getAllUploadedBooks = async () => {
-            await axios.get(`/book/books?pageNo=${page}`, {
+            await axios.get(`/book/books?pageNo=${page}&sortDir=desc`, {
                 headers: {
                     'Authorization': `Bearer ${JSON.parse(localStorage.getItem("userData")).accessToken}`
                 }

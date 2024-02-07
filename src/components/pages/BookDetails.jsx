@@ -23,7 +23,9 @@ export const BookDetails = ({ viewedBook, handleStatus, setStatusTitle, setStatu
     setIsModalOpen(false);
   };
 
-  const handleSaveBook = async () => {
+  const handleSaveBook = async (e) => {
+    e.preventDefault()
+
     try {
       await axios.get(`/book/save/${viewedBook.id}`, {
         headers: {
@@ -33,11 +35,19 @@ export const BookDetails = ({ viewedBook, handleStatus, setStatusTitle, setStatu
           response => {
             console.log(response.data.responseData);
 
-            enableStatus(
-                "Save Successful",
-                "Book has been saved successfully",
-                "bg-green-600",
-            );
+            if (response.data.responseMessage === "alreadySaved") {
+              enableStatus(
+                  "Already saved",
+                  "Book has already been saved",
+                  "bg-red-300",
+              );
+            } else {
+              enableStatus(
+                  "Save Successful",
+                  "Book has been saved successfully",
+                  "bg-green-600",
+              );
+            }
           }
       )
     } catch (error) {
@@ -50,9 +60,14 @@ export const BookDetails = ({ viewedBook, handleStatus, setStatusTitle, setStatu
     }
   }
 
-  const handleAddToCart = async () => {
+  const handleAddToCart = async (e) => {
+    e.preventDefault()
+
+    const formData = new FormData();
+    formData.append("id", viewedBook.id)
+
     try {
-      await axios.get(`/cart/addToCart/${viewedBook.id}`, {
+      await axios.post(`/cart/addToCart`, formData, {
         headers: {
           'Authorization': `Bearer ${JSON.parse(localStorage.getItem("userData")).accessToken}`
         }
@@ -60,11 +75,19 @@ export const BookDetails = ({ viewedBook, handleStatus, setStatusTitle, setStatu
           response => {
             console.log(response.data.responseData);
 
-            enableStatus(
-                "Save Successful",
-                "Book has been saved successfully",
-                "bg-green-600",
-            );
+            if (response.data.responseMessage === "alreadyAdded") {
+              enableStatus(
+                  "Already added",
+                  "Book has already been added to Cart",
+                  "bg-red-300",
+              );
+            } else {
+              enableStatus(
+                  "Add to Cart Successful",
+                  "Book has been added to cart successfully",
+                  "bg-green-600",
+              );
+            }
           }
       )
     } catch (error) {
@@ -161,7 +184,7 @@ export const BookDetails = ({ viewedBook, handleStatus, setStatusTitle, setStatu
                     >
                       BUY NOW
                     </span>
-                    <span className="hover:bg-gray-200 transition cursor-pointer  max-w-[12.7rem] h-[3.8rem] text-center py-[1.2rem] text-green-600 text-base font-medium leading-5 uppercase justify-center items-stretch self-stretch grow rounded-md border-[1.174px] border-solid border-green-600 max-md:px-5">
+                    <span onClick={handleAddToCart} className="hover:bg-gray-200 transition cursor-pointer  max-w-[12.7rem] h-[3.8rem] text-center py-[1.2rem] text-green-600 text-base font-medium leading-5 uppercase justify-center items-stretch self-stretch grow rounded-md border-[1.174px] border-solid border-green-600 max-md:px-5">
                       ADD TO CART
                     </span>
                     <div onClick={handleSaveBook} className="transition hover:border-solid hover:border-green-600 cursor-pointer max-w-[12.7rem] h-[3.8rem] text-center py-[1.2rem] text-rose-500 text-base font-medium leading-5 uppercase justify-center items-stretch self-stretch grow rounded-md max-md:px-5 border-[1.174px] border-white">

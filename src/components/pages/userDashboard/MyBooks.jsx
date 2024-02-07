@@ -3,6 +3,7 @@ import {BookCard} from "../landing/BookCard.jsx";
 import {useEffect, useState} from "react";
 import axios from "../../../api/axios.jsx";
 import * as React from "react";
+import {Link} from "react-router-dom";
 
 export const MyBooks = () => {
     const [savedBooks, setSavedBooks] = useState([]);
@@ -60,13 +61,13 @@ export const MyBooks = () => {
             <div className="text-black text-6xl mt-[4.5rem] mb-[2rem] w-fit font-bold leading-[81.2px] tracking-tight max-md:text-4xl">
                 Welcome {JSON.parse(localStorage.getItem("userData")).firstName},
             </div>
-            <div className="items-stretch flex w-full justify-between gap-5 max-md:max-w-full max-md:flex-wrap">
+            <div className="items-stretch flex w-full justify-between mt-10 gap-5 max-md:max-w-full max-md:flex-wrap">
                 <div className="text-black text-4xl font-medium leading-7 tracking-wider grow shrink basis-auto max-md:max-w-full">
                     Your Purchased Books
                 </div>
-                <div className="text-black text-base font-bold leading-7">View all</div>
+                <Link to={"/user-dashboard/purchased-books"} className="hover:text-blue-500 transition cursor-pointer text-black text-base font-bold leading-7">View all</Link>
             </div>
-            <div className="w-full mt-12 max-md:max-w-full max-md:mt-10">
+            <div className="w-full max-md:max-w-full max-md:mt-10">
                 <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
                     {
                         purchasedBooks.slice(0, 4).map((book, index) => (
@@ -81,15 +82,15 @@ export const MyBooks = () => {
                     }
                 </div>
             </div>
-            <div className="items-stretch flex w-full justify-between gap-5 mt-14 max-md:max-w-full max-md:flex-wrap max-md:mt-10">
+            <div className="items-stretch flex w-full justify-between gap-5 mt-20 max-md:max-w-full max-md:flex-wrap max-md:mt-10">
                 <div className="text-black text-4xl font-semibold leading-7 tracking-widest grow shrink basis-auto">
                     Your Saved Books
                 </div>
-                <div className="text-black text-base font-semibold leading-7">
+                <Link to={"/user-dashboard/saved-books"} className="hover:text-blue-500 transition text-black text-base font-semibold leading-7">
                     View All{" "}
-                </div>
+                </Link>
             </div>
-            <div className="w-full mt-12 max-md:max-w-full max-md:mt-10">
+            <div className="w-full max-md:max-w-full max-md:mt-10">
                 <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
                     {
                         savedBooks.slice(0, 4).map((book, index) => (
@@ -104,7 +105,7 @@ export const MyBooks = () => {
                     }
                 </div>
             </div>
-            <div className="justify-between items-stretch flex w-full gap-5 mt-16 max-md:max-w-full max-md:flex-wrap max-md:mt-10">
+            <div className="justify-between items-stretch flex w-full gap-5 mt-20 max-md:max-w-full max-md:flex-wrap max-md:mt-10">
                 <div className="text-black text-4xl font-semibold leading-7 tracking-widest grow shrink basis-auto">
                     Recommended Books
                 </div>
@@ -112,7 +113,7 @@ export const MyBooks = () => {
                     Read More{" "}
                 </div>
             </div>
-            <div className="w-full mt-12 max-md:max-w-full max-md:mt-10">
+            <div className="w-full mt-7 max-md:max-w-full max-md:mt-10">
                 <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
                     <BookCard
                         image={recommended.image1}
