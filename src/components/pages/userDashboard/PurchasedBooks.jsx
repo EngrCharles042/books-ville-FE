@@ -13,8 +13,10 @@ export const PurchasedBooks = ({ handleStatus, setStatusTitle, setStatusMessage,
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedBookId, setSelectedBookId] = useState(null); // Track selected book ID
 
-  const handleDownloadClick = () => {
+  const handleDownloadClick = (id) => {
+    setSelectedBookId(id);
     setIsModalOpen(true);
   };
 
@@ -30,7 +32,11 @@ export const PurchasedBooks = ({ handleStatus, setStatusTitle, setStatusMessage,
 
   const [purchasedBooks, setPurchasedBooks] = useState([]);
 
-  const handleDownloadBook = async (id) => {
+  const handleDownloadBook = async (id, bookTitle) => {
+    if (!selectedBookId) {
+      // Handle error if no book ID is selected
+      return;
+    }
     try {
       const response = await axios.get(`/book/download?book_id=${id}`, {
         responseType: 'blob',  // Set the responseType to 'blob' to handle binary data
@@ -45,7 +51,7 @@ export const PurchasedBooks = ({ handleStatus, setStatusTitle, setStatusMessage,
       // Create a link element to trigger the download
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', `book_${id}.pdf`);
+      link.setAttribute('download', `${bookTitle}.pdf`);
 
       // Append the link to the document body and trigger the download
       document.body.appendChild(link);
@@ -102,18 +108,17 @@ export const PurchasedBooks = ({ handleStatus, setStatusTitle, setStatusMessage,
   return (
     <div className="bg-white flex flex-col items-stretch mt-10 pr-2 pb-12">
       <span className="self-start flex w-full max-w-[1010px] flex-col mt-5 ml-20 mb-40 max-md:max-w-full max-md:mb-10">
-        <span className="items-stretch flex gap-2 self-start">
+        <span onClick={goBack} className="items-stretch flex gap-2 self-start">
           <img
             loading="lazy"
             src="https://cdn.builder.io/api/v1/image/assets/TEMP/1d7dd83f57cf0f0d55ac4589528b86a4f6e45a046fbd6c7d18b6110dd0c11edb?"
             className="aspect-square object-contain object-center w-6 overflow-hidden shrink-0 max-w-full"
           />
-          <Link
-            to={"/user-dashboard"}
+          <div
             className="text-gray-900 text-base font-semibold leading-6 tracking-normal grow whitespace-nowrap self-start"
           >
             Go back
-          </Link>
+          </div>
         </span>
         <div className="text-black text-2xl font-semibold leading-8 self-stretch mt-3 max-md:max-w-full">
           MY PURCHASED BOOKS
@@ -183,7 +188,7 @@ export const PurchasedBooks = ({ handleStatus, setStatusTitle, setStatusMessage,
                     <DownloadBookModal
                       onCancel={handleCloseModal}
                       onContinue={() => {
-                        handleDownloadBook();
+                        handleDownloadBook(book.id, book.bookTitle);
                         // handleCloseModal();
                       }}
                     />
