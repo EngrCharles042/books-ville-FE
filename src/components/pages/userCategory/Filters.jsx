@@ -1,18 +1,26 @@
 import { useEffect, useState } from "react";
 
 export const Filters = () => {
-  const [filledData, setFilledData] = useState(() => {
-    const data = new FormData();
-
-    data.append("FANTASY", "FANTASY");
-    data.append("ROMANCE", "ROMANCE");
-
-    return data;
-  });
+  const [showMore, setShowMore] = useState(false);
+  const [showMore1, setShowMore1] = useState(false);
+  const [showMore2, setShowMore2] = useState(false);
+  // const [filledData, setFilledData] = useState(() => {
+  //   const data = new FormData();
+  //
+  //   data.append("FANTASY", "FANTASY");
+  //   data.append("ROMANCE", "ROMANCE");
+  //
+  //   return data;
+  // });
 
   const [formData, setFormData] = useState({
     FANTASY: "",
     ROMANCE: "",
+    NON_FICTION: "",
+    ADVENTURE: "",
+    HORROR: "",
+    MUSICAL: "",
+    SPIRITUAL: "",
     budget: {
       lessThan5000: false,
       between15000And20000: false,
@@ -50,6 +58,11 @@ export const Filters = () => {
   const handleSubmit = () => {
     data.append("FANTASY", `${formData.FANTASY}`);
     data.append("ROMANCE", `${formData.ROMANCE}`);
+    data.append("NON_FICTION", `${formData.NON_FICTION}`);
+    data.append("ADVENTURE", `${formData.ADVENTURE}`);
+    data.append("HORROR", `${formData.HORROR}`);
+    data.append("MUSICAL", `${formData.MUSICAL}`);
+    data.append("SPIRITUAL", `${formData.SPIRITUAL}`);
     // Add budget data to formData
     Object.entries(formData.budget).forEach(([key, value]) => {
       if (value) {
@@ -68,10 +81,10 @@ export const Filters = () => {
     // }
   };
 
-  useEffect(() => {
-    // Call the handleSubmit function whenever formData changes
-    handleSubmit();
-  }, [formData]);
+  // useEffect(() => {
+  //   // Call the handleSubmit function whenever formData changes
+  //   handleSubmit();
+  // }, [formData]);
 
   return (
     <form className="justify-center items-stretch bg-white flex max-w-[18rem] flex-col px-8 py-7 rounded-md">
@@ -91,9 +104,43 @@ export const Filters = () => {
       <span className="items-center flex flex-col justify-between gap-4 mt-6">
         {renderCheckbox("FANTASY", "Fantasy", formData.FANTASY, handleChange)}
         {renderCheckbox("ROMANCE", "Romance", formData.ROMANCE, handleChange)}
+        {showMore && (
+          <>
+            {renderCheckbox(
+              "NON_FICTION",
+              "Non-fiction",
+              formData.NON_FICTION,
+              handleChange,
+            )}
+            {renderCheckbox(
+              "ADVENTURE",
+              "Adventure",
+              formData.ADVENTURE,
+              handleChange,
+            )}
+            {renderCheckbox("HORROR", "Horror", formData.HORROR, handleChange)}
+            {renderCheckbox(
+              "MUSICAL",
+              "Musical",
+              formData.MUSICAL,
+              handleChange,
+            )}
+            {renderCheckbox(
+              "SPIRITUAL",
+              "Spiritual",
+              formData.SPIRITUAL,
+              handleChange,
+            )}
+          </>
+        )}
       </span>
       <span className="flex justify-between gap-1.5 mt-6 pr-4 items-start">
-        <div className="text-emerald-700 text-xl font-semibold">Show more</div>
+        <div
+          className="text-emerald-700 text-xl font-semibold cursor-pointer"
+          onClick={() => setShowMore(!showMore)}
+        >
+          {showMore ? "Show less" : "Show more"}
+        </div>
         <img
           loading="lazy"
           src="https://cdn.builder.io/api/v1/image/assets/TEMP/e1d48398ad4121cb80f7750ede868e3621e9cd273fdff222f0d504ddfe13ca4b?"
@@ -112,8 +159,8 @@ export const Filters = () => {
       </span>
       <span className="items-center flex flex-col justify-between gap-4 mt-6">
         {renderCheckbox(
-          "LESS THAN ₦5000",
-          "Less than ₦5000",
+          "LESS THAN ₦10000",
+          "Less than ₦10000",
           formData.budget.lessThan5000,
           () => handleBudgetCheckboxChange("lessThan5000"),
         )}
@@ -123,22 +170,31 @@ export const Filters = () => {
           formData.budget.between15000And20000,
           () => handleBudgetCheckboxChange("between15000And20000"),
         )}
-        {renderCheckbox(
-          "₦20000 - ₦25000",
-          "₦15000 - ₦20000",
-          formData.budget.between20000And25000,
-          () => handleBudgetCheckboxChange("between20000And25000"),
-        )}
-        {renderCheckbox(
-          "GREATER THAN $500",
-          "Greater than $500",
-          formData.budget.greaterThan500,
-          () => handleBudgetCheckboxChange("greaterThan500"),
+        {showMore2 && (
+          <>
+            {renderCheckbox(
+              "₦20000 - ₦25000",
+              "₦20000 - ₦25000",
+              formData.budget.between20000And25000,
+              () => handleBudgetCheckboxChange("between20000And25000"),
+            )}
+            {renderCheckbox(
+              "GREATER THAN ₦25000",
+              "Greater than ₦25000",
+              formData.budget.greaterThan500,
+              () => handleBudgetCheckboxChange("greaterThan500"),
+            )}
+          </>
         )}
       </span>
 
       <span className="flex justify-between gap-1.5 mt-6 pr-4 items-start">
-        <div className="text-emerald-700 text-xl font-semibold">Show more</div>
+        <div
+          className="text-emerald-700 text-xl font-semibold cursor-pointer"
+          onClick={() => setShowMore2(!showMore2)}
+        >
+          {showMore2 ? "Show less" : "Show more"}
+        </div>
         <img
           loading="lazy"
           src="https://cdn.builder.io/api/v1/image/assets/TEMP/4197910499d52782dc44b0a553bf1721e90ce574f2353ba8f9bda960049fad0f?"
@@ -180,25 +236,34 @@ export const Filters = () => {
           selectedRating,
           handleRadioChange,
         )}
-        {renderRadio(
-          "4_STARS",
-          "starRating",
-          "4 Stars",
-          "4 Stars",
-          selectedRating,
-          handleRadioChange,
-        )}
-        {renderRadio(
-          "5_STARS",
-          "starRating",
-          "5 Stars",
-          "5 Stars",
-          selectedRating,
-          handleRadioChange,
+        {showMore1 && (
+          <>
+            {renderRadio(
+              "4_STARS",
+              "starRating",
+              "4 Stars",
+              "4 Stars",
+              selectedRating,
+              handleRadioChange,
+            )}
+            {renderRadio(
+              "5_STARS",
+              "starRating",
+              "5 Stars",
+              "5 Stars",
+              selectedRating,
+              handleRadioChange,
+            )}
+          </>
         )}
       </span>
       <span className="flex justify-between gap-1.5 mt-6 pr-4 items-start">
-        <div className="text-emerald-700 text-lg font-semibold">Show more</div>
+        <div
+          className="text-emerald-700 text-xl font-semibold cursor-pointer"
+          onClick={() => setShowMore1(!showMore1)}
+        >
+          {showMore1 ? "Show less" : "Show more"}
+        </div>
         <img
           loading="lazy"
           src="https://cdn.builder.io/api/v1/image/assets/TEMP/1f59782dfb7b3830646a97617a75335d45d1417088b506885c1b4abac4752bc9?"
