@@ -143,7 +143,11 @@ function App() {
           />
           <Route
             path={"/user-dashboard/purchased-books"}
-            element={<PurchasedBooks />}
+            element={<PurchasedBooks
+                handleStatus={handleStatus}
+                setStatusTitle={setStatusTitle}
+                setStatusMessage={setStatusMessage}
+                setStatusColor={setStatusColor}/>}
           />
           <Route
             path={"/user-dashboard/saved-books"}
