@@ -10,11 +10,9 @@ export const UserCategoryPage = ({
   setStatusMessage,
   setStatusColor,
 }) => {
-  const [isLast, setIsLast] = useState()
+  const [isLast, setIsLast] = useState(false)
 
   const [page, setPage] = useState(0);
-
-  const [bookPage, setBookPage] = useState();
 
   const [books, setBooks] = useState([]);
 
@@ -46,13 +44,13 @@ export const UserCategoryPage = ({
 
   const nextPage = () => {
     if (!isLast) {
-      setPage(bookPage + 1)
+      setPage(page + 1)
     }
   };
 
   const prevPage = () => {
     if (page > 0) {
-      setPage(bookPage - 1);
+      setPage(page - 1);
     }
   };
 

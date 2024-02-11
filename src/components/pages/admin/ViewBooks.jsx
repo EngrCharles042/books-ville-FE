@@ -4,9 +4,9 @@ import {useEffect, useState} from "react";
 import axios from "../../../api/axios.jsx";
 
 export const ViewBooks = () => {
-    const [page, setPage] = useState(0)
+    const [isLast, setIsLast] = useState(false)
 
-    const [bookPage, setBookPage] = useState()
+    const [page, setPage] = useState(0)
 
     const [uploadedBooks, setUploadedBooks] = useState([]);
 
@@ -18,7 +18,7 @@ export const ViewBooks = () => {
                 }
             }).then(
                 response => {
-                    setBookPage(response.data.responseDate)
+                    setIsLast(response.data.responseData.last)
                     setUploadedBooks(response.data.responseData.content)
                 }
             );
@@ -28,14 +28,14 @@ export const ViewBooks = () => {
     }, [page]);
 
     const nextPage = () => {
-        if (!bookPage.last) {
-            setPage(bookPage + 1)
+        if (!isLast) {
+            setPage(page + 1)
         }
     }
 
     const prevPage = () => {
         if (page > 0) {
-            setPage(bookPage - 1)
+            setPage(page - 1)
         }
     }
 
