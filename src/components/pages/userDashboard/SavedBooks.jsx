@@ -13,6 +13,8 @@ export const SavedBooks = ({ handleStatus, setStatusTitle, setStatusMessage, set
 
   const navigate = useNavigate()
 
+  const [isLast, setIsLast] = useState(false)
+
   const [page, setPage] = useState(0)
 
   const [bookPage, setBookPage] = useState()
@@ -87,14 +89,14 @@ export const SavedBooks = ({ handleStatus, setStatusTitle, setStatusMessage, set
   }
 
   const nextPage = () => {
-    if (!bookPage.last) {
-      setPage(bookPage + 1)
+    if (!isLast) {
+      setPage(page + 1)
     }
   }
 
   const prevPage = () => {
     if (page > 0) {
-      setPage(bookPage - 1)
+      setPage(page - 1)
     }
   }
 
@@ -111,13 +113,13 @@ export const SavedBooks = ({ handleStatus, setStatusTitle, setStatusMessage, set
       })
 
       setBookPage(response.data.responseDate)
-
+      setIsLast(response.data.responseData.last)
       setSavedBooks(response.data.responseData.content);
     }
 
     getSavedBooks();
 
-  }, [handleRemoveFromWishList]);
+  }, [handleRemoveFromWishList, page]);
 
   return (
     <>

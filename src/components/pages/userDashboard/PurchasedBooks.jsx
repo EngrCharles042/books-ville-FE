@@ -24,6 +24,8 @@ export const PurchasedBooks = ({ handleStatus, setStatusTitle, setStatusMessage,
 
   const navigate = useNavigate()
 
+  const [isLast, setIsLast] = useState(false)
+
   const [page, setPage] = useState(0)
 
   const [bookPage, setBookPage] = useState()
@@ -70,14 +72,14 @@ export const PurchasedBooks = ({ handleStatus, setStatusTitle, setStatusMessage,
   }
 
   const nextPage = () => {
-    if (!bookPage.last) {
-      setPage(bookPage + 1)
+    if (!isLast) {
+      setPage(page + 1)
     }
   }
 
   const prevPage = () => {
     if (page > 0) {
-      setPage(bookPage - 1)
+      setPage(page - 1)
     }
   }
 
@@ -93,29 +95,27 @@ export const PurchasedBooks = ({ handleStatus, setStatusTitle, setStatusMessage,
         }
       })
 
+      setIsLast(response.data.responseData.last)
       setPurchasedBooks(response.data.responseData.content);
     }
 
     getPurchasedBooks();
-  }, [])
+  }, [page])
 
   return (
     <div className="bg-white flex flex-col items-stretch mt-10 pr-2 pb-12">
       <span className="self-start flex w-full max-w-[1010px] flex-col mt-5 ml-20 mb-40 max-md:max-w-full max-md:mb-10">
-        <span className="items-stretch flex gap-2 self-start">
+        <span onClick={goBack} className="hover:scale-105 transition cursor-pointer items-stretch flex gap-2 self-start">
           <img
             loading="lazy"
             src="https://cdn.builder.io/api/v1/image/assets/TEMP/1d7dd83f57cf0f0d55ac4589528b86a4f6e45a046fbd6c7d18b6110dd0c11edb?"
             className="aspect-square object-contain object-center w-6 overflow-hidden shrink-0 max-w-full"
           />
-          <Link
-            to={"/user-dashboard"}
-            className="text-gray-900 text-base font-semibold leading-6 tracking-normal grow whitespace-nowrap self-start"
-          >
+          <div className="text-gray-900 text-base font-semibold leading-6 tracking-normal grow whitespace-nowrap self-start">
             Go back
-          </Link>
+          </div>
         </span>
-        <div className="text-black text-2xl font-semibold leading-8 self-stretch mt-3 max-md:max-w-full">
+        <div className="text-black text-2xl font-semibold leading-8 self-stretch mt-10 max-md:max-w-full">
           MY PURCHASED BOOKS
         </div>
 
@@ -199,40 +199,41 @@ export const PurchasedBooks = ({ handleStatus, setStatusTitle, setStatusMessage,
 
             )
         ) }
-        <div className="self-stretch mt-6 max-md:max-w-full">
 
-          {purchasedBooks.length > 0 &&
-              <div className="flex gap-4 justify-end">
-                <button onClick={prevPage} className="flex hover:bg-red-500 py-1 w-[8rem] transition items-center gap-2 border border-black rounded-lg px-4 justify-center">
-                  <div>
-                    <img
-                        loading="lazy"
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/1d7dd83f57cf0f0d55ac4589528b86a4f6e45a046fbd6c7d18b6110dd0c11edb?"
-                        className="aspect-square object-contain object-center w-6 overflow-hidden shrink-0 max-w-full"
-                    />
-                  </div>
-                  <p>
-                    Back
-                  </p>
-                </button>
-
-                <button onClick={nextPage} className="flex items-center hover:bg-green-500 py-1 w-[8rem] transition gap-2 border border-black rounded-lg px-4 justify-center">
-                  <p>
-                    Next
-                  </p>
-                  <div>
-                    <img
-                        loading="lazy"
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/1d7dd83f57cf0f0d55ac4589528b86a4f6e45a046fbd6c7d18b6110dd0c11edb?"
-                        className="aspect-square object-contain rotate-180 object-center w-6 overflow-hidden shrink-0 max-w-full"
-                    />
-                  </div>
-                </button>
-              </div>
-          }
-
-        </div>
       </span>
+
+      <div className="self-stretch max-md:max-w-full">
+        { purchasedBooks.length > 0 &&
+            <div className="flex gap-4 justify-end">
+              <button onClick={prevPage} className="flex hover:bg-red-500 py-1 w-[8rem] transition items-center gap-2 border border-black rounded-lg px-4 justify-center">
+                <div>
+                  <img
+                      loading="lazy"
+                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/1d7dd83f57cf0f0d55ac4589528b86a4f6e45a046fbd6c7d18b6110dd0c11edb?"
+                      className="aspect-square object-contain object-center w-6 overflow-hidden shrink-0 max-w-full"
+                  />
+                </div>
+                <p>
+                  Back
+                </p>
+              </button>
+
+              <button onClick={nextPage} className="flex items-center hover:bg-green-500 py-1 w-[8rem] transition gap-2 border border-black rounded-lg px-4 justify-center">
+                <p>
+                  Next
+                </p>
+                <div>
+                  <img
+                      loading="lazy"
+                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/1d7dd83f57cf0f0d55ac4589528b86a4f6e45a046fbd6c7d18b6110dd0c11edb?"
+                      className="aspect-square object-contain rotate-180 object-center w-6 overflow-hidden shrink-0 max-w-full"
+                  />
+                </div>
+              </button>
+            </div>
+        }
+
+      </div>
     </div>
   );
 };
