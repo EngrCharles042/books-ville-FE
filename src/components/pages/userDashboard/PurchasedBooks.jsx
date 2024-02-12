@@ -88,7 +88,7 @@ export const PurchasedBooks = ({ handleStatus, setStatusTitle, setStatusMessage,
   useEffect(() => {
       try {
           const getPurchasedBooks = async () => {
-              const response = await axios.get("/book/purchased?sortDir=desc", {
+              const response = await axios.get(`/book/purchased?sortDir=desc&pageNo=${page}`, {
                   headers: {
                       'Authorization': `Bearer ${JSON.parse(localStorage.getItem("userData")).accessToken}`
                   }

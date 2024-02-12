@@ -1,10 +1,8 @@
-import { useEffect, useState } from "react";
 import logo from "../../assets/images/landingPageImages/booksvillelogo.png";
 import fLogo from "../../assets/images/payment/flutterwaveLogo.png";
 import pLogo from "../../assets/images/payment/paystackLogo.png";
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import PayStackPop from "@paystack/inline-js";
-import { Link } from "react-router-dom";
 import axios from "../../api/axios.jsx";
 
 // eslint-disable-next-line react/prop-types
@@ -56,12 +54,11 @@ export const PaymentOptions = ({ handleBuy, handleStatus, setStatusTitle, setSta
 
     payStack.newTransaction({
       key: payStackPublicKey,
-      amount: 10000,
+      amount: book.amount * 10 ,
       email: `${userData.email}`,
       firstname: `${userData.firstname}`,
       lastname: `${userData.lastName}`,
       onSuccess(transaction) {
-        alert(transaction.reference);
 
         handleSuccessfulPayment(e, transaction, "paystack")
 

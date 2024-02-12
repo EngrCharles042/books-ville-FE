@@ -17,8 +17,6 @@ export const SavedBooks = ({ handleStatus, setStatusTitle, setStatusMessage, set
 
   const [page, setPage] = useState(0)
 
-  const [bookPage, setBookPage] = useState()
-
   const [savedBooks, setSavedBooks] = useState([]);
 
   const handleAddToCart = async (id) => {
@@ -106,13 +104,12 @@ export const SavedBooks = ({ handleStatus, setStatusTitle, setStatusMessage, set
 
   useEffect(() => {
     const getSavedBooks = async () => {
-      const response = await axios.get("/book/saved-books?sortDir=desc", {
+      const response = await axios.get(`/book/saved-books?sortDir=desc&pageNo=${page}`, {
         headers: {
           'Authorization': `Bearer ${JSON.parse(localStorage.getItem("userData")).accessToken}`
         }
       })
 
-      setBookPage(response.data.responseDate)
       setIsLast(response.data.responseData.last)
       setSavedBooks(response.data.responseData.content);
     }
