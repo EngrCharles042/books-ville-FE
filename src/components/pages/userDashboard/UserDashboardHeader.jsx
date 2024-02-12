@@ -1,10 +1,8 @@
-import profilePic from "../../../assets/images/userCatImages/profile.png";
 import { ProfilePopUp } from "../../../utils/ProfilePopUp.jsx";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-export const UserDashboardHeader = ({userData}) => {
-
+export const UserDashboardHeader = ({ userData }) => {
   const [profileClick, setProfileCLick] = useState(false);
 
   return (
