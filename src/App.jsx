@@ -12,7 +12,6 @@ import { AdminDashboard } from "./components/pages/admin/AdminDashboard.jsx";
 import { UserCategoryPage } from "./components/pages/userCategory/UserCategoryPage.jsx";
 import { PaymentOptions } from "./components/payment/PaymentOptions.jsx";
 import { BookDetails } from "./components/pages/BookDetails.jsx";
-import { ReadOnline } from "./components/pages/userDashboard/ReadOnline.jsx";
 import { PurchasedBooks } from "./components/pages/userDashboard/PurchasedBooks.jsx";
 import { ViewBooks } from "./components/pages/admin/ViewBooks.jsx";
 import { OrderProcessing } from "./components/pages/admin/OrderProcessing.jsx";
@@ -143,11 +142,14 @@ function App() {
           />
           <Route
             path={"/user-dashboard/purchased-books"}
-            element={<PurchasedBooks
+            element={
+              <PurchasedBooks
                 handleStatus={handleStatus}
                 setStatusTitle={setStatusTitle}
                 setStatusMessage={setStatusMessage}
-                setStatusColor={setStatusColor}/>}
+                setStatusColor={setStatusColor}
+              />
+            }
           />
           <Route
             path={"/user-dashboard/saved-books"}
@@ -170,8 +172,6 @@ function App() {
         <Route path={"/flutterwave-payment"} element={<PaymentOptions />} />
 
         <Route path={"/book-details"} element={<BookDetails />} />
-
-        <Route path={"/read-online"} element={<ReadOnline />} />
       </Routes>
     </div>
   );
