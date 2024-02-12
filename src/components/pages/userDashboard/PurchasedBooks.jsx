@@ -141,13 +141,13 @@ export const PurchasedBooks = ({
   };
 
   useEffect(() => {
-    try {
-      const getPurchasedBooks = async () => {
-        const response = await axios.get("/book/purchased?sortDir=desc", {
-          headers: {
-            Authorization: `Bearer ${JSON.parse(localStorage.getItem("userData")).accessToken}`,
-          },
-        });
+      try {
+          const getPurchasedBooks = async () => {
+              const response = await axios.get(`/book/purchased?sortDir=desc&pageNo=${page}`, {
+                  headers: {
+                      'Authorization': `Bearer ${JSON.parse(localStorage.getItem("userData")).accessToken}`
+                  }
+              })
 
         setIsLast(response.data.responseData.last);
         setPurchasedBooks(response.data.responseData.content);
