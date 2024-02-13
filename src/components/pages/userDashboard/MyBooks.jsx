@@ -2,7 +2,6 @@ import { MyBookCard } from "./MyBookCard.jsx";
 import { BookCard } from "../landing/BookCard.jsx";
 import { useEffect, useState } from "react";
 import axios from "../../../api/axios.jsx";
-import * as React from "react";
 import { Link } from "react-router-dom";
 
 export const MyBooks = () => {

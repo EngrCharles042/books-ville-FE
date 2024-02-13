@@ -14,7 +14,6 @@ import { PaymentOptions } from "./components/payment/PaymentOptions.jsx";
 import { BookDetails } from "./components/pages/BookDetails.jsx";
 import { PurchasedBooks } from "./components/pages/userDashboard/PurchasedBooks.jsx";
 import { ViewBooks } from "./components/pages/admin/ViewBooks.jsx";
-import { OrderProcessing } from "./components/pages/admin/OrderProcessing.jsx";
 import { Subscriptions } from "./components/pages/userDashboard/Subscriptions.jsx";
 import { SavedBooks } from "./components/pages/userDashboard/SavedBooks.jsx";
 import { AccountSetting } from "./components/pages/userDashboard/AccountSetting.jsx";
@@ -106,12 +105,17 @@ function App() {
             />
           }
         >
-          <Route path={"/admin-dashboard/view-books"} element={<ViewBooks />}>
-            <Route
-              path={"/admin-dashboard/view-books/order-processing"}
-              element={<OrderProcessing />}
-            />
-          </Route>
+          <Route
+            path={"/admin-dashboard/view-books"}
+            element={
+              <ViewBooks
+                handleStatus={handleStatus}
+                setStatusTitle={setStatusTitle}
+                setStatusMessage={setStatusMessage}
+                setStatusColor={setStatusColor}
+              />
+            }
+          ></Route>
         </Route>
 
         <Route
