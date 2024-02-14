@@ -21,8 +21,6 @@ export const PaymentOptions = ({ handleBuy, handleStatus, setStatusTitle, setSta
   const handleSuccessfulPayment = async (e, transaction, url) => {
     e.preventDefault();
 
-    console.log(1)
-
     try {
       await axios
         .post(`/transaction/${url}/${book.id}`, transaction, {
