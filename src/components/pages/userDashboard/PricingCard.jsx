@@ -1,4 +1,28 @@
-export const PricingCard = ({ title, price, description, headerColor, redirectUrl, imageSrc, headerText }) => {
+import Modal from "react-modal";
+import {useState} from "react";
+import {SubscriptionPayment} from "../../payment/SubscriptionPayment.jsx";
+
+export const PricingCard = ({ title,
+                              price,
+                              description,
+                              headerColor,
+                              headerText,
+                              plan,
+                              handleStatus,
+                              setStatusTitle,
+                              setStatusMessage,
+                              setStatusColor }) => {
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   const cardHeaderColor = headerColor || 'bg-black';
   const borderColorClass = `border-6 border-${cardHeaderColor}`; // Adjusted this line
 
@@ -33,38 +57,155 @@ export const PricingCard = ({ title, price, description, headerColor, redirectUr
               </div>
             </span>
           </span>
-          <div className="text-black text-xs leading-4 tracking-wide mt-2">
+          <div className="h-[5rem] text-black text-xs leading-4 tracking-wide mt-4">
             {description}
           </div>
         </div>
         <div>
-          <a href={redirectUrl} target="_blank" rel="noopener noreferrer">
-            <div className={`text-white font-semibold leading-4 whitespace-nowrap justify-center items-center border mt-20 px-16 py-4 rounded-md border-solid max-md:mt-10 max-md:px-5 cursor-pointer ${cardHeaderColor} hover:bg-white hover:text-black transition duration-200 text-${cardHeaderColor}`}>
-              Free 14-days Trial
-            </div>
-          </a>
+
+        <div onClick={handleOpenModal} className={`text-white font-semibold leading-4 whitespace-nowrap justify-center items-center border mt-5 px-16 py-4 rounded-md border-solid max-md:mt-10 max-md:px-5 cursor-pointer ${cardHeaderColor} hover:bg-white hover:text-black transition duration-200 text-${cardHeaderColor}`}>
+          Free 14-days Trial
+        </div>
+
           <div className="text-green-500 text-base font-semibold leading-6 tracking-normal whitespace-nowrap mt-11 self-start max-md:mt-10">
             Core Features
           </div>
-          {Array.from({ length: 6 }).map((_, index) => (
-            <span key={index} className="items-stretch flex justify-between gap-1.5 mt-3">
-              <div className="flex items-center">
-                <input
+
+          <span className="items-stretch flex justify-between gap-1.5 mt-3">
+            <div className="flex items-center">
+              <input
                   type="checkbox"
-                  id="richMemberProfile"
+                  id="unlimitedAccess"
                   className="mr-2"
-                />
-                <label
-                    htmlFor="richMemberProfile"
-                    className="text-black text-xs font-semibold leading-5 self-center grow shrink basis-auto my-auto"
-                >
-                  Rich Member Profile
-                </label>
-              </div>
-            </span>
-          ))}
+                  checked={plan === "best"}
+              />
+              <label
+                  htmlFor="unlimitedAccess"
+                  className="text-black text-xs font-semibold leading-5 self-center grow shrink basis-auto my-auto"
+              >
+                Unlimited Access
+              </label>
+            </div>
+          </span>
+
+          <span className="items-stretch flex justify-between gap-1.5 mt-3">
+            <div className="flex items-center">
+              <input
+                  type="checkbox"
+                  id="offlineReading"
+                  className="mr-2"
+                  checked={plan === "best"}
+              />
+              <label
+                  htmlFor="offlineReading"
+                  className="text-black text-xs font-semibold leading-5 self-center grow shrink basis-auto my-auto"
+              >
+                Offline Reading
+              </label>
+            </div>
+          </span>
+
+          <span className="items-stretch flex justify-between gap-1.5 mt-3">
+            <div className="flex items-center">
+              <input
+                  type="checkbox"
+                  id="dealsAndDiscounts"
+                  className="mr-2"
+                  checked={plan === "popular" || plan === "best"}
+              />
+              <label
+                  htmlFor="dealsAndDiscounts"
+                  className="text-black text-xs font-semibold leading-5 self-center grow shrink basis-auto my-auto"
+              >
+                Exclusive Deals and Discounts
+              </label>
+            </div>
+          </span>
+
+          <span className="items-stretch flex justify-between gap-1.5 mt-3">
+            <div className="flex items-center">
+              <input
+                  type="checkbox"
+                  id="specialSupport"
+                  className="mr-2"
+                  checked={plan === "popular" || plan === "best"}
+              />
+              <label
+                  htmlFor="specialSupport"
+                  className="text-black text-xs font-semibold leading-5 self-center grow shrink basis-auto my-auto"
+              >
+                Special Support
+              </label>
+            </div>
+          </span>
+
+          <span className="items-stretch flex justify-between gap-1.5 mt-3">
+            <div className="flex items-center">
+              <input
+                  type="checkbox"
+                  id="onlineReading"
+                  className="mr-2"
+                  checked
+              />
+              <label
+                  htmlFor="onlineReading"
+                  className="text-black text-xs font-semibold leading-5 self-center grow shrink basis-auto my-auto"
+              >
+                Online Reading
+              </label>
+            </div>
+          </span>
+
+          <span className="items-stretch flex justify-between gap-1.5 mt-3">
+            <div className="flex items-center">
+              <input
+                  type="checkbox"
+                  id="reviews"
+                  className="mr-2"
+                  checked
+              />
+              <label
+                  htmlFor="reviews"
+                  className="text-black text-xs font-semibold leading-5 self-center grow shrink basis-auto my-auto"
+              >
+                Reviews and Ratings
+              </label>
+            </div>
+          </span>
         </div>
       </span>
+
+
+
+      <Modal
+          isOpen={isModalOpen}
+          onRequestClose={handleCloseModal}
+          style={{
+            overlay: {
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
+              zIndex: 1000,
+            },
+            content: {
+              maxWidth: "592px",
+              maxHeight: "500px",
+              margin: "auto",
+              background: "white",
+              borderRadius: "8px",
+              padding: "0px",
+            },
+          }}
+      >
+        <SubscriptionPayment
+            price={plan === "best" ? 50000 : plan === "popular" ? 35000 : 15000 }
+            handleStatus={handleStatus}
+            setStatusTitle={setStatusTitle}
+            setStatusMessage={setStatusMessage}
+            setStatusColor={setStatusColor}
+            handleBuy={handleCloseModal}
+        />
+      </Modal>
+
+
     </div>
   );
 };

@@ -4,7 +4,7 @@ import checkBox1 from "../../../assets/images/userCatImages/check_box (1).png";
 import checkBox2 from "../../../assets/images/userCatImages/check_box (2).png";
 import { useNavigate } from "react-router-dom";
 
-export const Subscriptions = () => {
+export const Subscriptions = ({ handleStatus, setStatusTitle, setStatusMessage, setStatusColor }) => {
   const navigate = useNavigate();
 
   const goBack = () => {
@@ -35,35 +35,50 @@ export const Subscriptions = () => {
       <div className="flex justify-center gap-9 mx-auto">
         {/* First PricingCard */}
         <PricingCard
-          title="Professional"
-          price="30,000"
-          description="Lorem ipsum dolor sit amet consectetur. Iaculis quam rhoncus scelerisque ."
+          title="Light 😴"
+          price="15,000"
+          description="Enjoy reading books at a leisurely pace? occasionally dip into novels for relaxation or entertainment without diving deeply into extensive reading sessions."
           headerColor="bg-gray-300"
           redirectUrl="http://example.com"
           imageSrc={checkBox1}
           headerText="Basic"
+          plan={"basic"}
+          handleStatus={handleStatus}
+          setStatusTitle={setStatusTitle}
+          setStatusMessage={setStatusMessage}
+          setStatusColor={setStatusColor}
         />
 
         {/* Second PricingCard with green color */}
         <PricingCard
-          title="Organisation"
-          price="50,000"
-          description="Lorem ipsum dolor sit amet consectetur. Iaculis quam rhoncus scelerisque ."
+          title="Casual 🤔"
+          price="35,000"
+          description="You can engage with reading regularly but may not delve deeply into extensive or complex texts"
           headerColor="bg-green-500"
           redirectUrl="http://example.com"
           imageSrc={checkBox}
           headerText="Most Popular"
+          plan={"popular"}
+          handleStatus={handleStatus}
+          setStatusTitle={setStatusTitle}
+          setStatusMessage={setStatusMessage}
+          setStatusColor={setStatusColor}
         />
 
         {/* Third PricingCard with dark gray color */}
         <PricingCard
-          title="Organisational"
-          price="80,000"
-          description="Lorem ipsum dolor sit amet consectetur. Iaculis quam rhoncus scelerisque ."
+          title="Voracious 😋"
+          price="50,000"
+          description="Constantly hungry for new books to devour? eagerly explore diverse genres and topics with boundless enthusiasm."
           headerColor="bg-gray-500"
           redirectUrl="http://example.com"
           imageSrc={checkBox2}
           headerText="Best Deal"
+          plan={"best"}
+          handleStatus={handleStatus}
+          setStatusTitle={setStatusTitle}
+          setStatusMessage={setStatusMessage}
+          setStatusColor={setStatusColor}
         />
       </div>
     </div>
