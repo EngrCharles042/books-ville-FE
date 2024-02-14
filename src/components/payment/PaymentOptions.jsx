@@ -14,12 +14,14 @@ export const PaymentOptions = ({ handleBuy, handleStatus, setStatusTitle, setSta
     setStatusColor(color);
   };
 
+  const bookPrice = book?.price * 100;
+
   const userData = JSON.parse(localStorage.getItem("userData"));
 
   const handleSuccessfulPayment = async (e, transaction, url) => {
     e.preventDefault();
 
-    alert("continue" + `Bearer ${userData.accessToken}`);
+    console.log(1)
 
     try {
       await axios
@@ -34,7 +36,10 @@ export const PaymentOptions = ({ handleBuy, handleStatus, setStatusTitle, setSta
               "Your Payment is Successful",
               "bg-green-600",
           );
+
         });
+
+      handleBuy()
     } catch (error) {
       enableStatus(
           "Oops!",
@@ -54,7 +59,7 @@ export const PaymentOptions = ({ handleBuy, handleStatus, setStatusTitle, setSta
 
     payStack.newTransaction({
       key: payStackPublicKey,
-      amount: book.amount * 10 ,
+      amount: bookPrice ,
       email: `${userData.email}`,
       firstname: `${userData.firstname}`,
       lastname: `${userData.lastName}`,
@@ -77,7 +82,7 @@ export const PaymentOptions = ({ handleBuy, handleStatus, setStatusTitle, setSta
   const config = {
     public_key: flutterWavePublicKey,
     tx_ref: Date.now(),
-    amount: 1000,
+    amount: book?.price,
     currency: "NGN",
     payment_options: "card, mobilemoney, ussd",
     customer: {
@@ -94,13 +99,13 @@ export const PaymentOptions = ({ handleBuy, handleStatus, setStatusTitle, setSta
 
   const handleFlutterPayment = useFlutterwave(config);
 
-  const payWithFlutter = () => {
+  const payWithFlutter = (e) => {
     handleFlutterPayment({
       callback: (response) => {
 
         handleSuccessfulPayment(e, response, "flutter")
 
-        closePaymentModal(); // this will close the modal programmatically
+        closePaymentModal();
       },
       onClose: () => {
         enableStatus(

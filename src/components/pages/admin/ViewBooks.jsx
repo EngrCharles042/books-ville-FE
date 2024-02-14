@@ -3,6 +3,7 @@ import axios from "../../../api/axios.jsx";
 import Modal from "react-modal";
 import { ClipLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
+import {formatDate} from "../../../hooks/formatDate.js";
 
 export const ViewBooks = ({
   handleStatus,
@@ -10,6 +11,8 @@ export const ViewBooks = ({
   setStatusMessage,
   setStatusColor,
 }) => {
+  const userData = JSON.parse(localStorage.getItem("userData"));
+
   const enableStatus = (title, message, color) => {
     handleStatus();
     setStatusTitle(title);
@@ -147,7 +150,7 @@ export const ViewBooks = ({
 
                   <div>
                     <div
-                      className="text-white text-sm leading-5 whitespace-nowrap items-stretch bg-green-500 justify-center w-full my-auto px-7 py-3 rounded-md max-md:mt-10 max-md:px-5 cursor-pointer"
+                      className="cursor-pointer hover:bg-green-600 transition text-white text-sm leading-5 whitespace-nowrap items-stretch bg-green-500 justify-center w-full my-auto px-7 py-3 rounded-md max-md:mt-10 max-md:px-5 cursor-pointer"
                       onClick={() => handleViewBookClick(book.id)}
                     >
                       VIEW BOOK
@@ -194,10 +197,25 @@ export const ViewBooks = ({
 
       {/* Render the book page when selectedBook is not null */}
       {showBookPage && (
-        <div className="flex ml-5 max-md:w-full max-md:ml-0">
+        <div className="flex flex-col ml-5 max-md:w-full max-md:ml-0">
+
+          <div
+              onClick={() => (setShowBookPage(false))}
+              className="ml-60 mt-[12vh] cursor-pointer transition hover:scale-105 items-stretch flex gap-2 self-start"
+          >
+            <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/05c93399f1248fc1de27bab921526a1825a15da2fa4d259f0e0f0ad954105612?"
+                className="aspect-square object-contain object-center w-6 overflow-hidden shrink-0 max-w-full"
+            />
+            <div className="text-gray-900 text-base font-semibold leading-6 tracking-normal grow whitespace-nowrap self-start">
+              Go back
+            </div>
+          </div>
+
           <div
             key={selectedBook.id}
-            className="flex flex-col items-stretch max-md:max-w-full mt-20 ml-60"
+            className="flex flex-col items-stretch max-md:max-w-full ml-60"
           >
             <span className="items-center flex gap-2 ml-8 mt-7 self-start max-md:ml-2.5">
               <img
@@ -206,7 +224,7 @@ export const ViewBooks = ({
                 className="aspect-square object-contain object-center w-6 overflow-hidden shrink-0 max-w-full my-auto"
               />
               <div className="text-zinc-900 text-2xl font-bold leading-8 self-stretch grow whitespace-nowrap">
-                All Uploaded Books
+                {selectedBook?.bookTitle}
               </div>
             </span>
             <div className="shadow-lg bg-white flex w-[755px] max-w-full flex-col ml-8 mt-8 pl-5 pr-20 pt-4 pb-7 self-start items-start max-md:pr-5">
@@ -241,16 +259,16 @@ export const ViewBooks = ({
               </div>
               <span className="items-stretch flex gap-2 mt-3 ml-[10rem] max-md:max-w-full max-md:flex-wrap">
                 <div className="text-black text-sm leading-5 grow whitespace-nowrap">
-                  Charles Obi
+                  {userData?.firstName} {userData?.lastName}
+                </div>
+                <div className={`${selectedBook?.price === 0 ? 'text-green-600 font-bold' : ''} text-black text-sm leading-5`}>
+                  {selectedBook?.price === 0 ? 'FREE' : `₦${selectedBook?.price}`}
                 </div>
                 <div className="text-black text-sm leading-5">
-                  {selectedBook?.price}
-                </div>
-                <div className="text-black text-sm leading-5">
-                  CharlesObi@gmail.com
+                  {userData?.email}
                 </div>
                 <div className="text-black text-sm leading-5 grow whitespace-nowrap">
-                  13th February, 2024
+                  { formatDate(selectedBook?.dateCreated) }
                 </div>
               </span>
               <div className="self-center flex items-stretch gap-4 ml-5">
@@ -265,12 +283,26 @@ export const ViewBooks = ({
                   ariaHideApp={false}
                   className="absolute w-[30%] bg-transparent border-none top-[20%] left-[35%] justify-center items-center"
                   onRequestClose={closeModal}
+                  style={{
+                    overlay: {
+                      backgroundColor: "rgba(0, 0, 0, 0.5)",
+                      zIndex: 1000,
+                    },
+                    content: {
+                      maxWidth: "fit-content",
+                      maxHeight: "fit-content",
+                      margin: "auto",
+                      background: "white",
+                      borderRadius: "8px",
+                      padding: "0",
+                    },
+                  }}
                 >
-                  <div className="justify-center shadow-lg bg-white flex max-w-[400px] flex-col pt-2 pb-4 rounded-xl items-end">
+                  <div className="justify-center shadow-lg bg-white flex max-w-[400px] flex-col py-5 rounded-xl items-end">
                     <img
                       loading="lazy"
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/81c2f27bcf96cd259caef0bbf69acd93889cc777b3fad5af7839f56613191486?"
-                      className="aspect-square object-contain object-center w-6 overflow-hidden max-w-full mr-6"
+                      className="cursor-pointer hover:scale-110 transition aspect-square object-contain object-center w-6 overflow-hidden max-w-full mr-6"
                       onClick={closeModal}
                     />
                     <span className="self-stretch flex w-full flex-col items-stretch mt-5 px-6">
@@ -283,14 +315,15 @@ export const ViewBooks = ({
                       </div>
                       <div className="items-stretch flex justify-between gap-3 mt-5">
                         <span
-                          className="text-slate-700 text-base font-medium leading-6 whitespace-nowrap justify-center items-center border border-[color:var(--Gray-300,#D0D5DD)] shadow-sm bg-white grow px-16 py-2.5 rounded-lg border-solid"
+                          className="cursor-pointer hover:bg-gray-200 transition text-slate-700 text-base font-medium leading-6 whitespace-nowrap justify-center items-center border border-[color:var(--Gray-300,#D0D5DD)] shadow-sm bg-white grow px-16 py-2.5 rounded-lg border-solid"
                           onClick={closeModal}
                         >
                           No
                         </span>
+
                         <span
                           onClick={handleDeleteBook}
-                          className="text-white text-base font-medium leading-6 whitespace-nowrap justify-center items-stretch border shadow-sm bg-red-600 grow px-16 py-2.5 rounded-lg border-solid border-red-600"
+                          className="cursor-pointer hover:bg-red-700 transition text-white text-base font-medium leading-6 whitespace-nowrap justify-center items-stretch border shadow-sm bg-red-600 grow px-16 py-2.5 rounded-lg border-solid border-red-600"
                         >
                           {!clip ? (
                             "Delete"
