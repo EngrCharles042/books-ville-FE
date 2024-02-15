@@ -9,6 +9,7 @@ import { AccountSetting } from "./AccountSetting.jsx";
 import { Checkout } from "./Checkout.jsx";
 import {useEffect, useState} from "react";
 import axios from "../../../api/axios.jsx";
+import {BookDetails} from "../BookDetails.jsx";
 
 export const UserDashboardPage = ({handleStatus, setStatusTitle, setStatusMessage, setStatusColor}) => {
 
@@ -101,9 +102,19 @@ export const UserDashboardPage = ({handleStatus, setStatusTitle, setStatusMessag
                   setStatusColor={setStatusColor}
                   userData={user}
                   setDep={setDep}
+                  user={"user"}
                 />
               }
             />
+
+            <Route path={"/book-details/:id"} element={
+              <BookDetails
+                  handleStatus={handleStatus}
+                  setStatusTitle={setStatusTitle}
+                  setStatusMessage={setStatusMessage}
+                  setStatusColor={setStatusColor}
+              />
+            } />
 
             <Route path={"/cart"} element={<Checkout />} />
           </Routes>

@@ -7,7 +7,7 @@ import Modal from "react-modal";
 import { ImageUploadModal } from "./ImageUploadModal.jsx";
 import {ChangePassword} from "./ChangePassword.jsx";
 
-export const AccountSetting = ({handleStatus, setStatusTitle, setStatusMessage, setStatusColor, userData, setDep}) => {
+export const AccountSetting = ({handleStatus, setStatusTitle, setStatusMessage, setStatusColor, userData, setDep, user}) => {
 
   const [formData, setFormData] = useState({
     email: `${userData.email}`,
@@ -112,11 +112,11 @@ export const AccountSetting = ({handleStatus, setStatusTitle, setStatusMessage, 
 
   return (
     <>
-      <div className="bg-white flex flex-col items-stretch mt-[3rem]">
-        <span className="self-center flex w-full max-w-[1297px] flex-col mt-5 mb-28 max-md:max-w-full max-md:mb-10">
+      <div className="bg-white flex flex-col items-stretch mt-[5rem]">
+        <span className={`"self-center flex w-full max-w-[1297px] flex-col ${user === "admin" ? "mt-5" : "mt-3"} mb-28 max-md:max-w-full max-md:mb-10"`}>
           <span
             onClick={handleGoBack}
-            className="cursor-pointer transition hover:scale-105 items-stretch flex gap-2 self-start"
+            className={`cursor-pointer transition hover:scale-105 ${user === "admin" ? "" : "ml-[4.5rem]"} items-stretch flex gap-2 self-start`}
           >
             <img
               loading="lazy"
@@ -127,7 +127,7 @@ export const AccountSetting = ({handleStatus, setStatusTitle, setStatusMessage, 
               Go back
             </div>
           </span>
-          <div className="flex max-w-full items-stretch ml-56 mt-2 self-start max-md:ml-2.5">
+          <div className={`flex max-w-full items-stretch ${user === "admin" ? "" : "ml-60"} mt-2 self-start max-md:ml-2.5`}>
             <span
               onClick={handleProfile}
               className={`cursor-pointer border-b hover:border-green-400 ${display === "profile" ? "border-green-500" : ""} items-stretch flex gap-2 w-[15.9rem]`}

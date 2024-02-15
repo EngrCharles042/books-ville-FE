@@ -46,7 +46,7 @@ export const AdminDashboard = ({
         <div>
           <AdminHeader />
         </div>
-        <div>
+        <div className="ml-[270px]">
           <Routes>
             <Route
               path={"/"}
@@ -73,17 +73,18 @@ export const AdminDashboard = ({
             />
 
             <Route
-              path={"/profile"}
-              element={
-                <AccountSetting
-                  handleStatus={handleStatus}
-                  setStatusTitle={setStatusTitle}
-                  setStatusMessage={setStatusMessage}
-                  setStatusColor={setStatusColor}
-                  userData={user}
-                  setDep={setDep}
-                />
-              }
+                path={"/profile"}
+                element={
+                  <AccountSetting
+                      handleStatus={handleStatus}
+                      setStatusTitle={setStatusTitle}
+                      setStatusMessage={setStatusMessage}
+                      setStatusColor={setStatusColor}
+                      userData={user}
+                      setDep={setDep}
+                      user={"admin"}
+                  />
+                }
             />
           </Routes>
         </div>
