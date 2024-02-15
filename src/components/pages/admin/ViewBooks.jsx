@@ -365,7 +365,6 @@ export const ViewBooks = ({
                 <Modal
                   isOpen={modal1IsOpen}
                   ariaHideApp={false}
-                  className="absolute w-[50%] h-[90%] bg-transparent border-none top-[5%] left-[25%] justify-center items-center"
                   onRequestClose={closeModal1}
                   style={{
                     overlay: {
@@ -374,7 +373,7 @@ export const ViewBooks = ({
                     },
                     content: {
                       maxWidth: "fit-content",
-                      maxHeight: "fit-content",
+                      maxHeight: "90vh",
                       margin: "auto",
                       background: "white",
                       borderRadius: "8px",
