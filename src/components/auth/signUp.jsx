@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "../../api/axios.jsx";
 import logo from "../../assets/images/landingPageImages/booksvillelogo.png";
+import authImage from "../../assets/images/authImage.svg";
 import { ClipLoader } from "react-spinners";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
@@ -116,7 +117,7 @@ export const SignUp = ({
       <div>
         <img
           loading="lazy"
-          src="https://res.cloudinary.com/dkpicxs08/image/upload/v1702585331/BooksVilleSignUpImg_jwjz0b.svg"
+          src={authImage}
           alt="authentication image"
         />
       </div>

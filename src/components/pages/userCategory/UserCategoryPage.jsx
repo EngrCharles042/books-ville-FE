@@ -1,24 +1,14 @@
 import { Filters } from "./Filters.jsx";
 import { useEffect, useState } from "react";
-import { BookDetails } from "../BookDetails.jsx";
 import axios from "../../../api/axios.jsx";
 import { BookDisplayCard } from "./comps/BookDisplayCard.jsx";
 
-export const UserCategoryPage = ({
-  handleStatus,
-  setStatusTitle,
-  setStatusMessage,
-  setStatusColor,
-}) => {
+export const UserCategoryPage = () => {
   const [isLast, setIsLast] = useState(false)
 
   const [page, setPage] = useState(0);
 
   const [books, setBooks] = useState([]);
-
-  const [viewBook, setViewBook] = useState();
-
-  const userData = JSON.parse(localStorage.getItem("userData"));
 
   useEffect(() => {
     const loadBooks = async () => {
@@ -26,21 +16,10 @@ export const UserCategoryPage = ({
 
       setBooks(response.data.responseData.content);
       setIsLast(response.data.responseData.last)
-      setViewBook(response.data.responseData.content[0]);
     };
 
     loadBooks();
   }, [page]);
-
-  const [details, setDetails] = useState(false);
-
-  const handleDetails = () => {
-    setDetails(!details);
-  };
-
-  const handleViewBook = (viewedBook) => {
-    setViewBook(viewedBook);
-  };
 
   const nextPage = () => {
     if (!isLast) {
@@ -55,29 +34,18 @@ export const UserCategoryPage = ({
   };
 
   return (
-    <div className="bg-white flex flex-col items-stretch pb-12">
-      {details && (
-        <BookDetails
-          handleStatus={handleStatus}
-          setStatusTitle={setStatusTitle}
-          setStatusMessage={setStatusMessage}
-          setStatusColor={setStatusColor}
-          viewedBook={viewBook}
-        />
-      )}
-
-      {!details && (
-        <div className="flex w-full flex-col items-stretch mb-10 px-16 max-md:max-w-full max-md:mt-10 max-md:px-5">
+    <div className="bg-white flex flex-col items-stretch h-[90vh] overflow-hidden">
+        <div className="flex w-full flex-col items-stretch px-16 max-md:max-w-full max-md:mt-10 max-md:px-5">
           <div className="text-black text-6xl mt-[4.5rem] mb-[2rem] w-fit font-bold leading-[81.2px] tracking-tight max-md:text-4xl">
             Explore all Deals
           </div>
           <div className="mt-6 max-md:max-w-full">
             <div className="h-[100%] gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
-              <div className="h-fit flex flex-col items-stretch w-[22%] max-md:w-full max-md:ml-0">
+              <div className="h-[65vh] overflow-auto h-fit flex flex-col items-stretch w-[22%] max-md:w-full max-md:ml-0">
                 <Filters />
               </div>
 
-              <div className="flex flex-col items-stretch w-[78%] ml-5 max-md:w-full max-md:ml-0">
+              <div className="flex flex-col h-[65vh] overflow-auto items-stretch w-[78%] ml-5 max-md:w-full max-md:ml-0">
                 <div className="flex grow flex-col max-md:max-w-full max-md:mt-5">
                   <div className="items-stretch flex w-[66px] max-w-full gap-2 mr-28 self-end max-md:mr-2.5">
                     <img
@@ -97,20 +65,12 @@ export const UserCategoryPage = ({
                       <BookDisplayCard
                         key={book.id}
                         book={book}
-                        handleViewBook={handleViewBook}
-                        bookCover={book.bookCover}
-                        bookTitle={book.bookTitle}
-                        bookAuthor={book.author}
-                        genre={book.genre}
-                        price={book.price}
-                        bookDescription={book.description}
-                        handleDetails={handleDetails}
                       />
                     ))}
                   </>
 
                   {books.length > 0 && (
-                    <div className="flex gap-4 justify-end">
+                    <div className="flex gap-4 justify-end mb-10">
                       <button
                         onClick={prevPage}
                         className="flex hover:bg-red-500 py-1 w-[8rem] transition items-center gap-2 border border-black rounded-lg px-4 justify-center"
@@ -145,7 +105,6 @@ export const UserCategoryPage = ({
             </div>
           </div>
         </div>
-      )}
     </div>
   );
 };

@@ -4,14 +4,6 @@ export const Filters = () => {
   const [showMore, setShowMore] = useState(false);
   const [showMore1, setShowMore1] = useState(false);
   const [showMore2, setShowMore2] = useState(false);
-  // const [filledData, setFilledData] = useState(() => {
-  //   const data = new FormData();
-  //
-  //   data.append("FANTASY", "FANTASY");
-  //   data.append("ROMANCE", "ROMANCE");
-  //
-  //   return data;
-  // });
 
   const [formData, setFormData] = useState({
     FANTASY: "",
@@ -73,18 +65,7 @@ export const Filters = () => {
     if (formData.rating !== null) {
       data.append("rating", formData.rating);
     }
-
-    // if (data.get("FANTASY").length === 0 && data.get("ROMANCE").length === 0) {
-    //   getData(filledData);
-    // } else {
-    //   getData(data);
-    // }
   };
-
-  // useEffect(() => {
-  //   // Call the handleSubmit function whenever formData changes
-  //   handleSubmit();
-  // }, [formData]);
 
   return (
     <form className="justify-center items-stretch bg-white flex max-w-[18rem] flex-col px-8 py-7 rounded-md">
@@ -95,11 +76,6 @@ export const Filters = () => {
         <div className="overflow-hidden text-zinc-900 text-ellipsis whitespace-nowrap text-xl font-semibold grow">
           Categories
         </div>
-        <img
-          loading="lazy"
-          src="https://cdn.builder.io/api/v1/image/assets/TEMP/55eece25be896457b90f51eb56ab16267501ff84aa63de453cae5b740cfe25b1?"
-          className="aspect-square object-contain object-center w-[25px] overflow-hidden shrink-0 max-w-full self-start"
-        />
       </span>
       <span className="items-center flex flex-col justify-between gap-4 mt-6">
         {renderCheckbox("FANTASY", "Fantasy", formData.FANTASY, handleChange)}
@@ -144,18 +120,16 @@ export const Filters = () => {
         <img
           loading="lazy"
           src="https://cdn.builder.io/api/v1/image/assets/TEMP/e1d48398ad4121cb80f7750ede868e3621e9cd273fdff222f0d504ddfe13ca4b?"
-          className="aspect-square object-contain object-center w-[25px] overflow-hidden self-stretch shrink-0 max-w-full"
+          className={`${showMore ? "rotate-180" : ""} aspect-square object-contain object-center w-[25px] overflow-hidden self-stretch shrink-0 max-w-full`}
         />
       </span>
+
+
+
       <span className="items-stretch flex justify-between gap-0 mt-11">
         <div className="overflow-hidden text-zinc-900 text-ellipsis whitespace-nowrap text-xl font-[556] grow">
           Your Budget
         </div>
-        <img
-          loading="lazy"
-          src="https://cdn.builder.io/api/v1/image/assets/TEMP/08d4c08d8ad55fb934b39eda3ee58376800a7f986680956f14782b7f76c3f1d7?"
-          className="aspect-square object-contain object-center w-[25px] overflow-hidden shrink-0 max-w-full self-start"
-        />
       </span>
       <span className="items-center flex flex-col justify-between gap-4 mt-6">
         {renderCheckbox(
@@ -198,18 +172,15 @@ export const Filters = () => {
         <img
           loading="lazy"
           src="https://cdn.builder.io/api/v1/image/assets/TEMP/4197910499d52782dc44b0a553bf1721e90ce574f2353ba8f9bda960049fad0f?"
-          className="aspect-square object-contain object-center w-[25px] overflow-hidden self-stretch shrink-0 max-w-full"
+          className={`${showMore2 ? "rotate-180" : ""} aspect-square object-contain object-center w-[25px] overflow-hidden self-stretch shrink-0 max-w-full`}
         />
       </span>
+
+
       <span className="items-stretch flex justify-between gap-0 mt-11">
         <div className="overflow-hidden text-zinc-900 text-ellipsis whitespace-nowrap text-xl font-semibold grow">
           Rating
         </div>
-        <img
-          loading="lazy"
-          src="https://cdn.builder.io/api/v1/image/assets/TEMP/bb4ce552aa08ccbebbf60768007b35db1a62e288eeea58edee23d713b9158c43?"
-          className="aspect-[1.04] object-contain object-center w-[25px] overflow-hidden shrink-0 max-w-full self-start"
-        />
       </span>
       <span className="items-center flex flex-col justify-between gap-3 mt-4">
         {renderRadio(
@@ -267,7 +238,7 @@ export const Filters = () => {
         <img
           loading="lazy"
           src="https://cdn.builder.io/api/v1/image/assets/TEMP/1f59782dfb7b3830646a97617a75335d45d1417088b506885c1b4abac4752bc9?"
-          className="aspect-square object-contain object-center w-[25px] overflow-hidden self-stretch shrink-0 max-w-full"
+          className={`${showMore1 ? "rotate-180" : ""} aspect-square object-contain object-center w-[25px] overflow-hidden self-stretch shrink-0 max-w-full`}
         />
       </span>
     </form>

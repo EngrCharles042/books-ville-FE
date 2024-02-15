@@ -35,7 +35,7 @@ export const AddNewBook = ({
 
   return (
     <>
-      <div className="max-w-[950px] mt-10 flex flex-col items-stretch ml-[270px] max-md:w-full max-md:ml-0">
+      <div className="max-w-[950px] mt-10 flex flex-col items-stretch max-md:w-full max-md:ml-0">
         <form className="flex flex-col px-5 w-full max-md:max-w-full">
           <div className="flex w-[939px] max-w-full justify-between gap-5 mt-24 self-start items-start max-md:flex-wrap max-md:mt-10">
             <div className="items-center flex gap-3.5">

@@ -1,6 +1,7 @@
 import {useState} from "react";
 import axios from "../../api/axios.jsx";
 import logo from "../../assets/images/landingPageImages/booksvillelogo.png"
+import authImage from "../../assets/images/authImage.svg"
 import {ClipLoader} from "react-spinners";
 import {Link} from "react-router-dom";
 
@@ -55,7 +56,7 @@ export const ForgotPassword = ({ handleStatus, setStatusTitle, setStatusMessage,
         <div>
             <img
                 loading="lazy"
-                srcSet="https://res.cloudinary.com/dkpicxs08/image/upload/v1702585331/BooksVilleSignUpImg_jwjz0b.svg"
+                srcSet={authImage}
                 className=""
                 alt=""
             />

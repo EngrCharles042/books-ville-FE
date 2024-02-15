@@ -5,6 +5,7 @@ import logo from "../../assets/images/landingPageImages/booksvillelogo.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import {useGoogleLogin} from '@react-oauth/google';
+import authImage from "../../assets/images/authImage.svg"
 
 export const Login = ({
   handleStatus,
@@ -142,7 +143,7 @@ export const Login = ({
       <div>
         <img
           loading="lazy"
-          src="https://res.cloudinary.com/dkpicxs08/image/upload/v1702585331/BooksVilleSignUpImg_jwjz0b.svg"
+          src={authImage}
           alt="authentication image"
         />
       </div>
