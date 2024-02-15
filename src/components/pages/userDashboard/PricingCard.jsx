@@ -197,6 +197,7 @@ export const PricingCard = ({ title,
       >
         <SubscriptionPayment
             price={plan === "best" ? 50000 : plan === "popular" ? 35000 : 15000 }
+            subscription={plan === "best" ? "VORACIOUS" : plan === "popular" ? "PICKY" : "LIGHT" }
             handleStatus={handleStatus}
             setStatusTitle={setStatusTitle}
             setStatusMessage={setStatusMessage}
