@@ -93,7 +93,7 @@ export const ProfilePopUp = ({ handleProfilePop }) => {
           src="https://cdn.builder.io/api/v1/image/assets/TEMP/812c440b-9896-4823-86a9-8fca8dff9d7e?apiKey=ecb6ce71cdf4467d9335c2f7dc302a16&"
           className="aspect-[1.06] object-contain object-center w-[17px] overflow-hidden shrink-0 max-w-full my-auto"
         />
-        <div className="text-red-500 text-[0.9rem] font-medium text-red-500 leading-5 self-stretch grow whitespace-nowrap">
+        <div className="text-red-500 text-[0.9rem] font-medium leading-5 self-stretch grow whitespace-nowrap">
           Logout
         </div>
       </div>
