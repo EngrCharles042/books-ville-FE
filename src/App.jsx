@@ -115,7 +115,18 @@ function App() {
                 setStatusColor={setStatusColor}
               />
             }
-          ></Route>
+          />
+          <Route
+            path={"/admin-dashboard/profile"}
+            element={
+              <AccountSetting
+                handleStatus={handleStatus}
+                setStatusTitle={setStatusTitle}
+                setStatusMessage={setStatusMessage}
+                setStatusColor={setStatusColor}
+              />
+            }
+          />
         </Route>
 
         <Route
