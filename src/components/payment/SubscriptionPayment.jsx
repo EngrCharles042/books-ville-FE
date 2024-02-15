@@ -5,7 +5,7 @@ import {closePaymentModal, useFlutterwave} from "flutterwave-react-v3";
 import fLogo from "../../assets/images/payment/flutterwaveLogo.png";
 import pLogo from "../../assets/images/payment/paystackLogo.png";
 
-export const SubscriptionPayment = ({ handleBuy, handleStatus, setStatusTitle, setStatusMessage, setStatusColor, price }) => {
+export const SubscriptionPayment = ({ handleBuy, handleStatus, setStatusTitle, setStatusMessage, setStatusColor, price, subscription }) => {
     const enableStatus = (title, message, color) => {
         handleStatus();
         setStatusTitle(title);
@@ -17,12 +17,12 @@ export const SubscriptionPayment = ({ handleBuy, handleStatus, setStatusTitle, s
 
     const userData = JSON.parse(localStorage.getItem("userData"));
 
-    const handleSuccessfulPayment = async (e, transaction, url) => {
+    const handleSuccessfulPayment = async (e, transaction) => {
         e.preventDefault();
 
         try {
             await axios
-                .post(``, transaction, {
+                .post(`/subscription/${subscription}`, transaction, {
                     headers: {
                         Authorization: `Bearer ${userData.accessToken}`,
                     },
@@ -62,7 +62,7 @@ export const SubscriptionPayment = ({ handleBuy, handleStatus, setStatusTitle, s
             lastname: `${userData.lastName}`,
             onSuccess(transaction) {
 
-                handleSuccessfulPayment(e, transaction, "paystack")
+                handleSuccessfulPayment(e, transaction)
 
                 console.log(transaction);
             },
@@ -100,7 +100,7 @@ export const SubscriptionPayment = ({ handleBuy, handleStatus, setStatusTitle, s
         handleFlutterPayment({
             callback: (response) => {
 
-                handleSuccessfulPayment(e, response, "flutter")
+                handleSuccessfulPayment(e, response)
 
                 closePaymentModal();
             },
