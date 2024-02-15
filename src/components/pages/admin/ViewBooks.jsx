@@ -3,7 +3,8 @@ import axios from "../../../api/axios.jsx";
 import Modal from "react-modal";
 import { ClipLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
-import {formatDate} from "../../../hooks/formatDate.js";
+import { formatDate } from "../../../hooks/formatDate.js";
+import { EditBookModal } from "./EditBookModal.jsx";
 
 export const ViewBooks = ({
   handleStatus,
@@ -26,6 +27,7 @@ export const ViewBooks = ({
   const [page, setPage] = useState(0);
   const [uploadedBooks, setUploadedBooks] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modal1IsOpen, setModal1IsOpen] = useState(false);
   const [selectedBook, setSelectedBook] = useState(null);
   const [showBookPage, setShowBookPage] = useState(false);
 
@@ -37,6 +39,14 @@ export const ViewBooks = ({
 
   const closeModal = () => {
     setModalIsOpen(false);
+  };
+
+  const openModal1 = () => {
+    setModal1IsOpen(true);
+  };
+
+  const closeModal1 = () => {
+    setModal1IsOpen(false);
   };
 
   useEffect(() => {
@@ -198,15 +208,14 @@ export const ViewBooks = ({
       {/* Render the book page when selectedBook is not null */}
       {showBookPage && (
         <div className="flex flex-col ml-5 max-md:w-full max-md:ml-0">
-
           <div
-              onClick={() => (setShowBookPage(false))}
-              className="ml-60 mt-[12vh] cursor-pointer transition hover:scale-105 items-stretch flex gap-2 self-start"
+            onClick={() => setShowBookPage(false)}
+            className="ml-60 mt-[12vh] cursor-pointer transition hover:scale-105 items-stretch flex gap-2 self-start"
           >
             <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/05c93399f1248fc1de27bab921526a1825a15da2fa4d259f0e0f0ad954105612?"
-                className="aspect-square object-contain object-center w-6 overflow-hidden shrink-0 max-w-full"
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/05c93399f1248fc1de27bab921526a1825a15da2fa4d259f0e0f0ad954105612?"
+              className="aspect-square object-contain object-center w-6 overflow-hidden shrink-0 max-w-full"
             />
             <div className="text-gray-900 text-base font-semibold leading-6 tracking-normal grow whitespace-nowrap self-start">
               Go back
@@ -261,19 +270,23 @@ export const ViewBooks = ({
                 <div className="text-black text-sm leading-5 grow whitespace-nowrap">
                   {userData?.firstName} {userData?.lastName}
                 </div>
-                <div className={`${selectedBook?.price === 0 ? 'text-green-600 font-bold' : ''} text-black text-sm leading-5`}>
-                  {selectedBook?.price === 0 ? 'FREE' : `₦${selectedBook?.price}`}
+                <div
+                  className={`${selectedBook?.price === 0 ? "text-green-600 font-bold" : ""} text-black text-sm leading-5`}
+                >
+                  {selectedBook?.price === 0
+                    ? "FREE"
+                    : `₦${selectedBook?.price}`}
                 </div>
                 <div className="text-black text-sm leading-5">
                   {userData?.email}
                 </div>
                 <div className="text-black text-sm leading-5 grow whitespace-nowrap">
-                  { formatDate(selectedBook?.dateCreated) }
+                  {formatDate(selectedBook?.dateCreated)}
                 </div>
               </span>
-              <div className="self-center flex items-stretch gap-4 ml-5">
+              <div className="self-center flex items-stretch gap-4 ml-20">
                 <span
-                  className="transition hover:bg-red-600 cursor-pointer text-center text-white text-sm font-medium leading-5 uppercase whitespace-nowrap border bg-red-500 mt-4 px-10 py-4 rounded-md border-solid border-red-600 self-start max-md:px-5"
+                  className="transition hover:bg-red-600 cursor-pointer text-center text-white text-sm font-medium leading-5 uppercase whitespace-nowrap border bg-red-500 mt-4 px-5 py-4 rounded-md border-solid border-red-600 self-start max-md:px-5"
                   onClick={openModal}
                 >
                   Delete Book
@@ -340,9 +353,37 @@ export const ViewBooks = ({
                   </div>
                 </Modal>
 
-                <span className="transition hover:bg-green-600 cursor-pointer text-center text-white text-sm font-medium leading-5 uppercase whitespace-nowrap border bg-green-500 mt-4 px-10 py-4 rounded-md border-solid border-green-600 self-start max-md:px-5">
+                <span className="transition hover:bg-yellow-600 cursor-pointer text-center text-white text-sm font-medium leading-5 uppercase whitespace-nowrap border bg-yellow-500 mt-4 px-5 py-4 rounded-md border-solid border-green-600 self-start max-md:px-5">
                   Hide Book
                 </span>
+                <span
+                  className="transition hover:bg-green-600 cursor-pointer text-center text-white text-sm font-medium leading-5 uppercase whitespace-nowrap border bg-green-500 mt-4 px-5 py-4 rounded-md border-solid border-green-600 self-start max-md:px-5"
+                  onClick={openModal1}
+                >
+                  Edit Book
+                </span>
+                <Modal
+                  isOpen={modal1IsOpen}
+                  ariaHideApp={false}
+                  className="absolute w-[50%] h-[90%] bg-transparent border-none top-[5%] left-[25%] justify-center items-center"
+                  onRequestClose={closeModal1}
+                  style={{
+                    overlay: {
+                      backgroundColor: "rgba(0, 0, 0, 0.5)",
+                      zIndex: 1000,
+                    },
+                    content: {
+                      maxWidth: "fit-content",
+                      maxHeight: "fit-content",
+                      margin: "auto",
+                      background: "white",
+                      borderRadius: "8px",
+                      padding: "0",
+                    },
+                  }}
+                >
+                  <EditBookModal />
+                </Modal>
               </div>
             </div>
           </div>

@@ -1,7 +1,7 @@
 import { AdminProfilePopUp } from "../../../utils/AdminProfilePopUp.jsx";
 import { useState } from "react";
 
-export const AdminHeader = () => {
+export const AdminHeader = ({ userData }) => {
   const [profileClick, setProfileCLick] = useState(false);
 
   return (
@@ -40,8 +40,8 @@ export const AdminHeader = () => {
             </div>
             <img
               className="relative rounded-[50%] w-[2.25rem] h-[2.25rem] object-cover cursor-pointer"
-              alt=""
-              src="/src/assets/images/adminImages/adminProfile.png"
+              alt="profile picture"
+              srcSet={userData?.profilePicture}
               onClick={() => setProfileCLick(!profileClick)}
             />
           </div>
