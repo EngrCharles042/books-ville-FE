@@ -151,10 +151,12 @@ function App() {
               />
             }
           />
+
           <Route
             path={"/user-dashboard/subscription"}
             element={<Subscriptions />}
           />
+
           <Route
             path={"/user-dashboard/purchased-books"}
             element={
@@ -166,10 +168,12 @@ function App() {
               />
             }
           />
+
           <Route
             path={"/user-dashboard/saved-books"}
             element={<SavedBooks />}
           />
+
           <Route
             path={"/user-dashboard/profile"}
             element={
@@ -181,12 +185,21 @@ function App() {
               />
             }
           />
+
+            <Route path={"/user-dashboard/book-details/:id"} element={
+                <BookDetails
+                    handleStatus={handleStatus}
+                    setStatusTitle={setStatusTitle}
+                    setStatusMessage={setStatusMessage}
+                    setStatusColor={setStatusColor}
+                />
+            } />
+
           <Route path={"/user-dashboard/cart"} element={<Checkout />} />
         </Route>
 
         <Route path={"/flutterwave-payment"} element={<PaymentOptions />} />
 
-        <Route path={"/book-details"} element={<BookDetails />} />
       </Routes>
     </div>
   );

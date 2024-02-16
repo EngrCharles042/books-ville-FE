@@ -81,7 +81,7 @@ export const ViewBooks = ({
   const handleViewBookClick = async (bookId) => {
     // Fetch the details of the selected book using its ID
     await axios
-      .get(`/book/get-book?id=${bookId}`)
+      .get(`/book/get-book/${bookId}`)
       .then((response) => {
         setSelectedBook(response.data.responseData); // Set the selected book details in the state
         setShowBookPage(true); // Show the book page
@@ -121,7 +121,7 @@ export const ViewBooks = ({
   return (
     <>
       {!showBookPage && (
-        <div className="bg-white flex ml-60 p-5">
+        <div className="bg-white flex pb-5">
           <div className="mt-24">
             <div className=" items-center flex gap-2 ">
               <img
@@ -137,7 +137,7 @@ export const ViewBooks = ({
             {uploadedBooks?.map((book) => (
               <div
                 key={book.id}
-                className="shadow-lg bg-white w-[55vw] pl-5 pr-7 py-5 mt-5 max-md:pr-5"
+                className="shadow-lg bg-white w-[75vw] pl-5 pr-7 py-5 mt-5 max-md:pr-5"
               >
                 <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
                   <div className="flex flex-col items-stretch w-[79%] max-md:w-full max-md:ml-0">
@@ -207,10 +207,10 @@ export const ViewBooks = ({
 
       {/* Render the book page when selectedBook is not null */}
       {showBookPage && (
-        <div className="flex flex-col ml-5 max-md:w-full max-md:ml-0">
+        <div className="flex flex-col max-md:w-full max-md:ml-0">
           <div
             onClick={() => setShowBookPage(false)}
-            className="ml-60 mt-[12vh] cursor-pointer transition hover:scale-105 items-stretch flex gap-2 self-start"
+            className="mt-[12vh] cursor-pointer transition hover:scale-105 items-stretch flex gap-2 self-start"
           >
             <img
               loading="lazy"
@@ -224,9 +224,9 @@ export const ViewBooks = ({
 
           <div
             key={selectedBook.id}
-            className="flex flex-col items-stretch max-md:max-w-full ml-60"
+            className="flex flex-col items-stretch max-md:max-w-full"
           >
-            <span className="items-center flex gap-2 ml-8 mt-7 self-start max-md:ml-2.5">
+            <span className="items-center flex gap-2 mt-7 self-start max-md:ml-2.5">
               <img
                 loading="lazy"
                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/cf4be3deae8d0d24f2a0336bc8a7a937de5df9ac4ac1e615aaa9d766e8d85e23?"
@@ -236,7 +236,7 @@ export const ViewBooks = ({
                 {selectedBook?.bookTitle}
               </div>
             </span>
-            <div className="shadow-lg bg-white flex w-[755px] max-w-full flex-col ml-8 mt-8 pl-5 pr-20 pt-4 pb-7 self-start items-start max-md:pr-5">
+            <div className="shadow-lg bg-white flex w-[755px] max-w-full flex-col mt-8 pl-5 pr-20 pt-4 pb-7 self-start items-start max-md:pr-5">
               <div className="w-[609px] max-w-full">
                 <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
                   <div className="flex flex-col items-stretch w-[21%] max-md:w-full max-md:ml-0">
@@ -365,7 +365,6 @@ export const ViewBooks = ({
                 <Modal
                   isOpen={modal1IsOpen}
                   ariaHideApp={false}
-                  className="absolute w-[50%] h-[90%] bg-transparent border-none top-[5%] left-[25%] justify-center items-center"
                   onRequestClose={closeModal1}
                   style={{
                     overlay: {
@@ -374,7 +373,7 @@ export const ViewBooks = ({
                     },
                     content: {
                       maxWidth: "fit-content",
-                      maxHeight: "fit-content",
+                      maxHeight: "90vh",
                       margin: "auto",
                       background: "white",
                       borderRadius: "8px",

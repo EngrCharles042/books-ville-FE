@@ -1,11 +1,15 @@
+
 import restless from "../../assets/images/userCatImages/restless.png";
+
+
 import {useEffect, useState} from "react";
 import { PaymentOptions } from "../payment/PaymentOptions.jsx";
 import { FaStar } from 'react-icons/fa'
 import Modal from "react-modal";
-import { useNavigate } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import axios from "../../api/axios.jsx";
 import "../pages/bookDetails.css"
+
 
 
 const ratingAndReview = {
@@ -13,6 +17,32 @@ const ratingAndReview = {
   review: "",
 }
 export const BookDetails = ({ viewedBook, handleStatus, setStatusTitle, setStatusMessage, setStatusColor }) => {
+
+export const BookDetails = ({handleStatus, setStatusTitle, setStatusMessage, setStatusColor }) => {
+  const [viewedBook, setViewedBook] = useState()
+
+  const navigate = useNavigate();
+
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    const fetchBook = () => {
+      axios.get(`/book/get-book/${id}`, {
+        headers: {
+          'Authorization': `Bearer ${JSON.parse(localStorage.getItem("userData")).accessToken}`
+        }
+      }).then(
+          response => {
+            setViewedBook(response.data.responseData);
+          }
+      ).catch(error => console.log(error.message));
+    }
+
+    fetchBook();
+  }, []);
+
+
   const enableStatus = (title, message, color) => {
     handleStatus();
     setStatusTitle(title);
@@ -124,6 +154,10 @@ export const BookDetails = ({ viewedBook, handleStatus, setStatusTitle, setStatu
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+  };
+
+  const handleGoBack = () => {
+    navigate(-1);
   };
 
   const handleSaveBook = async (e) => {
@@ -238,7 +272,21 @@ export const BookDetails = ({ viewedBook, handleStatus, setStatusTitle, setStatu
       </Modal>
 
       <div className="bg-white flex flex-col items-stretch pb-12 mt-8">
-        <span className="flex w-full flex-col mt-16 px-16 max-md:max-w-full max-md:mt-10 max-md:px-5">
+        <span
+            onClick={handleGoBack}
+            className="cursor-pointer mt-10 px-16 transition hover:scale-105 items-stretch flex gap-2 self-start"
+        >
+          <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/05c93399f1248fc1de27bab921526a1825a15da2fa4d259f0e0f0ad954105612?"
+              className="aspect-square object-contain object-center w-6 overflow-hidden shrink-0 max-w-full"
+          />
+          <div className="text-gray-900 text-base font-semibold leading-6 tracking-normal grow whitespace-nowrap self-start">
+            Go back
+          </div>
+        </span>
+
+        <span className="flex w-full flex-col mt-8 px-16 max-md:max-w-full max-md:mt-10 max-md:px-5">
           <span className="items-stretch flex gap-1 self-start">
             <span className="text-black text-xl font-medium leading-7 whitespace-nowrap items-stretch aspect-[2.0357142857142856] justify-center">
               Home
@@ -302,7 +350,8 @@ export const BookDetails = ({ viewedBook, handleStatus, setStatusTitle, setStatu
               </div>
             </div>
           </div>
-          <div className="text-neutral-800 text-3xl font-bold leading-10 self-stretch mt-28 max-md:max-w-full max-md:mt-10">
+
+          <div className="text-neutral-800 text-3xl font-bold leading-10 self-stretch mt-20 max-md:max-w-full max-md:mt-10">
             Reviews and Ratings
           </div>
           <div className="bg-gray-200 self-stretch w-full shrink-0 h-[3px] mt-3" />
@@ -370,4 +419,5 @@ export const BookDetails = ({ viewedBook, handleStatus, setStatusTitle, setStatu
       </div>
     </div>
   );
+}
 };
