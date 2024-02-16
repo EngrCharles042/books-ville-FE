@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 
 import restless from "../../assets/images/userCatImages/restless.png";
 
@@ -19,14 +19,13 @@ const ratingAndReview = {
 }
 export const BookDetails = ({ viewedBook, handleStatus, setStatusTitle, setStatusMessage, setStatusColor }) => {
 
-=======
 import {useEffect, useState} from "react";
 import { PaymentOptions } from "../payment/PaymentOptions.jsx";
 import Modal from "react-modal";
 import {useNavigate, useParams} from "react-router-dom";
 import axios from "../../api/axios.jsx";
 
->>>>>>> ea0b49a8d8c3ec96f0050b09988b48ee0b4b1460
+
 export const BookDetails = ({handleStatus, setStatusTitle, setStatusMessage, setStatusColor }) => {
   const [viewedBook, setViewedBook] = useState()
 
@@ -51,10 +50,10 @@ export const BookDetails = ({handleStatus, setStatusTitle, setStatusMessage, set
     fetchBook();
   }, []);
 
-<<<<<<< HEAD
 
-=======
->>>>>>> ea0b49a8d8c3ec96f0050b09988b48ee0b4b1460
+
+
+
   const enableStatus = (title, message, color) => {
     handleStatus();
     setStatusTitle(title);
