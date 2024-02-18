@@ -353,7 +353,7 @@ export const ViewBooks = ({
                   </div>
                 </Modal>
 
-                <span className="transition hover:bg-yellow-600 cursor-pointer text-center text-white text-sm font-medium leading-5 uppercase whitespace-nowrap border bg-yellow-500 mt-4 px-5 py-4 rounded-md border-solid border-green-600 self-start max-md:px-5">
+                <span className="transition hover:bg-yellow-600 cursor-pointer text-center text-white text-sm font-medium leading-5 uppercase whitespace-nowrap border bg-yellow-500 mt-4 px-5 py-4 rounded-md border-solid border-yellow-600 self-start max-md:px-5">
                   Hide Book
                 </span>
                 <span
@@ -382,10 +382,11 @@ export const ViewBooks = ({
                   }}
                 >
                   <EditBookModal
-                      handleStatus={handleStatus}
-                      setStatusTitle={setStatusTitle}
-                      setStatusMessage={setStatusMessage}
-                      setStatusColor={setStatusColor}/>
+                    handleStatus={handleStatus}
+                    setStatusTitle={setStatusTitle}
+                    setStatusMessage={setStatusMessage}
+                    setStatusColor={setStatusColor}
+                  />
                 </Modal>
               </div>
             </div>
