@@ -21,11 +21,13 @@ export const UserCategoryPage = () => {
     MUSICAL: "",
     SPIRITUAL: "",
     rating: "",
+    budget: ""
   });
 
   useEffect(() => {
     const url1 = `/book/books?pageNo=${page}`
-    const url2 = `/book/filter?genre=${filterData?.FANTASY}&genre2=${filterData?.ROMANCE}&genre3=${filterData?.NON_FICTION}&genre4=${filterData?.ADVENTURE}&genre5=${filterData?.HORROR}&genre6=${filterData?.MUSICAL}&genre7=${filterData?.SPIRITUAL}&rating=${filterData?.rating}`
+    const url2 = `/book/filter?genre=${filterData?.FANTASY}&genre2=${filterData?.ROMANCE}&genre3=${filterData?.NON_FICTION}&genre4=${filterData?.ADVENTURE}&genre5=${filterData?.HORROR}&genre6=${filterData?.MUSICAL}&genre7=${filterData?.SPIRITUAL}`
+    const rateUrl = `/filter/books/rating?rating=${filterData?.rating}`
 
     if (
         filterData?.FANTASY.length === 0 &&
@@ -35,7 +37,8 @@ export const UserCategoryPage = () => {
         filterData?.HORROR.length === 0 &&
         filterData?.MUSICAL.length === 0 &&
         filterData?.SPIRITUAL.length === 0 &&
-        filterData?.rating.length === 0
+        filterData?.rating.length === 0 &&
+        filterData?.budget.length === 0
     ) {
       const loadBooks = async () => {
         const response = await axios.get(`${url1}`);
@@ -45,16 +48,161 @@ export const UserCategoryPage = () => {
       };
 
       loadBooks();
-    } else {
-      console.log(url2)
-      const loadBooksFiltered = async () => {
-        const response = await axios.get(`${url2}`)
+    } else if (
+        filterData?.FANTASY.length === 0 &&
+        filterData?.ROMANCE.length === 0 &&
+        filterData?.NON_FICTION.length === 0 &&
+        filterData?.ADVENTURE.length === 0 &&
+        filterData?.HORROR.length === 0 &&
+        filterData?.MUSICAL.length === 0 &&
+        filterData?.SPIRITUAL.length === 0 &&
+        filterData?.budget.length === 0 &&
+        filterData?.rating.length !== 0
+    ) {
+      const loadRateFilteredBooks = async () => {
+        const response = await axios.get(`${rateUrl}`);
 
-        // console.log(response.data.responseData)
-        // setBooks(response.data.responseData);
+        setBooks(response.data.responseData.content);
+        setIsLast(response.data.responseData.last);
       };
 
-      loadBooksFiltered();
+      loadRateFilteredBooks();
+    } else if (
+        filterData?.FANTASY.length === 0 &&
+        filterData?.ROMANCE.length === 0 &&
+        filterData?.NON_FICTION.length === 0 &&
+        filterData?.ADVENTURE.length === 0 &&
+        filterData?.HORROR.length === 0 &&
+        filterData?.MUSICAL.length === 0 &&
+        filterData?.SPIRITUAL.length === 0 &&
+        filterData?.rating.length === 0 &&
+        filterData?.budget.length !== 0
+    ) {
+      const loadRateFilteredBooks = async () => {
+        const response = await axios.get("/book");
+
+        if (filterData?.budget === "1") {
+          setBooks(response.data.responseData.filter(
+              (book) => book.price < 10000
+          ));
+        } else if (filterData?.budget === "2") {
+          setBooks(response.data.responseData.filter(
+              (book) => book.price >= 10000 && book.price < 20000
+          ));
+        } else if (filterData?.budget === "3") {
+          setBooks(response.data.responseData.filter(
+              (book) => book.price >= 20000 && book.price < 25000
+          ));
+        } else {
+          setBooks(response.data.responseData.filter(
+              (book) => book.price >= 25000
+          ));
+        }
+      };
+
+      loadRateFilteredBooks();
+    } else if (
+        filterData?.FANTASY.length === 0 &&
+        filterData?.ROMANCE.length === 0 &&
+        filterData?.NON_FICTION.length === 0 &&
+        filterData?.ADVENTURE.length === 0 &&
+        filterData?.HORROR.length === 0 &&
+        filterData?.MUSICAL.length === 0 &&
+        filterData?.SPIRITUAL.length === 0 &&
+        filterData?.rating.length !== 0 &&
+        filterData?.budget.length !== 0
+    ) {
+      const loadRateFilteredBooks = async () => {
+        const response = await axios.get("/book");
+
+        if (filterData?.budget === "1") {
+          setBooks(response.data.responseData.filter(
+              (book) => book.price < 10000 && book.rating == filterData?.rating
+          ));
+        } else if (filterData?.budget === "2") {
+          setBooks(response.data.responseData.filter(
+              (book) => book.price >= 10000 && book.price < 20000 && book.rating == filterData?.rating
+          ));
+        } else if (filterData?.budget === "3") {
+          setBooks(response.data.responseData.filter(
+              (book) => book.price >= 20000 && book.price < 25000 && book.rating == filterData?.rating
+          ));
+        } else {
+          setBooks(response.data.responseData.filter(
+              (book) => book.price >= 25000 && book.rating == filterData?.rating
+          ));
+        }
+      };
+
+      loadRateFilteredBooks();
+    } else {
+      if (filterData?.rating.length !== 0 && filterData?.budget.length !== 0) {
+        const loadBooksFilteredWithRating = async () => {
+          const response = await axios.get(`${url2}`)
+
+          if (filterData?.budget === "1") {
+            setBooks(response.data.responseData.filter(
+                (book) => book.price < 10000 && book.rating == filterData?.rating
+            ));
+          } else if (filterData?.budget === "2") {
+            setBooks(response.data.responseData.filter(
+                (book) => book.price >= 10000 && book.price < 20000 && book.rating == filterData?.rating
+            ));
+          } else if (filterData?.budget === "3") {
+            setBooks(response.data.responseData.filter(
+                (book) => book.price >= 20000 && book.price < 25000 && book.rating == filterData?.rating
+            ));
+          } else {
+            setBooks(response.data.responseData.filter(
+                (book) => book.price >= 25000 && book.rating == filterData?.rating
+            ));
+          }
+        };
+
+        loadBooksFilteredWithRating();
+      } else if (filterData?.rating.length !== 0) {
+        const loadBooksFilteredWithRating = async () => {
+          const response = await axios.get(`${url2}`)
+
+          setBooks(response.data.responseData.filter(
+              (book) => book.rating == filterData?.rating
+          ));
+        };
+
+        loadBooksFilteredWithRating();
+      } else if (filterData?.budget.length !== 0) {
+        const loadBooksFilteredWithRating = async () => {
+          const response = await axios.get(`${url2}`)
+
+          if (filterData?.budget === "1") {
+            setBooks(response.data.responseData.filter(
+                (book) => book.price < 10000
+            ));
+          } else if (filterData?.budget === "2") {
+            setBooks(response.data.responseData.filter(
+                (book) => book.price >= 10000 && book.price < 20000
+            ));
+          } else if (filterData?.budget === "3") {
+            setBooks(response.data.responseData.filter(
+                (book) => book.price >= 20000 && book.price < 25000
+            ));
+          } else {
+            setBooks(response.data.responseData.filter(
+                (book) => book.price >= 25000
+            ));
+          }
+        };
+
+        loadBooksFilteredWithRating();
+      }else {
+        const loadBooksFiltered = async () => {
+          const response = await axios.get(`${url2}`)
+
+          setBooks(response.data.responseData);
+        };
+
+        loadBooksFiltered();
+      }
     }
   }, [page, dep]);
 
@@ -106,7 +254,7 @@ export const UserCategoryPage = () => {
                     ))}
                   </>
 
-                  {books.length > 0 && (
+                  {books.length > 0 && books.length === 5 && (
                     <div className="flex gap-4 justify-end mb-5">
                       <button
                         onClick={prevPage}

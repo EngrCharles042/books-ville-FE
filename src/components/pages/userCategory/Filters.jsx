@@ -3,9 +3,20 @@ import { useEffect, useState } from "react";
 export const Filters = ({setFilterData, setDep}) => {
     const [filterDep, setFilterDep] = useState(false)
     const [selectedRating, setSelectedRating] = useState("");
+    const [selectedBudget, setSelectedBudget] = useState("");
     const [showMore, setShowMore] = useState(false);
     const [showMore1, setShowMore1] = useState(false);
     const [showMore2, setShowMore2] = useState(false);
+
+    const emptyCheckBox = {
+        FANTASY: "",
+        ROMANCE: "",
+        NON_FICTION: "",
+        ADVENTURE: "",
+        HORROR: "",
+        MUSICAL: "",
+        SPIRITUAL: "",
+    }
 
     const [formData, setFormData] = useState({
         FANTASY: "",
@@ -30,6 +41,11 @@ export const Filters = ({setFilterData, setDep}) => {
         setFilterDep(!filterDep);
     }
 
+    const handleBudgetRadioChange = (value) => {
+        setSelectedBudget(value);
+        setFilterDep(!filterDep);
+    }
+
     useEffect(() => {
         const data = {
             FANTASY: `${formData.FANTASY}`,
@@ -40,14 +56,13 @@ export const Filters = ({setFilterData, setDep}) => {
             MUSICAL: `${formData.MUSICAL}`,
             SPIRITUAL: `${formData.SPIRITUAL}`,
             rating: `${selectedRating}`,
+            budget: `${selectedBudget}`
         }
         console.log(data)
 
         setFilterData(data);
 
-        setTimeout(() => {
-            setDep();
-        }, 500)
+        setDep();
     }, [formData, filterDep]);
 
     return (
@@ -55,9 +70,12 @@ export const Filters = ({setFilterData, setDep}) => {
           <div className="overflow-hidden text-zinc-900 text-ellipsis whitespace-nowrap text-2xl font-bold">
             Filters
           </div>
-          <span className="items-stretch flex justify-between gap-0 mt-11">
+          <span className="items-stretch flex w-[9.5rem] justify-between gap-0 mt-11">
             <div className="overflow-hidden text-zinc-900 text-ellipsis whitespace-nowrap text-xl font-semibold grow">
-              Categories
+              Genre
+            </div>
+            <div onClick={() => (setFormData(emptyCheckBox))} className="cursor-pointer hover:bg-red-500 transition px-2 rounded-lg bg-red-400 text-white">
+                clear
             </div>
           </span>
           <span className="items-center flex flex-col justify-between gap-4 mt-6">
@@ -93,7 +111,7 @@ export const Filters = ({setFilterData, setDep}) => {
               </>
             )}
           </span>
-          <span className="flex justify-between gap-1.5 mt-6 pr-4 items-start">
+          <span className="flex justify-between w-[11rem] gap-1.5 mt-6 pr-4 items-start">
             <div
               className="text-emerald-700 text-xl font-semibold cursor-pointer"
               onClick={() => setShowMore(!showMore)}
@@ -107,45 +125,55 @@ export const Filters = ({setFilterData, setDep}) => {
             />
           </span>
 
+          <span className="items-stretch flex w-[9.5rem] justify-between gap-0 mt-11">
+            <div className="overflow-hidden text-zinc-900 text-ellipsis whitespace-nowrap text-xl font-semibold grow">
+              Budget
+            </div>
+            <div onClick={() => (handleBudgetRadioChange(""))} className="cursor-pointer hover:bg-red-500 transition px-2 rounded-lg bg-red-400 text-white">
+                clear
+            </div>
+          </span>
+          <span className="items-center flex flex-col justify-between gap-4 mt-6">
+              {renderRadio(
+                  "<10000",
+                  "budget",
+                  "Below ₦10000",
+                  1,
+                  selectedBudget,
+                  handleBudgetRadioChange,
+              )}
+              {renderRadio(
+                  "₦10000_to_₦20000",
+                  "budget",
+                  "₦10000 - ₦20000",
+                  2,
+                  selectedBudget,
+                  handleBudgetRadioChange,
+              )}
 
+                {showMore2 && (
+                  <>
+                      {renderRadio(
+                          "20000_to_₦25000",
+                          "budget",
+                          "₦20000 - ₦25000",
+                          3,
+                          selectedBudget,
+                          handleBudgetRadioChange,
+                      )}
+                      {renderRadio(
+                          ">25000",
+                          "budget",
+                          "Above ₦25000",
+                          4,
+                          selectedBudget,
+                          handleBudgetRadioChange,
+                      )}
+                  </>
+                )}
+          </span>
 
-          {/*<span className="items-stretch flex justify-between gap-0 mt-11">*/}
-          {/*  <div className="overflow-hidden text-zinc-900 text-ellipsis whitespace-nowrap text-xl font-[556] grow">*/}
-          {/*    Your Budget*/}
-          {/*  </div>*/}
-          {/*</span>*/}
-          {/*<span className="items-center flex flex-col justify-between gap-4 mt-6">*/}
-          {/*  {renderCheckbox(*/}
-          {/*    "LESS THAN ₦10000",*/}
-          {/*    "Less than ₦10000",*/}
-          {/*    formData.budget.lessThan5000,*/}
-          {/*    () => handleBudgetCheckboxChange("lessThan5000"),*/}
-          {/*  )}*/}
-          {/*  {renderCheckbox(*/}
-          {/*    "₦15000 - ₦20000",*/}
-          {/*    "₦15000 - ₦20000",*/}
-          {/*    formData.budget.between15000And20000,*/}
-          {/*    () => handleBudgetCheckboxChange("between15000And20000"),*/}
-          {/*  )}*/}
-          {/*  {showMore2 && (*/}
-          {/*    <>*/}
-          {/*      {renderCheckbox(*/}
-          {/*        "₦20000 - ₦25000",*/}
-          {/*        "₦20000 - ₦25000",*/}
-          {/*        formData.budget.between20000And25000,*/}
-          {/*        () => handleBudgetCheckboxChange("between20000And25000"),*/}
-          {/*      )}*/}
-          {/*      {renderCheckbox(*/}
-          {/*        "GREATER THAN ₦25000",*/}
-          {/*        "Greater than ₦25000",*/}
-          {/*        formData.budget.greaterThan500,*/}
-          {/*        () => handleBudgetCheckboxChange("greaterThan500"),*/}
-          {/*      )}*/}
-          {/*    </>*/}
-          {/*  )}*/}
-          {/*</span>*/}
-
-          <span className="flex justify-between gap-1.5 mt-6 pr-4 items-start">
+          <span className="flex justify-between gap-1.5 mt-6 w-[11rem] pr-4 items-start">
             <div
               className="text-emerald-700 text-xl font-semibold cursor-pointer"
               onClick={() => setShowMore2(!showMore2)}
@@ -160,9 +188,12 @@ export const Filters = ({setFilterData, setDep}) => {
           </span>
 
 
-          <span className="items-stretch flex justify-between gap-0 mt-11">
+          <span className="items-stretch flex w-[9.5rem] justify-between gap-0 mt-11">
             <div className="overflow-hidden text-zinc-900 text-ellipsis whitespace-nowrap text-xl font-semibold grow">
               Rating
+            </div>
+            <div onClick={() => (handleRadioChange(""))} className="cursor-pointer hover:bg-red-500 transition px-2 rounded-lg bg-red-400 text-white">
+                clear
             </div>
           </span>
           <span className="items-center flex flex-col justify-between gap-3 mt-4">
@@ -211,7 +242,7 @@ export const Filters = ({setFilterData, setDep}) => {
               </>
             )}
           </span>
-          <span className="flex justify-between gap-1.5 mt-6 pr-4 items-start">
+          <span className="flex justify-between gap-1.5 mt-6 w-[11rem] pr-4 items-start">
             <div
               className="text-emerald-700 text-xl font-semibold cursor-pointer"
               onClick={() => setShowMore1(!showMore1)}
