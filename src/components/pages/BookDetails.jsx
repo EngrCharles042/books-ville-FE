@@ -3,8 +3,34 @@ import { PaymentOptions } from "../payment/PaymentOptions.jsx";
 import Modal from "react-modal";
 import {useNavigate, useParams} from "react-router-dom";
 import axios from "../../api/axios.jsx";
+import {Rating} from "../../utils/Rating.jsx";
+import {Rate} from "../../utils/Rate.jsx";
+import {RateCard} from "../../utils/RateCard.jsx";
 
 export const BookDetails = ({handleStatus, setStatusTitle, setStatusMessage, setStatusColor }) => {
+  const [rate, setRate] = useState(false)
+
+  const [rates, setRates] = useState([])
+
+  let chooseRate = 1;
+
+  const handleShowRate = () => {
+    setRate(!rate);
+  }
+
+  const [formData, setFormData] = useState({
+    rating: '',
+    review: ''
+  })
+
+  const handleChooseRate = (rate) => {
+    chooseRate = rate
+  }
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  }
+
   const [viewedBook, setViewedBook] = useState()
 
   const navigate = useNavigate();
@@ -26,6 +52,23 @@ export const BookDetails = ({handleStatus, setStatusTitle, setStatusMessage, set
     }
 
     fetchBook();
+  }, []);
+
+  useEffect(() => {
+    const fetchRatingsAndComments = () => {
+      axios.get(`ratings/${id}`, {
+        headers: {
+          'Authorization': `Bearer ${JSON.parse(localStorage.getItem("userData")).accessToken}`
+        }
+      }).then(
+          response => setRates(response.data.responseData.content)
+
+      ).catch(
+          error => console.log(error.message)
+      )
+    }
+
+    fetchRatingsAndComments();
   }, []);
 
   const enableStatus = (title, message, color) => {
@@ -118,6 +161,42 @@ export const BookDetails = ({handleStatus, setStatusTitle, setStatusMessage, set
                   "bg-green-600",
               );
             }
+          }
+      )
+    } catch (error) {
+
+      enableStatus(
+          "Oops!",
+          "Something went wrong please try again",
+          "bg-red-600",
+      );
+    }
+  }
+
+  const handleRate = async (e) => {
+    e.preventDefault()
+
+    const review = formData.review;
+
+    const data = {
+      rating: `${chooseRate}`,
+      review: `${review}`
+    }
+
+    try {
+      await axios.post(`/ratings/rate/${id}`, data, {
+        headers: {
+          'Authorization': `Bearer ${JSON.parse(localStorage.getItem("userData")).accessToken}`
+        }
+      }).then(
+          response => {
+            console.log(response.data.responseMessage);
+
+            enableStatus(
+                  "Rating successful",
+                  `${response.data.responseMessage}`,
+                  "bg-green-500",
+            );
           }
       )
     } catch (error) {
@@ -249,264 +328,89 @@ export const BookDetails = ({handleStatus, setStatusTitle, setStatusMessage, set
               <div className="text-neutral-800 text-base leading-6 whitespace-nowrap">
                 Overall Rating
               </div>
-              <div className="text-neutral-800 text-base leading-6 mt-6">
-                4.5 out of 5
-              </div>
-              <div className="items-stretch flex gap-2 mt-6">
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/3cb928fddd1b0be301051b64841c3b0c17492ce68914bb57fc64a58c6acb6bb2?"
-                  className="aspect-square object-contain object-center w-[18px] fill-green-500 overflow-hidden shrink-0 max-w-full"
-                />
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/3cb928fddd1b0be301051b64841c3b0c17492ce68914bb57fc64a58c6acb6bb2?"
-                  className="aspect-square object-contain object-center w-[18px] fill-green-500 overflow-hidden shrink-0 max-w-full"
-                />
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/3cb928fddd1b0be301051b64841c3b0c17492ce68914bb57fc64a58c6acb6bb2?"
-                  className="aspect-square object-contain object-center w-[18px] fill-green-500 overflow-hidden shrink-0 max-w-full"
-                />
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/3cb928fddd1b0be301051b64841c3b0c17492ce68914bb57fc64a58c6acb6bb2?"
-                  className="aspect-square object-contain object-center w-[18px] fill-green-500 overflow-hidden shrink-0 max-w-full"
-                />
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/cd98d2bf8104573bc035e923d99869fe2de600381a49d4dc1d8dc93c46167859?"
-                  className="aspect-square object-contain object-center w-[18px] stroke-[1px] stroke-green-500 overflow-hidden shrink-0 max-w-full"
-                />
-              </div>
+
+              { viewedBook?.rating ?
+                  <div className="text-neutral-800 text-base leading-6 mt-6">
+                    {viewedBook?.rating} out of 5
+                  </div> : ''
+              }
+
+              { viewedBook?.rating ?
+                  <Rating rate={viewedBook?.rating} /> :
+                  <div className="text-blue-600 w-[8.5rem] mt-5">No rating for book</div>
+              }
+
             </span>
-            <div className="ml-5 bg-gray-200 w-px shrink-0 h-[157px]" />
-            <div className="self-center flex grow basis-[0%] flex-col items-stretch my-auto">
-              <span className="items-stretch flex gap-2">
-                <div className="text-neutral-800 text-sm leading-5 whitespace-nowrap">
-                  5 STARS
-                </div>
-                <div className="bg-zinc-300 self-center flex w-[235px] shrink-0 h-2.5 flex-col my-auto" />
-                <div className="text-black text-xs leading-5 self-center whitespace-nowrap my-auto">
-                  5
-                </div>
-              </span>
-              <span className="items-stretch flex gap-2 mt-1.5">
-                <div className="text-neutral-800 text-sm leading-5 whitespace-nowrap">
-                  5 STARS
-                </div>
-                <div className="bg-zinc-300 self-center flex w-[235px] shrink-0 h-2.5 flex-col my-auto" />
-                <div className="text-black text-xs leading-5 self-center whitespace-nowrap my-auto">
-                  5
-                </div>
-              </span>
-              <span className="items-stretch flex gap-2 mt-1.5">
-                <div className="text-neutral-800 text-sm leading-5 whitespace-nowrap">
-                  5 STARS
-                </div>
-                <div className="bg-zinc-300 self-center flex w-[235px] shrink-0 h-2.5 flex-col my-auto" />
-                <div className="text-black text-xs leading-5 self-center whitespace-nowrap my-auto">
-                  5
-                </div>
-              </span>
-              <span className="items-stretch flex gap-2 mt-1.5">
-                <div className="text-neutral-800 text-sm leading-5 whitespace-nowrap">
-                  5 STARS
-                </div>
-                <div className="bg-zinc-300 self-center flex w-[235px] shrink-0 h-2.5 flex-col my-auto" />
-                <div className="text-black text-xs leading-5 self-center whitespace-nowrap my-auto">
-                  5
-                </div>
-              </span>
-              <span className="items-stretch flex gap-2 mt-1.5">
-                <div className="text-neutral-800 text-sm leading-5 whitespace-nowrap">
-                  5 STARS
-                </div>
-                <div className="bg-zinc-300 self-center flex w-[235px] shrink-0 h-2.5 flex-col my-auto" />
-                <div className="text-black text-xs leading-5 self-center whitespace-nowrap my-auto">
-                  5
-                </div>
-              </span>
-            </div>
-            <div className="bg-gray-200 w-0.5 shrink-0 h-[157px]" />
-            <span className="items-stretch self-center flex grow basis-[0%] flex-col my-auto">
-              <div className="text-neutral-800 text-base leading-6 whitespace-nowrap">
-                Share your thoughts here
-              </div>
-              <span className="transition hover:bg-green-700 cursor-pointer text-white text-base font-medium leading-5 uppercase whitespace-nowrap justify-center items-stretch bg-green-600 mt-2.5 px-4 py-5 rounded-md border-[1.11px] border-solid border-green-600">
-                Write your Review
-              </span>
-            </span>
+
+            { rate &&
+                <div className="ml-5 bg-gray-200 w-px shrink-0 h-[157px]" />
+            }
+
+            <form onSubmit={handleRate} className="flex gap-5">
+              { rate &&
+                  <div className="self-center flex grow basis-[0%] flex-col items-stretch my-auto">
+                    <span className="items-stretch w-[30vw] self-center flex grow basis-[0%] flex-col my-auto">
+
+                      <div className="flex gap-5 font-bold items-center">
+                        <p>Your Rating: </p>
+                        <Rate handleChooseRate={handleChooseRate} />
+                      </div>
+
+                      <textarea
+                          name="review"
+                          value={formData.review}
+                          onChange={handleChange}
+                          placeholder="Write your review... "
+                          className="transition hover:bg-green-700 text-white text-base font-medium leading-5 whitespace-nowrap justify-center items-stretch bg-green-600 mt-2.5 px-4 py-5 rounded-md border-[1.11px] border-solid border-green-600"
+                      />
+                    </span>
+                  </div>
+              }
+
+              <div className="bg-gray-200 w-0.5 shrink-0 h-[157px]" />
+
+              { !rate &&
+                  <div className="self-center flex grow basis-[0%] flex-col items-stretch my-auto">
+                    <span className="items-stretch self-center flex grow basis-[0%] flex-col my-auto">
+                      <div className="text-neutral-800 text-base leading-6 whitespace-nowrap">
+                        Share your thoughts here
+                      </div>
+                      <span onClick={handleShowRate} className="transition hover:bg-green-700 cursor-pointer text-white text-base font-medium leading-5 uppercase whitespace-nowrap justify-center items-stretch bg-green-600 mt-2.5 px-4 py-5 rounded-md border-[1.11px] border-solid border-green-600">
+                        Rate and Review
+                      </span>
+                    </span>
+                  </div>
+              }
+
+              { rate &&
+                  <div className="self-center flex grow basis-[0%] flex-col items-stretch my-auto">
+                    <span className="items-stretch self-center flex grow basis-[0%] flex-col my-auto">
+                      <div className="text-neutral-800 text-base leading-6 whitespace-nowrap">
+                        Click to rate
+                      </div>
+                      <button type="submit" className="text-center transition hover:bg-green-700 cursor-pointer text-white text-base font-medium leading-5 uppercase whitespace-nowrap justify-center items-stretch bg-green-600 mt-2.5 px-4 py-5 rounded-md border-[1.11px] border-solid border-green-600">
+                        Rate
+                      </button>
+                    </span>
+                  </div>
+              }
+            </form>
           </div>
           <div className="text-neutral-800 text-sm font-medium leading-5 self-stretch mt-12 max-md:max-w-full max-md:mt-10">
             All Book Reviews
           </div>
           <div className="bg-gray-200 self-stretch w-full shrink-0 h-1 mt-3.5" />
-          <span className="items-start flex w-[858px] max-w-full flex-col mt-5 pr-4 py-4 rounded-2xl self-start">
-            <div className="items-stretch flex w-[122px] max-w-full gap-2 self-start">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/3cb928fddd1b0be301051b64841c3b0c17492ce68914bb57fc64a58c6acb6bb2?"
-                className="aspect-square object-contain object-center w-full fill-green-500 overflow-hidden shrink-0 flex-1"
-              />
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/3cb928fddd1b0be301051b64841c3b0c17492ce68914bb57fc64a58c6acb6bb2?"
-                className="aspect-square object-contain object-center w-full fill-green-500 overflow-hidden shrink-0 flex-1"
-              />
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/3cb928fddd1b0be301051b64841c3b0c17492ce68914bb57fc64a58c6acb6bb2?"
-                className="aspect-square object-contain object-center w-full fill-green-500 overflow-hidden shrink-0 flex-1"
-              />
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/3cb928fddd1b0be301051b64841c3b0c17492ce68914bb57fc64a58c6acb6bb2?"
-                className="aspect-square object-contain object-center w-full fill-green-500 overflow-hidden shrink-0 flex-1"
-              />
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/cd98d2bf8104573bc035e923d99869fe2de600381a49d4dc1d8dc93c46167859?"
-                className="aspect-square object-contain object-center w-full stroke-[1px] stroke-green-500 overflow-hidden shrink-0 flex-1"
-              />
-            </div>
-            <div className="self-stretch text-zinc-800 text-xs leading-4 tracking-wide mt-1 max-md:max-w-full">
-              Lorem ipsum dolor sit amet consectetur. Neque mauris eget vitae
-              malesuada augue fringilla leo hac mattis. Turpis consectetur nunc
-              ut posuere interdum cursus enim pretium nisi.
-            </div>
-            <div className="text-zinc-800 text-xs font-medium leading-4 tracking-tight whitespace-nowrap mt-1 self-start">
-              Temitope Abosede
-            </div>
-            <div className="text-zinc-400 text-xs leading-4 tracking-tight mt-1 self-start">
-              12 JUL 2023
-            </div>
-          </span>
-          <div className="bg-gray-200 self-stretch w-full shrink-0 h-[5px] mt-5" />
-          <span className="items-start self-stretch flex flex-col mt-5 pr-4 py-4 rounded-2xl max-md:max-w-full max-md:mr-1.5">
-            <div className="items-stretch flex w-[122px] max-w-full gap-2 self-start">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/3cb928fddd1b0be301051b64841c3b0c17492ce68914bb57fc64a58c6acb6bb2?"
-                className="aspect-square object-contain object-center w-full fill-green-500 overflow-hidden shrink-0 flex-1"
-              />
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/cd98d2bf8104573bc035e923d99869fe2de600381a49d4dc1d8dc93c46167859?"
-                className="aspect-square object-contain object-center w-full stroke-[1px] stroke-green-500 overflow-hidden shrink-0 flex-1"
-              />
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/cd98d2bf8104573bc035e923d99869fe2de600381a49d4dc1d8dc93c46167859?"
-                className="aspect-square object-contain object-center w-full stroke-[1px] stroke-green-500 overflow-hidden shrink-0 flex-1"
-              />
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/cd98d2bf8104573bc035e923d99869fe2de600381a49d4dc1d8dc93c46167859?"
-                className="aspect-square object-contain object-center w-full stroke-[1px] stroke-green-500 overflow-hidden shrink-0 flex-1"
-              />
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/cd98d2bf8104573bc035e923d99869fe2de600381a49d4dc1d8dc93c46167859?"
-                className="aspect-square object-contain object-center w-full stroke-[1px] stroke-green-500 overflow-hidden shrink-0 flex-1"
-              />
-            </div>
-            <div className="self-stretch text-zinc-800 text-xs leading-4 tracking-wide mt-1 max-md:max-w-full">
-              Lorem ipsum dolor sit amet consectetur. Pulvinar ultricies turpis
-              vitae netus urna orci tristique. Arcu ornare pharetra est libero
-              semper. Non id dictum ut dui mi sagittis. Lacus purus integer a
-              lobortis.
-            </div>
-            <div className="text-zinc-800 text-xs font-medium leading-4 tracking-tight whitespace-nowrap mt-1 self-start">
-              Oyetunde Babamimo
-            </div>
-            <div className="text-zinc-400 text-xs leading-4 tracking-tight mt-1">
-              12 JUL 2023
-            </div>
-          </span>
-          <div className="bg-gray-200 self-stretch w-full shrink-0 h-[5px] mt-5" />
-          <span className="items-start self-stretch flex flex-col mr-6 mt-5 pr-4 py-4 rounded-2xl max-md:max-w-full max-md:mr-2.5">
-            <div className="items-stretch flex w-[122px] max-w-full gap-2 self-start">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/3cb928fddd1b0be301051b64841c3b0c17492ce68914bb57fc64a58c6acb6bb2?"
-                className="aspect-square object-contain object-center w-full fill-green-500 overflow-hidden shrink-0 flex-1"
-              />
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/3cb928fddd1b0be301051b64841c3b0c17492ce68914bb57fc64a58c6acb6bb2?"
-                className="aspect-square object-contain object-center w-full fill-green-500 overflow-hidden shrink-0 flex-1"
-              />
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/3cb928fddd1b0be301051b64841c3b0c17492ce68914bb57fc64a58c6acb6bb2?"
-                className="aspect-square object-contain object-center w-full fill-green-500 overflow-hidden shrink-0 flex-1"
-              />
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/3cb928fddd1b0be301051b64841c3b0c17492ce68914bb57fc64a58c6acb6bb2?"
-                className="aspect-square object-contain object-center w-full fill-green-500 overflow-hidden shrink-0 flex-1"
-              />
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/cd98d2bf8104573bc035e923d99869fe2de600381a49d4dc1d8dc93c46167859?"
-                className="aspect-square object-contain object-center w-full stroke-[1px] stroke-green-500 overflow-hidden shrink-0 flex-1"
-              />
-            </div>
-            <div className="self-stretch text-zinc-800 text-xs leading-4 tracking-wide mt-1 max-md:max-w-full">
-              Lorem ipsum dolor sit amet consectetur. Auctor scelerisque viverra
-              elit ut aliquam purus et. Sit facilisis pellentesque viverra
-              faucibus aenean lorem.
-            </div>
-            <div className="text-zinc-800 text-xs font-medium leading-4 tracking-tight whitespace-nowrap mt-1 self-start">
-              Temitope Abosede
-            </div>
-            <div className="text-zinc-400 text-xs leading-4 tracking-tight mt-1 self-start">
-              12 JUL 2023
-            </div>
-          </span>
-          <div className="bg-gray-200 self-stretch w-full shrink-0 h-[5px] mt-5" />
-          <span className="items-stretch self-stretch flex flex-col mt-5 py-4 rounded-2xl max-md:max-w-full">
-            <div className="items-stretch flex w-[122px] max-w-full gap-2 self-start">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/3cb928fddd1b0be301051b64841c3b0c17492ce68914bb57fc64a58c6acb6bb2?"
-                className="aspect-square object-contain object-center w-full fill-green-500 overflow-hidden shrink-0 flex-1"
-              />
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/3cb928fddd1b0be301051b64841c3b0c17492ce68914bb57fc64a58c6acb6bb2?"
-                className="aspect-square object-contain object-center w-full fill-green-500 overflow-hidden shrink-0 flex-1"
-              />
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/3cb928fddd1b0be301051b64841c3b0c17492ce68914bb57fc64a58c6acb6bb2?"
-                className="aspect-square object-contain object-center w-full fill-green-500 overflow-hidden shrink-0 flex-1"
-              />
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/3cb928fddd1b0be301051b64841c3b0c17492ce68914bb57fc64a58c6acb6bb2?"
-                className="aspect-square object-contain object-center w-full fill-green-500 overflow-hidden shrink-0 flex-1"
-              />
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/cd98d2bf8104573bc035e923d99869fe2de600381a49d4dc1d8dc93c46167859?"
-                className="aspect-square object-contain object-center w-full stroke-[1px] stroke-green-500 overflow-hidden shrink-0 flex-1"
-              />
-            </div>
-            <div className="text-zinc-800 text-xs leading-4 tracking-wide mt-1 max-md:max-w-full">
-              Lorem ipsum dolor sit amet consectetur. At sagittis vel
-              ullamcorper eget volutpat odio pharetra nisl lectus. Cursus
-              ultrices sit id congue aliquet leo aliquet ultricies felis.
-            </div>
-            <div className="text-zinc-800 text-xs font-medium leading-4 tracking-tight whitespace-nowrap mt-1 self-start">
-              Temitope Abosede
-            </div>
-            <div className="text-zinc-400 text-xs leading-4 tracking-tight mt-1 self-start">
-              12 JUL 2023
-            </div>
-            <div className="bg-gray-200 self-stretch w-full shrink-0 h-[5px] mt-7" />
-          </span>
+
+          { rates.map(
+              rating => (
+                  <RateCard
+                      key={rating.id}
+                      rate={rating.rating}
+                      rating={rating}
+                  />
+              )
+          ) }
+
         </span>
       </div>
     </div>
