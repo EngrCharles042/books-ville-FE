@@ -381,7 +381,11 @@ export const ViewBooks = ({
                     },
                   }}
                 >
-                  <EditBookModal />
+                  <EditBookModal
+                      handleStatus={handleStatus}
+                      setStatusTitle={setStatusTitle}
+                      setStatusMessage={setStatusMessage}
+                      setStatusColor={setStatusColor}/>
                 </Modal>
               </div>
             </div>
