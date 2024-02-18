@@ -1,6 +1,4 @@
 import { useState } from "react";
-import Modal from "react-modal";
-import { UpdateBookModal } from "./UpdateBookModal.jsx";
 
 export const EditBookModal = ({
   handleStatus,
@@ -23,14 +21,8 @@ export const EditBookModal = ({
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   const handleUploadClick = () => {
     setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
   };
 
   return (
@@ -55,34 +47,6 @@ export const EditBookModal = ({
               >
                 Add Book
               </div>
-
-              <Modal
-                isOpen={isModalOpen}
-                onRequestClose={handleCloseModal}
-                style={{
-                  overlay: {
-                    backgroundColor: "rgba(0, 0, 0, 0.5)",
-                    zIndex: 1000,
-                  },
-                  content: {
-                    maxWidth: "400px",
-                    maxHeight: "500px",
-                    margin: "auto",
-                    background: "white",
-                    borderRadius: "8px",
-                    padding: "20px",
-                  },
-                }}
-              >
-                <UpdateBookModal
-                  formData={formData}
-                  onCancel={handleCloseModal}
-                  handleStatus={handleStatus}
-                  setStatusTitle={setStatusTitle}
-                  setStatusMessage={setStatusMessage}
-                  setStatusColor={setStatusColor}
-                />
-              </Modal>
             </>
           </div>
           <label className="text-black text-2xl font-medium leading-8 mt-6 self-start max-md:max-w-full">

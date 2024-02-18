@@ -1,38 +1,22 @@
-
-
-import restless from "../../assets/images/userCatImages/restless.png";
-
-
 import {useEffect, useState} from "react";
 import { PaymentOptions } from "../payment/PaymentOptions.jsx";
 import { FaStar } from 'react-icons/fa'
 import Modal from "react-modal";
 import {useNavigate, useParams} from "react-router-dom";
-import axios from "../../api/axios.jsx";
 import "../pages/bookDetails.css"
-
-
-
-const ratingAndReview = {
-  rating: "",
-  review: "",
-}
-export const BookDetails = ({ viewedBook, handleStatus, setStatusTitle, setStatusMessage, setStatusColor }) => {
-
-import {useEffect, useState} from "react";
-import { PaymentOptions } from "../payment/PaymentOptions.jsx";
-import Modal from "react-modal";
-import {useNavigate, useParams} from "react-router-dom";
 import axios from "../../api/axios.jsx";
-
 
 export const BookDetails = ({handleStatus, setStatusTitle, setStatusMessage, setStatusColor }) => {
   const [viewedBook, setViewedBook] = useState()
 
   const navigate = useNavigate();
 
-
   const { id } = useParams();
+
+  const ratingAndReview = {
+    rating: "",
+    review: "",
+  }
 
   useEffect(() => {
     const fetchBook = () => {
@@ -49,10 +33,6 @@ export const BookDetails = ({handleStatus, setStatusTitle, setStatusMessage, set
 
     fetchBook();
   }, []);
-
-
-
-
 
   const enableStatus = (title, message, color) => {
     handleStatus();
@@ -77,7 +57,6 @@ export const BookDetails = ({handleStatus, setStatusTitle, setStatusMessage, set
 
   const [ratingsAndReviews, setRatingsAndReview] = useState([]);
   const [loading, setLoading] = useState(true);
-
 
   useEffect(() => {
     loadAllReviewAndRatings();
@@ -430,5 +409,4 @@ export const BookDetails = ({handleStatus, setStatusTitle, setStatusMessage, set
       </div>
     </div>
   );
-}
 };
