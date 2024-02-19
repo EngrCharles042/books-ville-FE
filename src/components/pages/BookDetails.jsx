@@ -1,22 +1,41 @@
 import {useEffect, useState} from "react";
 import { PaymentOptions } from "../payment/PaymentOptions.jsx";
-import { FaStar } from 'react-icons/fa'
 import Modal from "react-modal";
 import {useNavigate, useParams} from "react-router-dom";
-import "../pages/bookDetails.css"
 import axios from "../../api/axios.jsx";
+import {Rating} from "../../utils/Rating.jsx";
+import {Rate} from "../../utils/Rate.jsx";
+import {RateCard} from "../../utils/RateCard.jsx";
 
 export const BookDetails = ({handleStatus, setStatusTitle, setStatusMessage, setStatusColor }) => {
+  const [rate, setRate] = useState(false)
+
+  const [rates, setRates] = useState([])
+
+  let chooseRate = 1;
+
+  const handleShowRate = () => {
+    setRate(!rate);
+  }
+
+  const [formData, setFormData] = useState({
+    rating: '',
+    review: ''
+  })
+
+  const handleChooseRate = (rate) => {
+    chooseRate = rate
+  }
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  }
+
   const [viewedBook, setViewedBook] = useState()
 
   const navigate = useNavigate();
 
   const { id } = useParams();
-
-  const ratingAndReview = {
-    rating: "",
-    review: "",
-  }
 
   useEffect(() => {
     const fetchBook = () => {
@@ -34,107 +53,29 @@ export const BookDetails = ({handleStatus, setStatusTitle, setStatusMessage, set
     fetchBook();
   }, []);
 
+  useEffect(() => {
+    const fetchRatingsAndComments = () => {
+      axios.get(`ratings/${id}`, {
+        headers: {
+          'Authorization': `Bearer ${JSON.parse(localStorage.getItem("userData")).accessToken}`
+        }
+      }).then(
+          response => setRates(response.data.responseData.content)
+
+      ).catch(
+          error => console.log(error.message)
+      )
+    }
+
+    fetchRatingsAndComments();
+  }, []);
+
   const enableStatus = (title, message, color) => {
     handleStatus();
     setStatusTitle(title);
     setStatusMessage(message);
     setStatusColor(color);
   };
-
-  const renderStars = (rating) => {
-    const stars = [];
-    const maxRating = 5; // Assuming the maximum rating is 5
-    for (let i = 0; i < maxRating; i++) {
-      if (i < rating) {
-        stars.push(<FaStar key={i} className="text-yellow-400" />);
-      } else {
-        stars.push(<FaStar key={i} className="text-gray-400" />);
-      }
-    }
-    return stars;
-  };
-
-
-  const [ratingsAndReviews, setRatingsAndReview] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    loadAllReviewAndRatings();
-  }, []);
-  const loadAllReviewAndRatings = async () => {
-    try {
-      await axios.get(`/ratings/view/${viewedBook.id}`, {
-        headers: {
-          'Authorization': `Bearer ${JSON.parse(localStorage.getItem("userData")).accessToken}`
-        }
-      }).then(
-          response => {
-            setRatingsAndReview(response.data.responseData);
-            setLoading(false);
-            console.log(response.data)
-            console.log(response.data.responseData)
-            console.log(response.data.responseMessage)
-          }
-      )
-    } catch (error) {
-
-      setLoading(false);
-    }
-  }
-
-  const [rating, setRating] = useState(null);
-  const [hover, setHover] = useState(null);
-  const [review, setReview] = useState("");
-  const [error, setError] = useState("");
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-
-    if (name === "review") {
-      setReview(value);
-      return;
-    }
-  }
-
-  const saveRatedBook = async ()=> {
-    ratingAndReview.rating = rating;
-    ratingAndReview.review = review;
-
-    setError("");
-
-    try {
-      await axios.post(`/ratings/${viewedBook.id}`, ratingAndReview, {
-        headers: {
-          'Authorization': `Bearer ${JSON.parse(localStorage.getItem("userData")).accessToken}`
-        }
-      }).then(
-          response => {
-            console.log(response.data.responseData);
-
-            if (response.data.responseMessage === "Your feedback was highly appreciated") {
-              enableStatus(
-                  "Already saved",
-                  "Your review has been saved, Thanks for the feedback",
-                  "bg-green-600",
-              );
-            } else {
-              enableStatus(
-                  "Error",
-                  "There was an error",
-                  "bg-red-300",
-              );
-            }
-          }
-      )
-    } catch (error) {
-
-      enableStatus(
-          "Oops!",
-          "Something went wrong please try again",
-          "bg-red-600",
-      );
-    }
-  }
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -219,6 +160,42 @@ export const BookDetails = ({handleStatus, setStatusTitle, setStatusMessage, set
                   "bg-green-600",
               );
             }
+          }
+      )
+    } catch (error) {
+
+      enableStatus(
+          "Oops!",
+          "Something went wrong please try again",
+          "bg-red-600",
+      );
+    }
+  }
+
+  const handleRate = async (e) => {
+    e.preventDefault()
+
+    const review = formData.review;
+
+    const data = {
+      rating: `${chooseRate}`,
+      review: `${review}`
+    }
+
+    try {
+      await axios.post(`/ratings/rate/${id}`, data, {
+        headers: {
+          'Authorization': `Bearer ${JSON.parse(localStorage.getItem("userData")).accessToken}`
+        }
+      }).then(
+          response => {
+            console.log(response.data.responseMessage);
+
+            enableStatus(
+                  "Rating successful",
+                  `${response.data.responseMessage}`,
+                  "bg-green-500",
+            );
           }
       )
     } catch (error) {
@@ -345,66 +322,92 @@ export const BookDetails = ({handleStatus, setStatusTitle, setStatusMessage, set
             Reviews and Ratings
           </div>
           <div className="bg-gray-200 self-stretch w-full shrink-0 h-[3px] mt-3" />
-          <div className="flex justify-center gap-3.5 ml-9 mt-9 self-start items-start max-md:max-w-full max-md:flex-wrap">
+          <div className="flex justify-between gap-3.5 ml-4 mt-5 self-start items-start max-md:max-w-full max-md:flex-wrap">
+            <span className="items-stretch self-center flex basis-[0%] flex-col my-auto">
+              <div className="text-neutral-800 text-base leading-6 whitespace-nowrap">
+                Overall Rating
+              </div>
 
-            {[...Array(5)].map( (star, index) => {
-              const currentRating = index + 1;
-             return(
-                 <label>
-                   <input
-                       type="radio"
-                       name="rating"
-                       value={currentRating}
-                       onClick={() => setRating(currentRating)}
-                   />
-                   <FaStar
-                       className="star"
-                       size={50}
-                       color={currentRating <= (hover || rating) ? "#ffc107" : "#e4e5e9"}
-                       onMouseEnter={() => setHover(currentRating)}
-                       onMouseLeave={() => setHover(null)}
-                   />
-                 </label>
-             );
-            })}
-            <p className="mt-4 mr-4">Your Rating is {rating}</p>
+              { viewedBook?.rating ?
+                  <div className="text-neutral-800 text-base leading-6 mt-6">
+                    {viewedBook?.rating} out of 5
+                  </div> : ''
+              }
 
-            <textarea typeof="text" name="review" className="text-black-300 text-xl font-medium leading-7 tracking-wide items-stretch border-[color:var(--Gray-600,#757575)] w-[933px] max-w-full mt-2 pl-5 pr-2 pt-1.5 pb-11 rounded-md border-[1.694px] border-solid self-start max-md:max-w-full" placeholder="Enter a brief review of the book" onChange={handleInputChange}>
-
-            </textarea>
-            <div className="bg-gray-200 w-0.5 shrink-0 h-[157px]" />
-            <span className="items-stretch self-center flex grow basis-[0%] flex-col my-auto">
-              <button className="transition hover:bg-green-700 cursor-pointer mb-4 text-white text-base font-medium leading-5 uppercase whitespace-nowrap justify-center items-stretch bg-green-600 mt-1 px-4 py-5 rounded-md border-[1.11px] border-solid border-green-600" onClick={saveRatedBook}>
-                Submit your Review
-              </button>
+              { viewedBook?.rating ?
+                  <Rating rate={viewedBook?.rating} /> :
+                  <div className="text-blue-600 w-[8.5rem] mt-5">No rating for book</div>
+              }
             </span>
+
+            { rate &&
+                <div className="ml-5 bg-gray-200 w-px shrink-0 h-[157px]" />
+            }
+
+            <form onSubmit={handleRate} className="flex gap-5">
+              { rate &&
+                  <div className="self-center flex grow basis-[0%] flex-col items-stretch my-auto">
+                    <span className="items-stretch w-[30vw] self-center flex grow basis-[0%] flex-col my-auto">
+
+                      <div className="flex gap-5 font-bold items-center">
+                        <p>Your Rating: </p>
+                        <Rate handleChooseRate={handleChooseRate} />
+                      </div>
+
+                      <textarea
+                          name="review"
+                          value={formData.review}
+                          onChange={handleChange}
+                          placeholder="Write your review... "
+                          className="transition hover:bg-green-700 text-white text-base font-medium leading-5 whitespace-nowrap justify-center items-stretch bg-green-600 mt-2.5 px-4 py-5 rounded-md border-[1.11px] border-solid border-green-600"
+                      />
+                    </span>
+                  </div>
+              }
+
+              <div className="bg-gray-200 w-0.5 shrink-0 h-[157px]" />
+
+              { !rate &&
+                  <div className="self-center flex grow basis-[0%] flex-col items-stretch my-auto">
+                    <span className="items-stretch self-center flex grow basis-[0%] flex-col my-auto">
+                      <div className="text-neutral-800 text-base leading-6 whitespace-nowrap">
+                        Share your thoughts here
+                      </div>
+                      <span onClick={handleShowRate} className="transition hover:bg-green-700 cursor-pointer text-white text-base font-medium leading-5 uppercase whitespace-nowrap justify-center items-stretch bg-green-600 mt-2.5 px-4 py-5 rounded-md border-[1.11px] border-solid border-green-600">
+                        Rate and Review
+                      </span>
+                    </span>
+                  </div>
+              }
+
+              { rate &&
+                  <div className="self-center flex grow basis-[0%] flex-col items-stretch my-auto">
+                    <span className="items-stretch self-center flex grow basis-[0%] flex-col my-auto">
+                      <div className="text-neutral-800 text-base leading-6 whitespace-nowrap">
+                        Click to rate
+                      </div>
+                      <button type="submit" className="text-center transition hover:bg-green-700 cursor-pointer text-white text-base font-medium leading-5 uppercase whitespace-nowrap justify-center items-stretch bg-green-600 mt-2.5 px-4 py-5 rounded-md border-[1.11px] border-solid border-green-600">
+                        Rate
+                      </button>
+                    </span>
+                  </div>
+              }
+            </form>
           </div>
           <div className="text-neutral-800 text-sm font-medium leading-5 self-stretch mt-12 max-md:max-w-full max-md:mt-10">
             All Book Reviews
           </div>
-
-          {loading ? (
-              <p>Loading</p>
-              ) : ( ratingsAndReviews.map((ratings, index ) => (
-                  <div key={index}>
           <div className="bg-gray-200 self-stretch w-full shrink-0 h-1 mt-3.5" />
-          <span className="items-start flex w-[858px] max-w-full flex-col mt-5 pr-4 py-4 rounded-2xl self-start">
-            <div className="items-stretch flex w-[122px] max-w-full gap-2 self-start">
-              {renderStars(ratings.rating)}
-            </div>
-            <div className="self-stretch text-zinc-800 text-xs leading-4 tracking-wide mt-1 max-md:max-w-full">
-              {ratings.review}
-            </div>
-            <div className="text-zinc-800 text-xs font-medium leading-4 tracking-tight whitespace-nowrap mt-1 self-start">
-              {ratings.email}
-            </div>
-            <div className="text-zinc-400 text-xs leading-4 tracking-tight mt-1 self-start">
-              {ratings.dateCreated}
-            </div>
-          </span>
-                  </div>
-        ))
-        )}
+
+          { rates.map(
+              rating => (
+                  <RateCard
+                      key={rating.id}
+                      rate={rating.rating}
+                      rating={rating}
+                  />
+              )
+          ) }
         </span>
       </div>
     </div>

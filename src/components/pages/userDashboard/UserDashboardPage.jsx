@@ -40,7 +40,7 @@ export const UserDashboardPage = ({handleStatus, setStatusTitle, setStatusMessag
 
   return (
     <>
-      <div className="m-auto pb-[5rem]">
+      <div className="m-auto">
         <div
           className="fixed w-[100vw] bg-white"
           style={{

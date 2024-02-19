@@ -60,6 +60,7 @@ export const ViewBooks = ({
         .then((response) => {
           setIsLast(response.data.responseData.last);
           setUploadedBooks(response.data.responseData.content);
+          console.log(response.data.responseData.content)
         });
     };
 

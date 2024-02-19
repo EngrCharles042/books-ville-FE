@@ -55,7 +55,7 @@ export const MyBooks = () => {
   };
 
   return (
-    <div className="flex flex-col max-w-[1297px] mx-auto items-stretch">
+    <div className="flex flex-col max-w-[1297px] mb-5 mx-auto items-stretch">
       <div className="text-black text-6xl mt-[4.5rem] mb-[2rem] w-fit font-bold leading-[81.2px] tracking-tight max-md:text-4xl">
         Welcome {JSON.parse(localStorage.getItem("userData")).firstName},
       </div>
