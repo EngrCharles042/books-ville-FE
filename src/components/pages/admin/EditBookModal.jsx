@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import axios from "../../../api/axios.jsx";
 import { ClipLoader } from "react-spinners";
 
@@ -8,6 +8,7 @@ export const EditBookModal = ({
   setStatusMessage,
   setStatusColor,
   id,
+  selectedBook, // Receive selectedBook as a prop
 }) => {
   const userData = JSON.parse(localStorage.getItem("userData"));
 
@@ -21,13 +22,11 @@ export const EditBookModal = ({
   };
 
   const [formData, setFormData] = useState({
-    author: userData?.author || "",
-    bookTitle: userData?.bookTitle || "",
-    genre: userData?.genre || "",
-    description: userData?.description || "",
-    price: userData?.price || "",
-    bookCover: userData?.bookCover || "",
-    bookFile: userData?.bookFile || "",
+    author: selectedBook?.author || "",
+    bookTitle: selectedBook?.bookTitle || "",
+    genre: selectedBook?.genre || "",
+    description: selectedBook?.description || "",
+    price: selectedBook?.price || "",
   });
 
   const handleChange = (e) => {
@@ -36,13 +35,6 @@ export const EditBookModal = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const formData = new FormData();
-    formData.append("author", formData.author);
-    formData.append("bookTitle", formData.bookTitle);
-    formData.append("genre", formData.genre);
-    formData.append("description", formData.description);
-    formData.append("price", formData.price);
 
     try {
       setClip(true);
@@ -97,7 +89,11 @@ export const EditBookModal = ({
               <button
                 style={!clip ? {} : { backgroundColor: "" }}
                 type="submit"
-                className={`hover:bg-green-600 hover:text-white cursor-pointer ${!clip ? "" : "bg-green-500"} ${!clip ? "text-green-500" : "text-white"} text-sm font-medium leading-5 tracking-[2px] uppercase whitespace-nowrap justify-center items-stretch border self-stretch px-4 py-3 rounded-md border-solid border-green-600`}
+                className={`hover:bg-green-600 hover:text-white cursor-pointer ${
+                  !clip ? "" : "bg-green-500"
+                } ${
+                  !clip ? "text-green-500" : "text-white"
+                } text-sm font-medium leading-5 tracking-[2px] uppercase whitespace-nowrap justify-center items-stretch border self-stretch px-4 py-3 rounded-md border-solid border-green-600`}
               >
                 {!clip ? (
                   "Update Book"

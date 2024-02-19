@@ -386,6 +386,8 @@ export const ViewBooks = ({
                     setStatusTitle={setStatusTitle}
                     setStatusMessage={setStatusMessage}
                     setStatusColor={setStatusColor}
+                    id={selectedBook?.id}
+                    selectedBook={selectedBook} // Pass selectedBook as a prop
                   />
                 </Modal>
               </div>
