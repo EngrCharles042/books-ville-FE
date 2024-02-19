@@ -226,7 +226,7 @@ export const UserCategoryPage = () => {
           </div>
           <div className="max-md:max-w-full">
             <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
-              <div className="h-[74vh] overflow-auto h-fit flex flex-col items-stretch w-[22%] max-md:w-full max-md:ml-0">
+              <div className="h-[71vh] overflow-auto h-fit flex flex-col items-stretch w-[22%] max-md:w-full max-md:ml-0">
                 <Filters setFilterData={setFilterData} setDep={() => (setDep(!dep))} />
               </div>
 
