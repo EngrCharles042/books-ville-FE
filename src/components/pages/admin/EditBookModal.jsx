@@ -1,42 +1,79 @@
-import { useState } from "react";
-import Modal from "react-modal";
-import { UpdateBookModal } from "./UpdateBookModal.jsx";
+import React, { useState } from "react";
+import axios from "../../../api/axios.jsx";
+import { ClipLoader } from "react-spinners";
 
 export const EditBookModal = ({
   handleStatus,
   setStatusTitle,
   setStatusMessage,
   setStatusColor,
-  userData,
+  id,
+  selectedBook, // Receive selectedBook as a prop
 }) => {
+  const userData = JSON.parse(localStorage.getItem("userData"));
+
+  const [clip, setClip] = useState(false);
+
+  const enableStatus = (title, message, color) => {
+    handleStatus();
+    setStatusTitle(title);
+    setStatusMessage(message);
+    setStatusColor(color);
+  };
+
   const [formData, setFormData] = useState({
-    author: "",
-    bookTitle: "",
-    genre: "",
-    description: "",
-    price: "",
-    bookCover: null,
-    bookFile: null,
+    author: selectedBook?.author || "",
+    bookTitle: selectedBook?.bookTitle || "",
+    genre: selectedBook?.genre || "",
+    description: selectedBook?.description || "",
+    price: selectedBook?.price || "",
   });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const handleUploadClick = () => {
-    setIsModalOpen(true);
-  };
+    try {
+      setClip(true);
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
+      await axios.put(`/book/edit/${id}`, formData, {
+        headers: {
+          Authorization: `Bearer ${userData.accessToken}`,
+        },
+      });
+
+      setClip(false);
+
+      enableStatus(
+        "Book Update",
+        "Your book has been successfully updated",
+        "bg-green-600",
+      );
+
+      setTimeout(() => {
+        // onCancel();
+      }, 2500);
+    } catch (error) {
+      setClip(false);
+
+      enableStatus(
+        "Oops!",
+        "Something went wrong, Book Update failed",
+        "bg-red-600",
+      );
+    }
   };
 
   return (
     <>
       <div className="max-w-[50vw] px-5 mb-20 flex flex-col items-stretch max-md:w-full max-md:ml-0">
-        <form className="flex flex-col px-5 w-full max-md:max-w-full">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col px-5 w-full max-md:max-w-full"
+        >
           <div className="flex w-[939px] max-w-full justify-between gap-5 mt-24 self-start items-start max-md:flex-wrap max-md:mt-10">
             <div className="items-center flex gap-3.5">
               <img
@@ -49,40 +86,21 @@ export const EditBookModal = ({
               </div>
             </div>
             <>
-              <div
-                onClick={handleUploadClick}
-                className="cursor-pointer transition hover:bg-green-600 text-white text-sm leading-5 whitespace-nowrap items-stretch bg-green-500 self-stretch justify-center px-16 py-5 rounded-lg max-md:px-5"
+              <button
+                style={!clip ? {} : { backgroundColor: "" }}
+                type="submit"
+                className={`hover:bg-green-600 hover:text-white cursor-pointer ${
+                  !clip ? "" : "bg-green-500"
+                } ${
+                  !clip ? "text-green-500" : "text-white"
+                } text-sm font-medium leading-5 tracking-[2px] uppercase whitespace-nowrap justify-center items-stretch border self-stretch px-4 py-3 rounded-md border-solid border-green-600`}
               >
-                Add Book
-              </div>
-
-              <Modal
-                isOpen={isModalOpen}
-                onRequestClose={handleCloseModal}
-                style={{
-                  overlay: {
-                    backgroundColor: "rgba(0, 0, 0, 0.5)",
-                    zIndex: 1000,
-                  },
-                  content: {
-                    maxWidth: "400px",
-                    maxHeight: "500px",
-                    margin: "auto",
-                    background: "white",
-                    borderRadius: "8px",
-                    padding: "20px",
-                  },
-                }}
-              >
-                <UpdateBookModal
-                  formData={formData}
-                  onCancel={handleCloseModal}
-                  handleStatus={handleStatus}
-                  setStatusTitle={setStatusTitle}
-                  setStatusMessage={setStatusMessage}
-                  setStatusColor={setStatusColor}
-                />
-              </Modal>
+                {!clip ? (
+                  "Update Book"
+                ) : (
+                  <ClipLoader color="#FFFFFF" loading={true} size={20} />
+                )}
+              </button>
             </>
           </div>
           <label className="text-black text-2xl font-medium leading-8 mt-6 self-start max-md:max-w-full">

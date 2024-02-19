@@ -35,7 +35,6 @@ export const BookDetails = ({handleStatus, setStatusTitle, setStatusMessage, set
 
   const navigate = useNavigate();
 
-
   const { id } = useParams();
 
   useEffect(() => {
@@ -339,7 +338,6 @@ export const BookDetails = ({handleStatus, setStatusTitle, setStatusMessage, set
                   <Rating rate={viewedBook?.rating} /> :
                   <div className="text-blue-600 w-[8.5rem] mt-5">No rating for book</div>
               }
-
             </span>
 
             { rate &&
@@ -410,7 +408,6 @@ export const BookDetails = ({handleStatus, setStatusTitle, setStatusMessage, set
                   />
               )
           ) }
-
         </span>
       </div>
     </div>
