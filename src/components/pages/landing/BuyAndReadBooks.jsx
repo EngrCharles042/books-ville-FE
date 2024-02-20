@@ -21,22 +21,22 @@ export const BuyAndReadBooks = () => {
       {/* Buy and Read buttons */}
       <div className="flex justify-center gap-4 md:gap-8 mb-10 md:mb-16">
         <div
-          className="cursor-pointer text-white font-semibold text-base leading-7 transition hover:bg-green-600  bg-green-500 px-10 py-3.5 rounded-xl"
+          className="cursor-pointer text-white text-center font-semibold text-base leading-7 transition hover:bg-green-600  bg-green-500 px-4 md:px-10 py-3.5 md:py-3 rounded-xl"
           style={{
-            width: "280px",
+            width: "100%",
+            maxWidth: "280px",
             height: "56px",
-            padding: "14px 99px",
             borderRadius: "10px",
           }}
         >
           Buy Book
         </div>
         <div
-          className="cursor-pointer hover:bg-gray-200 transition text-green-500 font-semibold text-base leading-7 border-2 border-green-500 border-solid px-10 py-3.5 rounded-xl"
+          className="cursor-pointer hover:bg-gray-200 transition text-green-500 text-center font-semibold text-base leading-7 border-2 border-green-500 border-solid px-4 md:px-10 py-3.5 md:py-3 rounded-xl"
           style={{
-            width: "280px",
+            width: "100%",
+            maxWidth: "280px",
             height: "56px",
-            padding: "14px 99px",
             borderRadius: "10px",
           }}
         >
@@ -73,24 +73,24 @@ export const BuyAndReadBooks = () => {
       </div>
 
       {/* Secondary Content */}
-      <div className="flex gap-[25px] items-center my-[5rem] md:mt-16">
-        <div className="aspect-w-12 aspect-h-11 mt-[5rem] rounded-xl overflow-hidden">
+      <div className="flex flex-col md:flex-row gap-5 items-center my-5 md:mt-16">
+        <div className="aspect-w-12 aspect-h-11 md:mt-5 rounded-xl overflow-hidden">
           <img
             loading="lazy"
             src="/src/assets/images/landingPageImages/rectangle-48@2x.png"
-            className=" object-cover w-full h-full rounded-xl"
+            className="object-cover w-full h-full rounded-xl"
             alt="Image 4"
           />
         </div>
         <div className="flex flex-col justify-start ml-2">
           <div
-            className="text-4xl md:text-5xl font-bold text-green-500 leading-[72px] mb-1 md:mb-3"
+            className="text-4xl md:text-5xl font-bold text-green-500 leading-[72px] mb-5 md:mb-3"
             style={{
-              width: "780px",
-              height: "117px",
-              fontSize: "40px",
+              width: "100%",
+              maxWidth: "780px",
+              fontSize: "clamp(2rem, 5vw, 3.75rem)", // Responsive font size
               fontWeight: 700,
-              lineHeight: "59px",
+              lineHeight: "1.2",
               letterSpacing: "0em",
               textAlign: "left",
             }}
@@ -102,7 +102,7 @@ export const BuyAndReadBooks = () => {
             <span className="text-green-500"> Buy Now</span>
             <span className="text-black">, Read Now!</span>
           </div>
-          <div className="text-lg md:text-xl font-medium text-neutral-800 leading-7 mb-7 md:mb-12">
+          <div className="text-lg md:text-xl font-medium text-neutral-800 leading-7 mb-5 md:mb-12">
             Embark on a literary journey with our curated collection of books –
             where every page holds a new adventure and every cover whispers a
             captivating story.
@@ -110,9 +110,9 @@ export const BuyAndReadBooks = () => {
           <div
             className="transition hover:bg-green-600 cursor-pointer text-center text-lg md:text-xl font-semibold text-white bg-green-500 px-4 py-2 rounded-xl"
             style={{
-              width: "296px",
-              height: "56px",
-              padding: "14px 99px",
+              width: "100%",
+              maxWidth: "296px",
+              height: "auto",
               borderRadius: "10px",
             }}
           >
