@@ -128,7 +128,16 @@ export const UserDashboardPage = ({handleStatus, setStatusTitle, setStatusMessag
                   />
                 } />
 
-                <Route path={"/cart"} element={<Checkout />} />
+                <Route
+                    path={"/cart"} element={
+                  <Checkout
+                      handleStatus={handleStatus}
+                      setStatusTitle={setStatusTitle}
+                      setStatusMessage={setStatusMessage}
+                      setStatusColor={setStatusColor}
+                  />
+                }
+                />
               </Routes>
             </div>
         }

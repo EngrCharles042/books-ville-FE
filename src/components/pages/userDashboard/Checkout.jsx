@@ -5,8 +5,9 @@ import image2 from "../../../assets/images/landingPageImages/img_2.png";
 import image3 from "../../../assets/images/landingPageImages/img_3.png";
 import image4 from "../../../assets/images/landingPageImages/img_4.png";
 import { PaymentOptions } from "../../payment/PaymentOptions.jsx";
-import { useNavigate } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import axios from "../../../api/axios";
+import {CheckoutPayment} from "../../payment/CheckoutPayment.jsx";
 
 export const Checkout = ({ handleStatus, setStatusTitle, setStatusMessage, setStatusColor }) => {
   const [totalPrice, setTotalPrice] = useState();
@@ -133,9 +134,9 @@ export const Checkout = ({ handleStatus, setStatusTitle, setStatusMessage, setSt
                   ) }
 
                   <div className="bg-zinc-100 flex shrink-0 h-px flex-col mt-2 max-md:max-w-full" />
-                  <div className="text-green-500 text-sm leading-5 tracking-tighter mt-3.5 max-md:max-w-full">
+                  <Link to={"/user-dashboard/categories"} className="hover:text-green-700 text-green-500 text-sm leading-5 tracking-tighter mt-3.5 max-md:max-w-full">
                     CONTINUE SHOPPING
-                  </div>
+                  </Link>
                 </span>
               </div>
 
@@ -176,12 +177,22 @@ export const Checkout = ({ handleStatus, setStatusTitle, setStatusMessage, setSt
                       { totalPrice }
                     </div>
                   </span>
-                  <span
-                    className="cursor-pointer hover:bg-green-600 transition text-white text-sm text-center font-semibold leading-5 whitespace-nowrap justify-center items-center bg-green-500 mt-12 mb-11 px-16 py-3 rounded-xl max-md:my-10 max-md:px-5"
-                    onClick={handleDownloadClick}
-                  >
-                    CHECKOUT
-                  </span>
+
+                  { totalPrice < 1 ?
+                      <Link
+                          to={"/user-dashboard/categories"}
+                          className="cursor-pointer hover:bg-blue-600 transition text-white text-sm text-center font-semibold leading-5 whitespace-nowrap justify-center items-center bg-blue-500 mt-12 mb-11 px-16 py-3 rounded-xl max-md:my-10 max-md:px-5"
+                      >
+                        GO SHOPPING
+                      </Link> :
+                      <span
+                          className="cursor-pointer hover:bg-green-600 transition text-white text-sm text-center font-semibold leading-5 whitespace-nowrap justify-center items-center bg-green-500 mt-12 mb-11 px-16 py-3 rounded-xl max-md:my-10 max-md:px-5"
+                          onClick={handleDownloadClick}
+                      >
+                        CHECKOUT
+                      </span>
+                  }
+
                   <Modal
                     isOpen={isModalOpen}
                     onRequestClose={handleCloseModal}
@@ -200,7 +211,16 @@ export const Checkout = ({ handleStatus, setStatusTitle, setStatusMessage, setSt
                       },
                     }}
                   >
-                    <PaymentOptions handleBuy={handleCloseModal} dep={handleDep} />
+                    <CheckoutPayment
+                        handleBuy={handleCloseModal}
+                        handleStatus={handleStatus}
+                        setStatusTitle={setStatusTitle}
+                        setStatusMessage={setStatusMessage}
+                        setStatusColor={setStatusColor}
+                        books={cart}
+                        totalPrice={totalPrice}
+                        dep={handleDep}
+                    />
                   </Modal>
                 </span>
               </div>

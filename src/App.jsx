@@ -195,7 +195,14 @@ function App() {
                 />
             } />
 
-          <Route path={"/user-dashboard/cart"} element={<Checkout />} />
+          <Route path={"/user-dashboard/cart"} element={
+              <Checkout
+                  handleStatus={handleStatus}
+                  setStatusTitle={setStatusTitle}
+                  setStatusMessage={setStatusMessage}
+                  setStatusColor={setStatusColor}
+              />
+          } />
         </Route>
 
         <Route path={"/flutterwave-payment"} element={<PaymentOptions />} />
