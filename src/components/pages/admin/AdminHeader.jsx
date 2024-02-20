@@ -1,8 +1,26 @@
 import { AdminProfilePopUp } from "../../../utils/AdminProfilePopUp.jsx";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 
-export const AdminHeader = ({ userData }) => {
+export const AdminHeader = ({ userData, setGeneralSearch, setQuery }) => {
   const [profileClick, setProfileCLick] = useState(false);
+
+  const [search, setSearch] = useState("");
+
+  const handleChange = (e) => {
+    setSearch(e.target.value);
+  }
+
+  useEffect(() => {
+    setQuery(search)
+
+    setTimeout(() => {
+      if (search.length < 1) {
+        setGeneralSearch(false)
+      } else if (search.length > 0) {
+        setGeneralSearch(true)
+      }
+    }, 500)
+  }, [search]);
 
   return (
     <>
@@ -23,6 +41,8 @@ export const AdminHeader = ({ userData }) => {
               <input
                 type="search"
                 name="search"
+                value={search}
+                onChange={handleChange}
                 className="text-black text-left text-sm focus:outline-none tracking-normal self-stretch grow whitespace-nowrap w-[20rem]"
                 placeholder="Search by Author or Title or Series"
               />

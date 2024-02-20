@@ -6,6 +6,7 @@ import { ViewBooks } from "./ViewBooks.jsx";
 import { AccountSetting } from "../userDashboard/AccountSetting.jsx";
 import { useEffect, useState } from "react";
 import axios from "../../../api/axios.jsx";
+import {HeaderSearch} from "../userDashboard/HeaderSearch.jsx";
 
 export const AdminDashboard = ({
   handleStatus,
@@ -14,6 +15,8 @@ export const AdminDashboard = ({
   setStatusColor,
 }) => {
   const [dependency, setDependency] = useState(false);
+    const [generalSearch, setGeneralSearch] = useState(false)
+    const [search, setSearch] = useState('')
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,49 +47,61 @@ export const AdminDashboard = ({
           <AdminSideBar />
         </div>
         <div>
-          <AdminHeader />
+          <AdminHeader
+              setGeneralSearch={setGeneralSearch}
+              setQuery={setSearch}
+          />
         </div>
         <div className="ml-[270px]">
-          <Routes>
-            <Route
-              path={"/"}
-              element={
-                <AddNewBook
-                  handleStatus={handleStatus}
-                  setStatusTitle={setStatusTitle}
-                  setStatusMessage={setStatusMessage}
-                  setStatusColor={setStatusColor}
-                />
-              }
-            />
 
-            <Route
-              path={"/view-books"}
-              element={
-                <ViewBooks
-                  handleStatus={handleStatus}
-                  setStatusTitle={setStatusTitle}
-                  setStatusMessage={setStatusMessage}
-                  setStatusColor={setStatusColor}
-                />
-              }
-            />
+            { generalSearch &&
+                <div className="mt-[15vh]">
+                    <HeaderSearch search={search} />
+                </div>
+            }
 
-            <Route
-                path={"/profile"}
-                element={
-                  <AccountSetting
-                      handleStatus={handleStatus}
-                      setStatusTitle={setStatusTitle}
-                      setStatusMessage={setStatusMessage}
-                      setStatusColor={setStatusColor}
-                      userData={user}
-                      setDep={setDep}
-                      user={"admin"}
-                  />
-                }
-            />
-          </Routes>
+            { !generalSearch &&
+                <Routes>
+                    <Route
+                        path={"/"}
+                        element={
+                            <AddNewBook
+                                handleStatus={handleStatus}
+                                setStatusTitle={setStatusTitle}
+                                setStatusMessage={setStatusMessage}
+                                setStatusColor={setStatusColor}
+                            />
+                        }
+                    />
+
+                    <Route
+                        path={"/view-books"}
+                        element={
+                            <ViewBooks
+                                handleStatus={handleStatus}
+                                setStatusTitle={setStatusTitle}
+                                setStatusMessage={setStatusMessage}
+                                setStatusColor={setStatusColor}
+                            />
+                        }
+                    />
+
+                    <Route
+                        path={"/profile"}
+                        element={
+                            <AccountSetting
+                                handleStatus={handleStatus}
+                                setStatusTitle={setStatusTitle}
+                                setStatusMessage={setStatusMessage}
+                                setStatusColor={setStatusColor}
+                                userData={user}
+                                setDep={setDep}
+                                user={"admin"}
+                            />
+                        }
+                    />
+                </Routes>
+            }
         </div>
       </div>
     </>

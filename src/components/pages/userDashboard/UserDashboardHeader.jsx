@@ -1,9 +1,26 @@
 import { ProfilePopUp } from "../../../utils/ProfilePopUp.jsx";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 
-export const UserDashboardHeader = ({ userData }) => {
+export const UserDashboardHeader = ({ userData, setGeneralSearch, setQuery }) => {
   const [profileClick, setProfileCLick] = useState(false);
+  const [search, setSearch] = useState("");
+
+  const handleChange = (e) => {
+    setSearch(e.target.value);
+  }
+
+  useEffect(() => {
+    setQuery(search)
+
+    setTimeout(() => {
+      if (search.length < 1) {
+        setGeneralSearch(false)
+      } else if (search.length > 0) {
+        setGeneralSearch(true)
+      }
+    }, 500)
+  }, [search]);
 
   return (
     <div className="max-w-[1297px] mx-auto justify-between items-stretch bg-white flex gap-5 py-4 max-md:flex-wrap max-md:px-5">
@@ -30,6 +47,8 @@ export const UserDashboardHeader = ({ userData }) => {
           <input
             type="search"
             name="search"
+            value={search}
+            onChange={handleChange}
             className="text-black text-left text-sm focus:outline-none tracking-normal self-stretch grow whitespace-nowrap w-[20rem]"
             placeholder="Search by Author or Title or Series"
           />
