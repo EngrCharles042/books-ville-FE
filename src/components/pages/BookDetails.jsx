@@ -16,9 +16,17 @@ export const BookDetails = ({handleStatus, setStatusTitle, setStatusMessage, set
 
   const [rate, setRate] = useState(false)
 
+  const [dep, setDep] = useState(false);
+
+  const [rateDep, setRateDep] = useState(false);
+
   const [rates, setRates] = useState([])
 
   let chooseRate = 1;
+
+  const handleDep = () => {
+    setDep(!dep)
+  }
 
   const handleShowRate = () => {
     setRate(!rate);
@@ -55,7 +63,7 @@ export const BookDetails = ({handleStatus, setStatusTitle, setStatusMessage, set
     }
 
     fetchBook();
-  }, []);
+  }, [dep]);
 
   useEffect(() => {
     const fetchRatingsAndComments = () => {
@@ -72,7 +80,7 @@ export const BookDetails = ({handleStatus, setStatusTitle, setStatusMessage, set
     }
 
     fetchRatingsAndComments();
-  }, []);
+  }, [rateDep]);
 
   const enableStatus = (title, message, color) => {
     handleStatus();
@@ -193,6 +201,8 @@ export const BookDetails = ({handleStatus, setStatusTitle, setStatusMessage, set
                   `${response.data.responseMessage}`,
                   "bg-green-500",
             );
+
+            setRateDep(!rateDep)
           }
       )
     } catch (error) {
@@ -232,6 +242,7 @@ export const BookDetails = ({handleStatus, setStatusTitle, setStatusMessage, set
             setStatusMessage={setStatusMessage}
             setStatusColor={setStatusColor}
             handleBuy={handleCloseModal}
+            dep={handleDep}
         />
       </Modal>
 
@@ -298,7 +309,7 @@ export const BookDetails = ({handleStatus, setStatusTitle, setStatusMessage, set
                   </div>
 
 
-                    { subscription.length > 0 || viewedBook?.isPurchased ?
+                    { subscription.length > 0 || viewedBook?.isPurchased || viewedBook?.price === 0 ?
                       <DownloadAndReadOnline
                           book={viewedBook}
                           handleStatus={handleStatus}
@@ -307,6 +318,7 @@ export const BookDetails = ({handleStatus, setStatusTitle, setStatusMessage, set
                           setStatusTitle={setStatusTitle}
                           subscription={subscription}
                           isPurchased={viewedBook?.isPurchased}
+                          dep={handleDep}
                       /> :
                         <span className="flex gap-2 mt-4 items-start max-md:max-w-full max-md:flex-wrap max-md:mr-2.5 max-md:pr-5">
                           <span

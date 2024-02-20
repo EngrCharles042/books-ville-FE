@@ -73,16 +73,6 @@ export const ProfilePopUp = ({ handleProfilePop }) => {
           My Purchased books
         </div>
       </Link>
-      <div className="cursor-pointer items-center flex justify-between gap-3 mt-4 ease-in-out duration-200 hover:gap-1">
-        <img
-          loading="lazy"
-          src="https://cdn.builder.io/api/v1/image/assets/TEMP/3c35c6703a14d0d8c1a01515987e330e99cb94ea04c429960bd0694d8b210919?"
-          className="aspect-[1.06] object-contain object-center w-[17px] overflow-hidden shrink-0 max-w-full my-auto"
-        />
-        <div className="text-zinc-700 text-[0.9rem] font-medium leading-5 self-stretch grow whitespace-nowrap">
-          Payment History
-        </div>
-      </div>
 
       <div
         onClick={handleLogout}

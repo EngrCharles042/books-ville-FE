@@ -19,6 +19,10 @@ export const Checkout = ({ handleStatus, setStatusTitle, setStatusMessage, setSt
 
   const navigate = useNavigate();
 
+  const handleDep = () => {
+    setDep(!dep)
+  }
+
   const handleDownloadClick = () => {
     setIsModalOpen(true);
   };
@@ -196,7 +200,7 @@ export const Checkout = ({ handleStatus, setStatusTitle, setStatusMessage, setSt
                       },
                     }}
                   >
-                    <PaymentOptions handleBuy={handleCloseModal} />
+                    <PaymentOptions handleBuy={handleCloseModal} dep={handleDep} />
                   </Modal>
                 </span>
               </div>

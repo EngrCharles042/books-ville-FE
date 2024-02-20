@@ -7,7 +7,7 @@ import {useConfig} from "../hooks/useConfig.js";
 import {PaymentOptions} from "../components/payment/PaymentOptions.jsx";
 import {UpgradeOrBuy} from "./UpgradeOrBuy.jsx";
 
-export const DownloadAndReadOnline = ({ book, handleStatus, setStatusTitle, setStatusMessage, setStatusColor, subscription, isPurchased }) => {
+export const DownloadAndReadOnline = ({ book, handleStatus, setStatusTitle, setStatusMessage, setStatusColor, subscription, isPurchased, dep }) => {
     const { userData } = useData()
 
     const enableStatus = (title, message, color) => {
@@ -190,6 +190,7 @@ export const DownloadAndReadOnline = ({ book, handleStatus, setStatusTitle, setS
                     setStatusMessage={setStatusMessage}
                     setStatusColor={setStatusColor}
                     handleBuy={handleBuyCloseModal}
+                    dep={dep}
                 />
             </Modal>
 
@@ -218,7 +219,7 @@ export const DownloadAndReadOnline = ({ book, handleStatus, setStatusTitle, setS
                 />
             </Modal>
 
-            { subscription === "VORACIOUS" || isPurchased ?
+            { subscription === "VORACIOUS" || isPurchased || book?.price === 0 ?
                 <span
                     className="hover:bg-green-600 hover:text-white cursor-pointer text-green-600 text-base font-medium leading-5 uppercase justify-center items-stretch bg-white grow px-8 py-5 rounded-md border-[1.145px] border-solid border-green-600 max-md:px-5"
                     onClick={() => handleDownloadClick()}

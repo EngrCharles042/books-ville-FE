@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "../../../api/axios.jsx";
 
@@ -22,43 +22,6 @@ export const SavedBooks = ({
   const [page, setPage] = useState(0);
 
   const [savedBooks, setSavedBooks] = useState([]);
-
-  const handleAddToCart = async (id) => {
-    const formData = new FormData();
-    formData.append("id", id);
-
-    try {
-      await axios
-        .post(`/cart/addToCart`, formData, {
-          headers: {
-            Authorization: `Bearer ${JSON.parse(localStorage.getItem("userData")).accessToken}`,
-          },
-        })
-        .then((response) => {
-          console.log(response.data.responseMessage);
-
-          if (response.data.responseMessage === "alreadyAdded") {
-            enableStatus(
-              "Already added",
-              "Book has already been added to Cart",
-              "bg-red-300",
-            );
-          } else {
-            enableStatus(
-              "Add to Cart Successful",
-              "Book has been added to cart successfully",
-              "bg-green-600",
-            );
-          }
-        });
-    } catch (error) {
-      enableStatus(
-        "Oops!",
-        "Something went wrong please try again",
-        "bg-red-600",
-      );
-    }
-  };
 
   const handleRemoveFromWishList = async (id) => {
     try {
@@ -168,12 +131,13 @@ export const SavedBooks = ({
                       N {book?.price}
                     </div>
                     <span className="items-stretch flex justify-between gap-5 mt-6 self-start max-md:max-w-full max-md:flex-wrap">
-                      <span
-                        onClick={() => handleAddToCart(book?.id)}
-                        className="hover:bg-green-600 hover:text-white cursor-pointer text-green-500 text-base font-medium leading-5 uppercase justify-center items-stretch grow px-11 py-5 rounded-md border-[1.145px] border-solid border-green-600 max-md:px-5"
-                      >
-                        ADD TO CART
-                      </span>
+                       <Link
+                           to={`/user-dashboard/book-details/${book?.id}`}
+                           className="hover:bg-green-600 hover:text-white cursor-pointer text-green-500 text-base font-medium leading-5 uppercase justify-center items-stretch grow px-11 py-5 rounded-md border-[1.145px] border-solid border-green-600 max-md:px-5"
+                       >
+                          View Book
+                       </Link>
+
                       <div
                         onClick={() => handleRemoveFromWishList(book?.id)}
                         className="hover:bg-red-600 hover:text-white cursor-pointer text-red-500 text-sm font-semibold leading-5 my-auto px-11 py-5 rounded-md border-[1.145px] border-solid border-red-600 max-md:px-5"
