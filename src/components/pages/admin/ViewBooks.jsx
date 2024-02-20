@@ -60,7 +60,7 @@ export const ViewBooks = ({
         .then((response) => {
           setIsLast(response.data.responseData.last);
           setUploadedBooks(response.data.responseData.content);
-          console.log(response.data.responseData.content)
+          console.log(response.data.responseData.content);
         });
     };
 
@@ -410,6 +410,7 @@ export const ViewBooks = ({
                     setStatusColor={setStatusColor}
                     id={selectedBook?.id}
                     selectedBook={selectedBook} // Pass selectedBook as a prop
+                    closeModal={closeModal1} // Pass the closeModal function
                   />
                 </Modal>
               </div>

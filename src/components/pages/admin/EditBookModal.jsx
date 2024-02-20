@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "../../../api/axios.jsx";
 import { ClipLoader } from "react-spinners";
 
@@ -9,6 +9,7 @@ export const EditBookModal = ({
   setStatusColor,
   id,
   selectedBook, // Receive selectedBook as a prop
+  closeModal, // Receive the closeModal function as a prop
 }) => {
   const userData = JSON.parse(localStorage.getItem("userData"));
 
@@ -54,7 +55,7 @@ export const EditBookModal = ({
       );
 
       setTimeout(() => {
-        // onCancel();
+        closeModal(); // Close the modal
       }, 2500);
     } catch (error) {
       setClip(false);
