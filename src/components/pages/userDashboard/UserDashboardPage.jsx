@@ -10,10 +10,13 @@ import { Checkout } from "./Checkout.jsx";
 import {useEffect, useState} from "react";
 import axios from "../../../api/axios.jsx";
 import {BookDetails} from "../BookDetails.jsx";
+import {HeaderSearch} from "./HeaderSearch.jsx";
 
 export const UserDashboardPage = ({handleStatus, setStatusTitle, setStatusMessage, setStatusColor}) => {
 
   const [dependency, setDependency] = useState(false)
+  const [generalSearch, setGeneralSearch] = useState(false)
+  const [search, setSearch] = useState('')
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,75 +53,85 @@ export const UserDashboardPage = ({handleStatus, setStatusTitle, setStatusMessag
         >
           <UserDashboardHeader
             userData={user}
+            setGeneralSearch={setGeneralSearch}
+            setQuery={setSearch}
           />
         </div>
 
-        <div className="pt-[3rem]">
-          <Routes>
-            <Route path={"/"} element={<MyBooks />} />
+        { generalSearch &&
+            <div className="pt-[10rem]">
+              <HeaderSearch search={search} />
+            </div>
+        }
 
-            <Route path={"/categories"} element={
-              <UserCategoryPage
-                  handleStatus={handleStatus}
-                  setStatusTitle={setStatusTitle}
-                  setStatusMessage={setStatusMessage}
-                  setStatusColor={setStatusColor}
-              />
-            }
-            />
+        { !generalSearch &&
+            <div className="pt-[3rem]">
+              <Routes>
+                <Route path={"/"} element={<MyBooks />} />
 
-            <Route path={"/subscription"} element={
-              <Subscriptions
-                  handleStatus={handleStatus}
-                  setStatusTitle={setStatusTitle}
-                  setStatusMessage={setStatusMessage}
-                  setStatusColor={setStatusColor}
-              />
-            } />
-
-            <Route path={"/purchased-books"} element={<PurchasedBooks
-                handleStatus={handleStatus}
-                setStatusTitle={setStatusTitle}
-                setStatusMessage={setStatusMessage}
-                setStatusColor={setStatusColor}/>} />
-
-            <Route path={"/saved-books"} element={
-              <SavedBooks
-                  handleStatus={handleStatus}
-                  setStatusTitle={setStatusTitle}
-                  setStatusMessage={setStatusMessage}
-                  setStatusColor={setStatusColor}
-              />
-            }
-            />
-
-            <Route
-              path={"/profile"}
-              element={
-                <AccountSetting
-                  handleStatus={handleStatus}
-                  setStatusTitle={setStatusTitle}
-                  setStatusMessage={setStatusMessage}
-                  setStatusColor={setStatusColor}
-                  userData={user}
-                  setDep={setDep}
-                  user={"user"}
+                <Route path={"/categories"} element={
+                  <UserCategoryPage
+                      handleStatus={handleStatus}
+                      setStatusTitle={setStatusTitle}
+                      setStatusMessage={setStatusMessage}
+                      setStatusColor={setStatusColor}
+                  />
+                }
                 />
-              }
-            />
 
-            <Route path={"/book-details/:id"} element={
-              <BookDetails
-                  handleStatus={handleStatus}
-                  setStatusTitle={setStatusTitle}
-                  setStatusMessage={setStatusMessage}
-                  setStatusColor={setStatusColor}
-              />
-            } />
+                <Route path={"/subscription"} element={
+                  <Subscriptions
+                      handleStatus={handleStatus}
+                      setStatusTitle={setStatusTitle}
+                      setStatusMessage={setStatusMessage}
+                      setStatusColor={setStatusColor}
+                  />
+                } />
 
-            <Route path={"/cart"} element={<Checkout />} />
-          </Routes>
-        </div>
+                <Route path={"/purchased-books"} element={<PurchasedBooks
+                    handleStatus={handleStatus}
+                    setStatusTitle={setStatusTitle}
+                    setStatusMessage={setStatusMessage}
+                    setStatusColor={setStatusColor}/>} />
+
+                <Route path={"/saved-books"} element={
+                  <SavedBooks
+                      handleStatus={handleStatus}
+                      setStatusTitle={setStatusTitle}
+                      setStatusMessage={setStatusMessage}
+                      setStatusColor={setStatusColor}
+                  />
+                }
+                />
+
+                <Route
+                    path={"/profile"}
+                    element={
+                      <AccountSetting
+                          handleStatus={handleStatus}
+                          setStatusTitle={setStatusTitle}
+                          setStatusMessage={setStatusMessage}
+                          setStatusColor={setStatusColor}
+                          userData={user}
+                          setDep={setDep}
+                          user={"user"}
+                      />
+                    }
+                />
+
+                <Route path={"/book-details/:id"} element={
+                  <BookDetails
+                      handleStatus={handleStatus}
+                      setStatusTitle={setStatusTitle}
+                      setStatusMessage={setStatusMessage}
+                      setStatusColor={setStatusColor}
+                  />
+                } />
+
+                <Route path={"/cart"} element={<Checkout />} />
+              </Routes>
+            </div>
+        }
       </div>
     </>
   );
