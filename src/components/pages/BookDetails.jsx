@@ -52,6 +52,9 @@ export const BookDetails = ({handleStatus, setStatusTitle, setStatusMessage, set
   const { id } = useParams();
 
   useEffect(() => {
+    if (!userData) {
+      navigate("/login")
+    }
     const fetchBook = () => {
       axios.get(`/book/get-book/${id}`, useConfig()).then(
           response => {
@@ -59,7 +62,10 @@ export const BookDetails = ({handleStatus, setStatusTitle, setStatusMessage, set
             setViewedBook(response.data.responseData);
 
           }
-      ).catch(error => console.log(error.message));
+      ).catch(error => {
+        console.log(error.message)
+        navigate("/login")
+      });
     }
 
     fetchBook();
