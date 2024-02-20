@@ -6,7 +6,7 @@ import PayStackPop from "@paystack/inline-js";
 import axios from "../../api/axios.jsx";
 
 // eslint-disable-next-line react/prop-types
-export const PaymentOptions = ({ handleBuy, handleStatus, setStatusTitle, setStatusMessage, setStatusColor, book }) => {
+export const PaymentOptions = ({ handleBuy, handleStatus, setStatusTitle, setStatusMessage, setStatusColor, book, dep }) => {
   const enableStatus = (title, message, color) => {
     handleStatus();
     setStatusTitle(title);
@@ -34,10 +34,10 @@ export const PaymentOptions = ({ handleBuy, handleStatus, setStatusTitle, setSta
               "Your Payment is Successful",
               "bg-green-600",
           );
-
         });
 
       handleBuy()
+      dep()
     } catch (error) {
       enableStatus(
           "Oops!",

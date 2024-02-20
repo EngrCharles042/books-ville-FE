@@ -107,6 +107,8 @@ export const Login = ({
 
         localStorage.setItem("userData", JSON.stringify(result.data.responseData));
 
+        localStorage.setItem("subscription", JSON.stringify(result.data.responseData.subscription))
+
         localStorage.setItem("profilePicture", JSON.stringify(result.data.responseData.profilePicture));
 
         console.log("User login successful");

@@ -3,16 +3,19 @@ import checkBox from "../../../assets/images/userCatImages/check_box.png";
 import checkBox1 from "../../../assets/images/userCatImages/check_box (1).png";
 import checkBox2 from "../../../assets/images/userCatImages/check_box (2).png";
 import { useNavigate } from "react-router-dom";
+import {useData} from "../../../hooks/useData.js";
 
 export const Subscriptions = ({ handleStatus, setStatusTitle, setStatusMessage, setStatusColor }) => {
   const navigate = useNavigate();
+
+  const { subscription, userData } = useData()
 
   const goBack = () => {
     navigate(-1);
   };
 
   return (
-    <div className="max-w-[75vw] mx-auto mt-[4.5rem]">
+    <div className="max-w-[75vw] mb-10 mx-auto mt-[4.5rem]">
       <span
         onClick={goBack}
         className="cursor-pointer transition hover:scale-110 gap-1 items-center flex w-[75px] max-w-full"
@@ -43,6 +46,7 @@ export const Subscriptions = ({ handleStatus, setStatusTitle, setStatusMessage, 
           imageSrc={checkBox1}
           headerText="Basic"
           plan={"basic"}
+          subscription={subscription === "LIGHT"}
           handleStatus={handleStatus}
           setStatusTitle={setStatusTitle}
           setStatusMessage={setStatusMessage}
@@ -59,6 +63,7 @@ export const Subscriptions = ({ handleStatus, setStatusTitle, setStatusMessage, 
           imageSrc={checkBox}
           headerText="Most Popular"
           plan={"popular"}
+          subscription={subscription === "CASUAL"}
           handleStatus={handleStatus}
           setStatusTitle={setStatusTitle}
           setStatusMessage={setStatusMessage}
@@ -75,6 +80,7 @@ export const Subscriptions = ({ handleStatus, setStatusTitle, setStatusMessage, 
           imageSrc={checkBox2}
           headerText="Best Deal"
           plan={"best"}
+          subscription={subscription === "VORACIOUS"}
           handleStatus={handleStatus}
           setStatusTitle={setStatusTitle}
           setStatusMessage={setStatusMessage}

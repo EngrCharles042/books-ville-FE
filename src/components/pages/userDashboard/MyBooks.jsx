@@ -99,6 +99,7 @@ export const MyBooks = () => {
           {savedBooks.slice(0, 4).map((book, index) => (
             <BookCard
               key={index}
+              bookId={book.id}
               image={book.bookCover}
               name={book.bookTitle}
               author={book.author}
