@@ -30,6 +30,7 @@ export const ViewBooks = ({
   const [modal1IsOpen, setModal1IsOpen] = useState(false);
   const [selectedBook, setSelectedBook] = useState(null);
   const [showBookPage, setShowBookPage] = useState(false);
+  const [isBookHidden, setIsBookHidden] = useState(false);
 
   const navigate = useNavigate();
 
@@ -123,12 +124,17 @@ export const ViewBooks = ({
     await axios
       .patch(`/book/hide/${bookId}`)
       .then((response) => {
-        console.log("Book hidden successfully.");
-        enableStatus("Success", "Book hidden successfully", "bg-green-600");
+        console.log("Book hidden/unhidden successfully.");
+        setIsBookHidden(!isBookHidden); // Toggle the isBookHidden state
+        enableStatus(
+          "Success",
+          "Book hidden/unhidden successfully",
+          "bg-green-600",
+        );
         // Optionally, you can update the state or fetch the updated book list
       })
       .catch((error) => {
-        console.error("Error hiding book:", error);
+        console.error("Error hiding/unhiding book:", error);
         enableStatus(
           "Oops!",
           "Something went wrong, please try again",
@@ -373,10 +379,10 @@ export const ViewBooks = ({
                 </Modal>
 
                 <span
-                  className="transition hover:bg-yellow-600 cursor-pointer text-center text-white text-sm font-medium leading-5 uppercase whitespace-nowrap border bg-yellow-500 mt-4 px-5 py-4 rounded-md border-solid border-yellow-600 self-start max-md:px-5"
+                  className={`transition hover:bg-${isBookHidden ? "green" : "yellow"}-600 cursor-pointer text-center text-white text-sm font-medium leading-5 uppercase whitespace-nowrap border bg-${isBookHidden ? "green" : "yellow"}-500 mt-4 px-5 py-4 rounded-md border-solid border-${isBookHidden ? "green" : "yellow"}-600 self-start max-md:px-5`}
                   onClick={() => handleHideBook(selectedBook.id)}
                 >
-                  Hide Book
+                  {isBookHidden ? "Unhide Book" : "Hide Book"}
                 </span>
                 <span
                   className="transition hover:bg-green-600 cursor-pointer text-center text-white text-sm font-medium leading-5 uppercase whitespace-nowrap border bg-green-500 mt-4 px-5 py-4 rounded-md border-solid border-green-600 self-start max-md:px-5"
