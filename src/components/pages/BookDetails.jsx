@@ -6,8 +6,14 @@ import axios from "../../api/axios.jsx";
 import {Rating} from "../../utils/Rating.jsx";
 import {Rate} from "../../utils/Rate.jsx";
 import {RateCard} from "../../utils/RateCard.jsx";
+import {useData} from "../../hooks/useData.js";
+import {useConfig} from "../../hooks/useConfig.js";
+import {DownloadAndReadOnline} from "../../utils/DownloadAndReadOnline.jsx";
+import {usePurchasedCheck} from "../../hooks/usePurchasedCheck.js";
 
 export const BookDetails = ({handleStatus, setStatusTitle, setStatusMessage, setStatusColor }) => {
+  const { userData, subscription } = useData()
+
   const [rate, setRate] = useState(false)
 
   const [rates, setRates] = useState([])
@@ -39,13 +45,11 @@ export const BookDetails = ({handleStatus, setStatusTitle, setStatusMessage, set
 
   useEffect(() => {
     const fetchBook = () => {
-      axios.get(`/book/get-book/${id}`, {
-        headers: {
-          'Authorization': `Bearer ${JSON.parse(localStorage.getItem("userData")).accessToken}`
-        }
-      }).then(
+      axios.get(`/book/get-book/${id}`, useConfig()).then(
           response => {
+            console.log(subscription)
             setViewedBook(response.data.responseData);
+
           }
       ).catch(error => console.log(error.message));
     }
@@ -94,14 +98,8 @@ export const BookDetails = ({handleStatus, setStatusTitle, setStatusMessage, set
   const handleSaveBook = async (e) => {
     e.preventDefault()
 
-    console.log(viewedBook.id)
-
     try {
-      await axios.get(`/book/save/${viewedBook.id}`, {
-        headers: {
-          'Authorization': `Bearer ${JSON.parse(localStorage.getItem("userData")).accessToken}`
-        }
-      }).then(
+      await axios.get(`/book/save/${id}`, useConfig()).then(
           response => {
             console.log(response.data.responseData);
 
@@ -134,9 +132,8 @@ export const BookDetails = ({handleStatus, setStatusTitle, setStatusMessage, set
     e.preventDefault()
 
     const formData = new FormData();
-    formData.append("id", viewedBook.id)
+    formData.append("id", id)
 
-    console.log(viewedBook.id)
 
     try {
       await axios.post('/cart/addToCart', formData, {
@@ -299,20 +296,33 @@ export const BookDetails = ({handleStatus, setStatusTitle, setStatusMessage, set
                   <div className="text-black text-2xl font-bold leading-8 mt-4 max-md:max-w-full">
                     {viewedBook?.price === 0 ? "FREE" : viewedBook?.price}
                   </div>
-                  <span className="flex gap-2 mt-4 items-start max-md:max-w-full max-md:flex-wrap max-md:mr-2.5 max-md:pr-5">
-                    <span
-                      onClick={handleDownloadClick}
-                      className="transition hover:bg-green-700 cursor-pointer max-w-[12.7rem] h-[3.8rem] text-center py-[1.2rem] text-white text-base font-medium leading-5 uppercase justify-center items-stretch bg-green-600 grow rounded-md border-[1.145px] border-solid border-green-600 max-md:px-5"
-                    >
-                      BUY NOW
-                    </span>
-                    <span onClick={handleAddToCart} className="hover:bg-gray-200 transition cursor-pointer  max-w-[12.7rem] h-[3.8rem] text-center py-[1.2rem] text-green-600 text-base font-medium leading-5 uppercase justify-center items-stretch self-stretch grow rounded-md border-[1.174px] border-solid border-green-600 max-md:px-5">
-                      ADD TO CART
-                    </span>
-                    <div onClick={handleSaveBook} className="transition hover:border-solid hover:border-green-600 cursor-pointer max-w-[12.7rem] h-[3.8rem] text-center py-[1.2rem] text-rose-500 text-base font-medium leading-5 uppercase justify-center items-stretch self-stretch grow rounded-md max-md:px-5 border-[1.174px] border-white">
-                      ADD TO SAVED
-                    </div>
-                  </span>
+
+
+                    { subscription.length > 0 || viewedBook?.isPurchased ?
+                      <DownloadAndReadOnline
+                          book={viewedBook}
+                          handleStatus={handleStatus}
+                          setStatusColor={setStatusColor}
+                          setStatusMessage={setStatusMessage}
+                          setStatusTitle={setStatusTitle}
+                          subscription={subscription}
+                          isPurchased={viewedBook?.isPurchased}
+                      /> :
+                        <span className="flex gap-2 mt-4 items-start max-md:max-w-full max-md:flex-wrap max-md:mr-2.5 max-md:pr-5">
+                          <span
+                              onClick={handleDownloadClick}
+                              className="transition hover:bg-green-700 cursor-pointer max-w-[12.7rem] h-[3.8rem] text-center py-[1.2rem] text-white text-base font-medium leading-5 uppercase justify-center items-stretch bg-green-600 grow rounded-md border-[1.145px] border-solid border-green-600 max-md:px-5"
+                          >
+                            BUY NOW
+                          </span>
+                          <span onClick={handleAddToCart} className="hover:bg-gray-200 transition cursor-pointer  max-w-[12.7rem] h-[3.8rem] text-center py-[1.2rem] text-green-600 text-base font-medium leading-5 uppercase justify-center items-stretch self-stretch grow rounded-md border-[1.174px] border-solid border-green-600 max-md:px-5">
+                            ADD TO CART
+                          </span>
+                          <div onClick={handleSaveBook} className="transition hover:border-solid hover:border-green-600 cursor-pointer max-w-[12.7rem] h-[3.8rem] text-center py-[1.2rem] text-rose-500 text-base font-medium leading-5 uppercase justify-center items-stretch self-stretch grow rounded-md max-md:px-5 border-[1.174px] border-white">
+                            ADD TO SAVED
+                          </div>
+                        </span>
+                    }
                 </span>
               </div>
             </div>

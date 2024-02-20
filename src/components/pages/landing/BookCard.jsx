@@ -1,4 +1,6 @@
-export const BookCard = ({ image, name, author, price }) => {
+import {Link} from "react-router-dom";
+
+export const BookCard = ({ bookId, image, name, author, price }) => {
   return (
     <div className="flex flex-col items-stretch w-3/12 max-md:w-full max-md:ml-0">
       <div className="justify-center items-stretch flex grow flex-col max-md:mt-6">
@@ -16,9 +18,9 @@ export const BookCard = ({ image, name, author, price }) => {
         <div className="text-black text-2xl font-medium leading-7 max-w-[329px] mt-3 max-md:mr-0.5">
           N {price}
         </div>
-        <div className="transition hover:bg-green-600 cursor-pointer text-center text-white text-sm font-medium leading-5 uppercase whitespace-nowrap justify-center items-center border bg-green-500 mt-3.5 px-16 py-7 rounded-md border-solid border-green-600 max-md:px-5">
+        <Link to={`/user-dashboard/book-details/${bookId}`} className="transition hover:bg-green-600 cursor-pointer text-center text-white text-sm font-medium leading-5 uppercase whitespace-nowrap justify-center items-center border bg-green-500 mt-3.5 px-16 py-7 rounded-md border-solid border-green-600 max-md:px-5">
           View Book
-        </div>
+        </Link>
       </div>
     </div>
   );
