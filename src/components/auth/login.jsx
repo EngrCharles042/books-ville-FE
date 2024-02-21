@@ -4,8 +4,8 @@ import { ClipLoader } from "react-spinners";
 import logo from "../../assets/images/landingPageImages/booksvillelogo.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import {useGoogleLogin} from '@react-oauth/google';
-import authImage from "../../assets/images/authImage.svg"
+import { useGoogleLogin } from "@react-oauth/google";
+import authImage from "../../assets/images/authImage.svg";
 
 export const Login = ({
   handleStatus,
@@ -45,27 +45,26 @@ export const Login = ({
 
   const login = useGoogleLogin({
     onSuccess: (tokenResponse) => {
-      console.log(tokenResponse)
+      console.log(tokenResponse);
 
       enableStatus(
-          "Login Successful",
-          "You have logged in successfully",
-          "bg-green-600",
+        "Login Successful",
+        "You have logged in successfully",
+        "bg-green-600",
       );
 
       setTimeout(() => {
-          navigate("/user-dashboard");
+        navigate("/user-dashboard");
       }, 2500);
     },
 
     onError: (tokenResponse) => {
       enableStatus(
-          "Oops!",
-          "Something went wrong, Please check your inputs and try again",
-          "bg-red-600",
+        "Oops!",
+        "Something went wrong, Please check your inputs and try again",
+        "bg-red-600",
       );
-    }
-
+    },
   });
 
   const handleSubmit = async (e) => {
@@ -105,9 +104,15 @@ export const Login = ({
           }
         }, 2500);
 
-        localStorage.setItem("userData", JSON.stringify(result.data.responseData));
+        localStorage.setItem(
+          "userData",
+          JSON.stringify(result.data.responseData),
+        );
 
-        localStorage.setItem("profilePicture", JSON.stringify(result.data.responseData.profilePicture));
+        localStorage.setItem(
+          "profilePicture",
+          JSON.stringify(result.data.responseData.profilePicture),
+        );
 
         console.log("User login successful");
       });
@@ -139,20 +144,21 @@ export const Login = ({
   };
 
   return (
-    <div className="flex">
-      <div>
+    <div className="flex flex-col md:flex-row">
+      <div className="md:w-1/2">
         <img
           loading="lazy"
           src={authImage}
           alt="authentication image"
+          className="w-full"
         />
       </div>
 
-      <div className="bg-emerald-200 flex flex-col justify-center items-center px-16 py-12 max-md:px-5">
+      <div className="bg-emerald-200 flex flex-col justify-center items-center px-16 py-12 md:px-5 md:w-1/2">
         <div>
           <form
             onSubmit={handleSubmit}
-            className="shadow-lg bg-white flex w-[564px] max-w-full flex-col mt-[10%] px-11 py-9 rounded-xl max-md:my-10 max-md:px-5"
+            className="shadow-lg bg-white overflow-hidden flex flex-col mt-10 md:max-w-sm md:mx-auto md:mt-20 px-11 py-9 rounded-xl"
           >
             <div className="items-stretch self-center flex gap-1.5">
               <img
@@ -236,12 +242,15 @@ export const Login = ({
               Forgot Password
             </Link>
 
-            <div className="self-stretch flex items-stretch justify-between gap-3.5 max-md:max-w-full max-md:flex-wrap max-md:justify-center">
-              <div className="bg-gray-200 self-center w-[221px] shrink-0 h-px my-auto" />
+            <div className="self-stretch flex items-center justify-center gap-3.5 max-md:max-w-full max-md:flex-wrap max-md:justify-center">
+              <div className="bg-gray-200 flex-shrink-0 w-1/3 sm:w-[203px] h-0.5 sm:h-px" />
               <div className="text-gray-400 text-sm leading-5">OR</div>
-              <div className="bg-gray-200 self-center w-[203px] shrink-0 h-0.5 my-auto" />
+              <div className="bg-gray-200 flex-shrink-0 w-1/3 sm:w-[203px] h-0.5 sm:h-px" />
             </div>
-            <div onClick={login} className="hover:bg-gray-300 transition cursor-pointer justify-center items-center self-stretch border border-[color:var(--Grey-300,#D0D5DD)] bg-white flex flex-col mt-3 px-16 py-3 rounded-lg border-solid max-md:max-w-full max-md:px-5">
+            <div
+              onClick={login}
+              className="hover:bg-gray-300 transition cursor-pointer justify-center items-center self-stretch border border-[color:var(--Grey-300,#D0D5DD)] bg-white flex flex-col mt-3 px-16 py-3 rounded-lg border-solid max-md:max-w-full max-md:px-5"
+            >
               <div className="flex items-stretch gap-2">
                 <img
                   loading="lazy"
