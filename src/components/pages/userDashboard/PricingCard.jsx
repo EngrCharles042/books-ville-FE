@@ -11,7 +11,9 @@ export const PricingCard = ({ title,
                               handleStatus,
                               setStatusTitle,
                               setStatusMessage,
-                              setStatusColor }) => {
+                              setStatusColor,
+                              subscription
+}) => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -63,9 +65,17 @@ export const PricingCard = ({ title,
         </div>
         <div>
 
-        <div onClick={handleOpenModal} className={`text-white font-semibold leading-4 whitespace-nowrap justify-center items-center border mt-5 px-16 py-4 rounded-md border-solid max-md:mt-10 max-md:px-5 cursor-pointer ${cardHeaderColor} hover:bg-white hover:text-black transition duration-200 text-${cardHeaderColor}`}>
-          Free 14-days Trial
-        </div>
+          {!subscription &&
+              <div onClick={handleOpenModal} className={`text-white font-semibold text-center leading-4 whitespace-nowrap justify-center items-center border mt-5 px-16 py-4 rounded-md border-solid max-md:mt-10 max-md:px-5 cursor-pointer ${cardHeaderColor} hover:bg-white hover:text-black transition duration-200 text-${cardHeaderColor}`}>
+                Subscribe
+              </div>
+          }
+
+          { subscription &&
+              <div className={`text-red-800 font-semibold leading-4 whitespace-nowrap text-center items-center mt-5 py-4 rounded-md border-solid max-md:mt-10 max-md:px-5 cursor-pointer transition duration-200 text-${cardHeaderColor}`}>
+                You are currently subscribed
+              </div>
+          }
 
           <div className="text-green-500 text-base font-semibold leading-6 tracking-normal whitespace-nowrap mt-11 self-start max-md:mt-10">
             Core Features
@@ -197,7 +207,7 @@ export const PricingCard = ({ title,
       >
         <SubscriptionPayment
             price={plan === "best" ? 50000 : plan === "popular" ? 35000 : 15000 }
-            subscription={plan === "best" ? "VORACIOUS" : plan === "popular" ? "PICKY" : "LIGHT" }
+            subscription={plan === "best" ? "VORACIOUS" : plan === "popular" ? "CASUAL" : "LIGHT" }
             handleStatus={handleStatus}
             setStatusTitle={setStatusTitle}
             setStatusMessage={setStatusMessage}

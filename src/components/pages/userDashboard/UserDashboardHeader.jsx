@@ -74,12 +74,6 @@ export const UserDashboardHeader = ({ userData, setGeneralSearch, setQuery }) =>
           >
             Cart
           </Link>
-          <Link
-            to={"/user-dashboard"}
-            className="text-black text-xl font-medium leading-7 grow whitespace-nowrap cursor-pointer hover:text-green-500 focus:text-green-500"
-          >
-            Services
-          </Link>
         </div>
         <div className="items-center self-stretch flex justify-between gap-5">
           <img

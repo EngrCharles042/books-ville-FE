@@ -110,6 +110,11 @@ export const Login = ({
         );
 
         localStorage.setItem(
+          "subscription",
+          JSON.stringify(result.data.responseData.subscription),
+        );
+
+        localStorage.setItem(
           "profilePicture",
           JSON.stringify(result.data.responseData.profilePicture),
         );
