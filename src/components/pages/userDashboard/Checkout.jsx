@@ -134,10 +134,7 @@ export const Checkout = ({
                     </div>
                   ))}
                   <div className="bg-zinc-100 flex shrink-0 h-px flex-col mt-2 max-md:max-w-full" />
-                  <Link
-                    to="/user-dashboard/categories"
-                    className="hover:text-green-700 text-green-500 text-sm leading-5 tracking-tighter mt-3.5 max-md:max-w-full"
-                  >
+                  <Link to={"/user-dashboard/categories"} className="w-fit hover:text-green-700 text-green-500 text-sm leading-5 tracking-tighter mt-3.5 max-md:max-w-full">
                     CONTINUE SHOPPING
                   </Link>
                 </span>

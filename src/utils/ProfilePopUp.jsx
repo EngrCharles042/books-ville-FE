@@ -19,7 +19,7 @@ export const ProfilePopUp = ({ handleProfilePop }) => {
       <Link
         to={"/user-dashboard/profile"}
         onClick={handleProfilePop}
-        className="cursor-pointer items-center flex justify-between gap-3 ease-in-out duration-200 hover:gap-1"
+        className="hover:bg-green-500 p-2 rounded cursor-pointer items-center flex justify-between gap-3 ease-in-out duration-200 hover:gap-1"
       >
         <img
           loading="lazy"
@@ -33,7 +33,7 @@ export const ProfilePopUp = ({ handleProfilePop }) => {
       <Link
         to={"/user-dashboard/subscription"}
         onClick={handleProfilePop}
-        className="cursor-pointer items-center flex justify-between gap-3 mt-4 ease-in-out duration-200 hover:gap-1"
+        className="hover:bg-green-500 p-2 cursor-pointer items-center flex justify-between gap-3 rounded ease-in-out duration-200 hover:gap-1"
       >
         <img
           loading="lazy"
@@ -48,7 +48,7 @@ export const ProfilePopUp = ({ handleProfilePop }) => {
       <Link
         to={"/user-dashboard/saved-books"}
         onClick={handleProfilePop}
-        className="cursor-pointer items-center flex justify-between gap-3 mt-4 ease-in-out duration-200 hover:gap-1"
+        className="hover:bg-green-500 p-2 cursor-pointer items-center flex justify-between gap-3 rounded ease-in-out duration-200 hover:gap-1"
       >
         <img
           loading="lazy"
@@ -62,7 +62,7 @@ export const ProfilePopUp = ({ handleProfilePop }) => {
       <Link
         to={"/user-dashboard/purchased-books"}
         onClick={handleProfilePop}
-        className="cursor-pointer items-center flex justify-between gap-3 mt-4 ease-in-out duration-200 hover:gap-1"
+        className="hover:bg-green-500 p-2 rounded cursor-pointer items-center flex justify-between gap-3 ease-in-out duration-200 hover:gap-1"
       >
         <img
           loading="lazy"
@@ -76,7 +76,7 @@ export const ProfilePopUp = ({ handleProfilePop }) => {
 
       <div
         onClick={handleLogout}
-        className="cursor-pointer items-center flex justify-between gap-3 mt-4 ease-in-out duration-200 hover:gap-1"
+        className="hover:bg-green-500 p-2 rounded cursor-pointer items-center flex justify-between gap-3 ease-in-out duration-200 hover:gap-1"
       >
         <img
           loading="lazy"
