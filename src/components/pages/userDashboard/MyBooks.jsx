@@ -55,8 +55,8 @@ export const MyBooks = () => {
   };
 
   return (
-    <div className="flex flex-col max-w-[1297px] mb-5 mx-auto items-stretch">
-      <div className="text-black text-6xl mt-[4.5rem] mb-[2rem] w-fit font-bold leading-[81.2px] tracking-tight max-md:text-4xl">
+    <div className="flex flex-col max-w-[1297px] mb-5 mx-auto items-stretch max-md:mt-40">
+      <div className="text-black text-6xl mt-9 md:mt-[4.5rem] mb-8 md:mb-[2rem] w-fit font-bold leading-[81.2px] tracking-tight max-md:text-4xl">
         Welcome {JSON.parse(localStorage.getItem("userData")).firstName},
       </div>
       <div className="items-stretch flex w-full justify-between mt-10 gap-5 max-md:max-w-full max-md:flex-wrap">
@@ -71,7 +71,7 @@ export const MyBooks = () => {
         </Link>
       </div>
       <div className="w-full max-md:max-w-full max-md:mt-10">
-        <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
+        <div className="gap-5 flex flex-col md:flex-row max-md:flex-col max-md:items-stretch max-md:gap-0">
           {purchasedBooks.slice(0, 4).map((book, index) => (
             <MyBookCard
               key={index}
@@ -83,7 +83,7 @@ export const MyBooks = () => {
           ))}
         </div>
       </div>
-      <div className="items-stretch flex w-full justify-between gap-5 mt-20 max-md:max-w-full max-md:flex-wrap max-md:mt-10">
+      <div className="items-stretch flex w-full justify-between gap-5 mt-10 md:mt-20 max-md:max-w-full max-md:flex-wrap max-md:mt-10">
         <div className="text-black text-4xl font-semibold leading-7 tracking-widest grow shrink basis-auto">
           Your Saved Books
         </div>
@@ -95,7 +95,7 @@ export const MyBooks = () => {
         </Link>
       </div>
       <div className="w-full max-md:max-w-full max-md:mt-10">
-        <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
+        <div className="gap-5 flex flex-col md:flex-row max-md:flex-col max-md:items-stretch max-md:gap-0">
           {savedBooks.slice(0, 4).map((book, index) => (
             <BookCard
               key={index}
@@ -108,7 +108,7 @@ export const MyBooks = () => {
           ))}
         </div>
       </div>
-      <div className="justify-between items-stretch flex w-full gap-5 mt-20 max-md:max-w-full max-md:flex-wrap max-md:mt-10">
+      <div className="items-stretch flex w-full justify-between gap-5 mt-10 md:mt-20 max-md:max-w-full max-md:flex-wrap max-md:mt-10">
         <div className="text-black text-4xl font-semibold leading-7 tracking-widest grow shrink basis-auto">
           Recommended Books
         </div>
@@ -116,8 +116,8 @@ export const MyBooks = () => {
           Read More{" "}
         </div>
       </div>
-      <div className="w-full mt-7 max-md:max-w-full max-md:mt-10">
-        <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
+      <div className="w-full mt-4 md:mt-7 max-md:max-w-full max-md:mt-10">
+        <div className="gap-5 flex flex-col md:flex-row max-md:flex-col max-md:items-stretch max-md:gap-0">
           <BookCard
             image={recommended.image1}
             name={nameRecommended.name1}

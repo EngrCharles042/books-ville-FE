@@ -3,19 +3,24 @@ import checkBox from "../../../assets/images/userCatImages/check_box.png";
 import checkBox1 from "../../../assets/images/userCatImages/check_box (1).png";
 import checkBox2 from "../../../assets/images/userCatImages/check_box (2).png";
 import { useNavigate } from "react-router-dom";
-import {useData} from "../../../hooks/useData.js";
+import { useData } from "../../../hooks/useData.js";
 
-export const Subscriptions = ({ handleStatus, setStatusTitle, setStatusMessage, setStatusColor }) => {
+export const Subscriptions = ({
+  handleStatus,
+  setStatusTitle,
+  setStatusMessage,
+  setStatusColor,
+}) => {
   const navigate = useNavigate();
 
-  const { subscription, userData } = useData()
+  const { subscription, userData } = useData();
 
   const goBack = () => {
     navigate(-1);
   };
 
   return (
-    <div className="max-w-[75vw] mb-10 mx-auto mt-[4.5rem]">
+    <div className="max-w-[75vw] mb-10 mx-auto mt-12 max-md:mt-40">
       <span
         onClick={goBack}
         className="cursor-pointer transition hover:scale-110 gap-1 items-center flex w-[75px] max-w-full"
@@ -32,10 +37,10 @@ export const Subscriptions = ({ handleStatus, setStatusTitle, setStatusMessage, 
           Back
         </div>
       </span>
-      <div className="text-black text-[2.5rem] font-bold leading-[56px] tracking-wide self-stretch mt-2 mb-5 max-md:max-w-full">
+      <div className="text-black text-[2.5rem] md:text-4xl font-bold leading-[56px] md:leading-[81px] tracking-wide self-stretch mt-2 mb-5 max-md:max-w-full">
         My subscriptions
       </div>
-      <div className="flex justify-center gap-9 mx-auto">
+      <div className="flex flex-col md:flex-row justify-center gap-6 mx-auto">
         {/* First PricingCard */}
         <PricingCard
           title="Light 😴"
