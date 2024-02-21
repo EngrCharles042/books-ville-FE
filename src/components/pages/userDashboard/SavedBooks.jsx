@@ -1,4 +1,4 @@
-import {Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "../../../api/axios.jsx";
 
@@ -67,13 +67,16 @@ export const SavedBooks = ({
 
   useEffect(() => {
     const getSavedBooks = async () => {
-      const response = await axios.get(`/book/saved-books?sortDir=desc&pageNo=${page}`, {
-        headers: {
-          Authorization: `Bearer ${JSON.parse(localStorage.getItem("userData")).accessToken}`,
+      const response = await axios.get(
+        `/book/saved-books?sortDir=desc&pageNo=${page}`,
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(localStorage.getItem("userData")).accessToken}`,
+          },
         },
-      });
+      );
 
-      setIsLast(response.data.responseData.last)
+      setIsLast(response.data.responseData.last);
       setSavedBooks(response.data.responseData.content);
     };
 
@@ -82,7 +85,7 @@ export const SavedBooks = ({
 
   return (
     <>
-      <div className="bg-white flex flex-col items-stretch mt-10 pr-2 pb-12">
+      <div className="bg-white flex flex-col items-stretch mt-10 pr-2 pb-12 max-md:mt-40">
         <span className="self-start flex w-full max-w-[1010px] flex-col mt-5 ml-20 mb-40 max-md:max-w-full max-md:mb-10">
           <span
             onClick={goBack}
@@ -131,12 +134,12 @@ export const SavedBooks = ({
                       N {book?.price}
                     </div>
                     <span className="items-stretch flex justify-between gap-5 mt-6 self-start max-md:max-w-full max-md:flex-wrap">
-                       <Link
-                           to={`/user-dashboard/book-details/${book?.id}`}
-                           className="hover:bg-green-600 hover:text-white cursor-pointer text-green-500 text-base font-medium leading-5 uppercase justify-center items-stretch grow px-11 py-5 rounded-md border-[1.145px] border-solid border-green-600 max-md:px-5"
-                       >
-                          View Book
-                       </Link>
+                      <Link
+                        to={`/user-dashboard/book-details/${book?.id}`}
+                        className="hover:bg-green-600 hover:text-white cursor-pointer text-green-500 text-base font-medium leading-5 uppercase justify-center items-stretch grow px-11 py-5 rounded-md border-[1.145px] border-solid border-green-600 max-md:px-5"
+                      >
+                        View Book
+                      </Link>
 
                       <div
                         onClick={() => handleRemoveFromWishList(book?.id)}
