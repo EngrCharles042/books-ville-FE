@@ -4,7 +4,6 @@ import image1 from "../../../assets/images/landingPageImages/img_1.png";
 import image2 from "../../../assets/images/landingPageImages/img_2.png";
 import image3 from "../../../assets/images/landingPageImages/img_3.png";
 import image4 from "../../../assets/images/landingPageImages/img_4.png";
-import { PaymentOptions } from "../../payment/PaymentOptions.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "../../../api/axios";
 import { CheckoutPayment } from "../../payment/CheckoutPayment.jsx";
@@ -84,7 +83,7 @@ export const Checkout = ({
 
   return (
     <>
-      <div className="bg-white flex flex-col items-stretch pb-3">
+      <div className="bg-white flex flex-col items-stretch pb-3 max-md:mt-40">
         <span className="flex w-full flex-col mt-4 md:mt-[4rem] px-16 max-md:px-5">
           <span
             onClick={handleGoBack}

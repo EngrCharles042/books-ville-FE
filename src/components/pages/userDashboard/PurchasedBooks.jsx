@@ -141,13 +141,16 @@ export const PurchasedBooks = ({
   };
 
   useEffect(() => {
-      try {
-          const getPurchasedBooks = async () => {
-              const response = await axios.get(`/book/purchased?sortDir=desc&pageNo=${page}`, {
-                  headers: {
-                      'Authorization': `Bearer ${JSON.parse(localStorage.getItem("userData")).accessToken}`
-                  }
-              })
+    try {
+      const getPurchasedBooks = async () => {
+        const response = await axios.get(
+          `/book/purchased?sortDir=desc&pageNo=${page}`,
+          {
+            headers: {
+              Authorization: `Bearer ${JSON.parse(localStorage.getItem("userData")).accessToken}`,
+            },
+          },
+        );
 
         setIsLast(response.data.responseData.last);
         setPurchasedBooks(response.data.responseData.content);
@@ -160,7 +163,7 @@ export const PurchasedBooks = ({
   }, [page]);
 
   return (
-    <div className="bg-white flex flex-col items-stretch mt-10 pr-2 pb-12">
+    <div className="bg-white flex flex-col items-stretch mt-10 pr-2 pb-12 max-md:mt-40">
       <span className="self-start flex w-full max-w-[1010px] flex-col mt-5 ml-20 mb-40 max-md:max-w-full max-md:mb-10">
         <span
           onClick={goBack}
