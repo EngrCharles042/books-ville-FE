@@ -34,9 +34,9 @@ export const AddNewBook = ({
 
   return (
     <>
-      <div className="max-w-[950px] mt-10 flex flex-col items-stretch max-md:w-full max-md:ml-0">
+      <div className="max-w-[950px] mt-10 flex flex-col items-stretch max-md:w-full max-md:ml-0 mx-auto">
         <form className="flex flex-col px-5 w-full max-md:max-w-full">
-          <div className="flex w-[939px] max-w-full justify-between gap-5 mt-24 self-start items-start max-md:flex-wrap max-md:mt-10">
+          <div className="flex w-full max-w-full justify-between gap-5 mt-24 self-start items-start flex-wrap max-md:flex-wrap max-md:mt-10">
             <div className="items-center flex gap-3.5">
               <img
                 loading="lazy"
@@ -93,7 +93,7 @@ export const AddNewBook = ({
             value={formData.bookTitle}
             onChange={handleChange}
             placeholder="To Kill a Mocking bird"
-            className="text-black text-xs font-medium leading-4 tracking-wide whitespace-nowrap border-[color:var(--Gray-600,#757575)] w-[933px] max-w-full justify-center mt-2 pl-5 pr-16 py-5 rounded-md border-[1.694px] border-solid self-start items-start max-md:pr-5"
+            className="text-black text-xs font-medium leading-4 tracking-wide whitespace-nowrap border-[color:var(--Gray-600,#757575)] w-full max-w-full justify-center mt-2 pl-5 pr-16 py-5 rounded-md border-[1.694px] border-solid self-start items-start max-md:pr-5"
           />
 
           <label className="text-black text-2xl font-medium leading-8 mt-6 self-start max-md:max-w-full">
