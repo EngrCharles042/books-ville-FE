@@ -120,7 +120,7 @@ export const AccountSetting = ({
 
   return (
     <>
-      <div className="bg-white flex flex-col items-stretch mt-40 md:mt-10">
+      <div className="bg-white flex flex-col items-stretch mt-40 mb-20 md:mt-20">
         <span
           className={`self-center flex flex-col ${user === "admin" ? "mt-5" : "mt-3"} max-w-[1297px] w-full max-md:max-w-full`}
         >

@@ -63,7 +63,7 @@ export const BestSellingAndPopularBooks = () => {
         <div className="text-black text-base font-bold leading-7">View all</div>
       </div>
       <div className="w-full mt-12 px-5 max-md:max-w-full max-md:mt-10">
-        <div className="gap-5 flex flex-col max-md:flex-row max-md:flex-wrap max-md:gap-0">
+        <div className="gap-5 flex max-md:flex-row max-md:flex-wrap max-md:gap-0">
           <BookCard
             image={bestSelling.image1}
             name={nameBestSelling.name1}
@@ -99,7 +99,7 @@ export const BestSellingAndPopularBooks = () => {
         </div>
       </div>
       <div className="w-full mt-12 px-5 max-md:max-w-full max-md:mt-10">
-        <div className="gap-5 flex flex-col max-md:flex-row max-md:flex-wrap max-md:gap-0">
+        <div className="gap-5 flex max-md:flex-row max-md:flex-wrap max-md:gap-0">
           {fantasy.map((book) => (
             <BookCard
               key={book.id}
@@ -121,7 +121,7 @@ export const BestSellingAndPopularBooks = () => {
         </div>
       </div>
       <div className="w-full mt-12 px-5 max-md:max-w-full max-md:mt-10">
-        <div className="gap-5 flex flex-col max-md:flex-row max-md:flex-wrap max-md:gap-0">
+        <div className="gap-5 flex max-md:flex-row max-md:flex-wrap max-md:gap-0">
           {books.slice(0, 4).map((book, index) => (
             <BookCard
               key={index}

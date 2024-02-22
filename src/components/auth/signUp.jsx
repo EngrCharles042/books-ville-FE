@@ -113,20 +113,16 @@ export const SignUp = ({
   };
 
   return (
-    <div className="flex flex-col md:flex-row">
-      <div className="md:w-1/2">
-        <img
-          loading="lazy"
-          src={authImage}
-          alt="authentication image"
-          className="w-full"
-        />
+    <div className="flex">
+      <div>
+        <img loading="lazy" src={authImage} alt="authentication image" />
       </div>
-      <div className="md:w-1/2 bg-emerald-200 px-6 py-12">
+
+      <div className="justify-center items-center bg-emerald-200 flex flex-col px-16 py-12 max-md:px-5">
         <div>
           <form
             onSubmit={handleSubmit}
-            className="shadow-lg bg-white overflow-hidden flex w-[564px] max-w-full flex-col mt-[10%] mb-10 px-11 py-12 rounded-xl max-md:my-10 max-md:px-5"
+            className="shadow-lg bg-white flex w-[564px] max-w-full flex-col mt-[10%] mb-10 px-11 py-12 rounded-xl max-md:my-10 max-md:px-5"
           >
             <div className="items-stretch self-center flex gap-1.5">
               <img
@@ -261,12 +257,10 @@ export const SignUp = ({
                 {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
               </span>
             </div>
-            <div className="flex flex-col items-center mt-6">
-              <div className="flex items-center">
-                <div className="bg-gray-200 flex-shrink-0 w-[203px] h-0.5 sm:w-1/8" />
-                <div className="text-gray-400 text-sm leading-5 mx-2">OR</div>
-                <div className="bg-gray-200 flex-shrink-0 w-[203px] h-0.5 sm:w-1/8" />
-              </div>
+            <div className="self-stretch flex items-stretch justify-between gap-3.5 mt-6 max-md:max-w-full max-md:flex-wrap max-md:justify-center">
+              <div className="bg-gray-200 self-center w-[222px] shrink-0 h-px my-auto" />
+              <div className="text-gray-400 text-sm leading-5">OR</div>
+              <div className="bg-gray-200 self-center w-[203px] shrink-0 h-0.5 my-auto" />
             </div>
             <div className="justify-center items-center self-stretch border border-[color:var(--Grey-300,#D0D5DD)] bg-white flex flex-col mt-3 px-16 py-3 rounded-lg border-solid max-md:max-w-full max-md:px-5">
               <div className="flex items-stretch gap-2">

@@ -18,7 +18,7 @@ export const AdminSideBar = () => {
 
   return (
     <>
-      <div className="bg-white shadow-[0px_6px_16px_rgba(0,0,0,0.1599999964237213)] fixed max-h-[100vh] w-[260px] sm:max-w-[260px] lg:w-[320px] xl:w-[380px]">
+      <div className="bg-white shadow-[0px_6px_16px_rgba(0,0,0,0.1599999964237213)] fixed max-h-[100vh] max-w-[260px] ">
         <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
           <div className="flex-col fill-white overflow-hidden relative flex aspect-[0.25390625] grow items-stretch pl-4 pr-16 py-[3.5rem] max-md:pr-5">
             <div className="logo-container flex justify-between gap-0.5 px-5">
