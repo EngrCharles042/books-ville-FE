@@ -9,7 +9,6 @@ import {RateCard} from "../../utils/RateCard.jsx";
 import {useData} from "../../hooks/useData.js";
 import {useConfig} from "../../hooks/useConfig.js";
 import {DownloadAndReadOnline} from "../../utils/DownloadAndReadOnline.jsx";
-import {usePurchasedCheck} from "../../hooks/usePurchasedCheck.js";
 
 export const BookDetails = ({handleStatus, setStatusTitle, setStatusMessage, setStatusColor }) => {
   const { userData, subscription } = useData()

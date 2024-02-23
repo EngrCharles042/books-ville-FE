@@ -7,6 +7,8 @@ import image4 from "../../../assets/images/landingPageImages/img_4.png";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "../../../api/axios";
 import { CheckoutPayment } from "../../payment/CheckoutPayment.jsx";
+import {useConfig} from "../../../hooks/useConfig.js";
+import {AlreadyPurchasedBooks} from "../../../utils/AlreadyPurchasedBooks.jsx";
 
 export const Checkout = ({
   handleStatus,
@@ -20,7 +22,11 @@ export const Checkout = ({
 
   const [cart, setCart] = useState([]);
 
+  const [alreadyPurchased, setAlreadyPurchased] = useState([])
+
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [purchasedModal, setPurchasedModal] = useState(false)
 
   const navigate = useNavigate();
 
@@ -35,6 +41,10 @@ export const Checkout = ({
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+
+  const handleAlreadyPurchasedClose = () => {
+    setPurchasedModal(false)
+  }
 
   const handleGoBack = () => {
     navigate(-1);
@@ -79,6 +89,17 @@ export const Checkout = ({
     };
 
     getCartContent();
+  }, [dep]);
+
+  useEffect(() => {
+    const getAlreadyPurchasedBooks = async () => {
+      const response =  await axios.get("/cart/already-purchased", useConfig())
+
+      setAlreadyPurchased(response.data.responseData)
+      setPurchasedModal(response.data.responseData.length > 0)
+    }
+
+    getAlreadyPurchasedBooks()
   }, [dep]);
 
   return (
@@ -214,6 +235,32 @@ export const Checkout = ({
                       setStatusColor={setStatusColor}
                       books={cart}
                       totalPrice={totalPrice}
+                      dep={handleDep}
+                    />
+                  </Modal>
+
+
+
+                  <Modal
+                      isOpen={purchasedModal}
+                      onRequestClose={handleAlreadyPurchasedClose}
+                      style={{
+                        overlay: {
+                          backgroundColor: "rgba(0, 0, 0, 0.5)",
+                          zIndex: 1000,
+                        },
+                        content: {
+                          maxWidth: "592px",
+                          maxHeight: "fit-content",
+                          margin: "auto",
+                          background: "white",
+                          borderRadius: "8px",
+                          padding: "0px",
+                        },
+                      }}
+                  >
+                    <AlreadyPurchasedBooks
+                      alreadyPurchasedBooks={alreadyPurchased}
                       dep={handleDep}
                     />
                   </Modal>
