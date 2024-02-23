@@ -62,15 +62,15 @@ export const ForgotPassword = ({
   };
 
   return (
-    <div className="flex flex-col md:flex-row">
+    <div className="flex">
       <div>
-        <img loading="lazy" srcSet={authImage} className="w-full" alt="" />
+        <img loading="lazy" srcSet={authImage} className="" alt="" />
       </div>
-      <div className="justify-center items-center bg-emerald-200 flex flex-col px-16 py-12 md:px-5">
+      <div className="justify-center items-center bg-emerald-200 flex flex-col px-16 py-12 max-md:px-5">
         <div>
           <form
             onSubmit={handleSubmit}
-            className="shadow-lg bg-white flex flex-col mt-10 md:max-w-sm md:mx-auto md:mt-20 px-11 pb-24 pt-16 rounded-xl"
+            className="shadow-lg bg-white flex w-[35.25rem] max-w-full flex-col mt-[15vh] mb-11 px-11 pb-[6rem] pt-[4rem] rounded-xl max-md:my-10 max-md:px-5"
           >
             <div className="items-stretch self-center flex gap-1.5">
               <img

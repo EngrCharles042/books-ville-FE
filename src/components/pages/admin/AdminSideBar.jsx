@@ -59,16 +59,6 @@ export const AdminSideBar = () => {
                 Order Processing
               </Link>
             </div>
-            {/*<div className="flex justify-between gap-3 px-5 mt-6 items-stretch">*/}
-            {/*    <img*/}
-            {/*        loading="lazy"*/}
-            {/*        src="https://cdn.builder.io/api/v1/image/assets/TEMP/9bb325e0abdc890911b35cc42831a26a3dd8257f2685755df6873a56a3959e52?"*/}
-            {/*        className="aspect-square object-contain object-center w-6 overflow-hidden shrink-0 max-w-full"*/}
-            {/*    />*/}
-            {/*    <div className="text-zinc-700 text-base font-medium leading-5 self-center grow whitespace-nowrap my-24px">*/}
-            {/*        Settings*/}
-            {/*    </div>*/}
-            {/*</div>*/}
             <div
               onClick={handleLogout}
               className="flex justify-between gap-3 px-5 mt-6 items-stretch cursor-pointer"

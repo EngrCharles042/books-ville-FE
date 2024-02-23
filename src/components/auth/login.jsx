@@ -149,21 +149,16 @@ export const Login = ({
   };
 
   return (
-    <div className="flex flex-col md:flex-row">
-      <div className="md:w-1/2">
-        <img
-          loading="lazy"
-          src={authImage}
-          alt="authentication image"
-          className="w-full"
-        />
+    <div className="flex">
+      <div>
+        <img loading="lazy" src={authImage} alt="authentication image" />
       </div>
 
-      <div className="bg-emerald-200 flex flex-col justify-center items-center px-16 py-12 md:px-5 md:w-1/2">
+      <div className="bg-emerald-200 flex flex-col justify-center items-center px-16 py-12 max-md:px-5">
         <div>
           <form
             onSubmit={handleSubmit}
-            className="shadow-lg bg-white overflow-hidden flex flex-col mt-10 md:max-w-sm md:mx-auto md:mt-20 px-11 py-9 rounded-xl"
+            className="shadow-lg bg-white flex w-[564px] max-w-full flex-col mt-[10%] px-11 py-9 rounded-xl max-md:my-10 max-md:px-5"
           >
             <div className="items-stretch self-center flex gap-1.5">
               <img
@@ -247,10 +242,10 @@ export const Login = ({
               Forgot Password
             </Link>
 
-            <div className="self-stretch flex items-center justify-center gap-3.5 max-md:max-w-full max-md:flex-wrap max-md:justify-center">
-              <div className="bg-gray-200 flex-shrink-0 w-1/3 sm:w-[203px] h-0.5 sm:h-px" />
+            <div className="self-stretch flex items-stretch justify-between gap-3.5 max-md:max-w-full max-md:flex-wrap max-md:justify-center">
+              <div className="bg-gray-200 self-center w-[221px] shrink-0 h-px my-auto" />
               <div className="text-gray-400 text-sm leading-5">OR</div>
-              <div className="bg-gray-200 flex-shrink-0 w-1/3 sm:w-[203px] h-0.5 sm:h-px" />
+              <div className="bg-gray-200 self-center w-[203px] shrink-0 h-0.5 my-auto" />
             </div>
             <div
               onClick={login}

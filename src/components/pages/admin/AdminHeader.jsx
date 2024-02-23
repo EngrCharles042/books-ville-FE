@@ -1,5 +1,5 @@
 import { AdminProfilePopUp } from "../../../utils/AdminProfilePopUp.jsx";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 export const AdminHeader = ({ userData, setGeneralSearch, setQuery }) => {
   const [profileClick, setProfileCLick] = useState(false);
@@ -8,23 +8,23 @@ export const AdminHeader = ({ userData, setGeneralSearch, setQuery }) => {
 
   const handleChange = (e) => {
     setSearch(e.target.value);
-  }
+  };
 
   useEffect(() => {
-    setQuery(search)
+    setQuery(search);
 
     setTimeout(() => {
       if (search.length < 1) {
-        setGeneralSearch(false)
+        setGeneralSearch(false);
       } else if (search.length > 0) {
-        setGeneralSearch(true)
+        setGeneralSearch(true);
       }
-    }, 500)
+    }, 500);
   }, [search]);
 
   return (
     <>
-      <div className="bg-white absolute top-[0rem] left-[calc(50%_-_459px)]  shadow-[0px_4px_8px_rgba(0,_0,_0,_0.04)] w-[73.69rem] flex   justify-between py-[1rem] pr-[4.38rem] pl-[2.94rem]  text-center text-[0.88rem] text-gray-3 font-tt-norms-pro">
+      <div className="bg-white absolute top-[0rem] left-[calc(50%_-_459px)]  shadow-[0px_4px_8px_rgba(0,_0,_0,_0.04)] w-[73.69rem] flex  justify-between py-[1rem] pr-[4.38rem] pl-[2.94rem]  text-center text-[0.88rem] text-gray-3 font-tt-norms-pro">
         <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
           <div className="flex-1 rounded-lg bg-base-white shadow-[0px_2px_2px_-1px_rgba(74,_74,_104,_0.1)_inset] box-border h-[2.5rem] flex flex-row items-center justify-start py-[1rem] px-[0.75rem] gap-[0.63rem] border-[1px] border-solid border-gray-3">
             <img
