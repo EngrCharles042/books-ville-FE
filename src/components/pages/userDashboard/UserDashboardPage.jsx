@@ -52,9 +52,13 @@ export const UserDashboardPage = ({handleStatus, setStatusTitle, setStatusMessag
           }}
         >
           <UserDashboardHeader
-            userData={user}
-            setGeneralSearch={setGeneralSearch}
-            setQuery={setSearch}
+              handleStatus={handleStatus}
+              setStatusTitle={setStatusTitle}
+              setStatusMessage={setStatusMessage}
+              setStatusColor={setStatusColor}
+              userData={user}
+              setGeneralSearch={setGeneralSearch}
+              setQuery={setSearch}
           />
         </div>
 

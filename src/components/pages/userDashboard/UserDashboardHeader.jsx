@@ -1,13 +1,44 @@
 import { ProfilePopUp } from "../../../utils/ProfilePopUp.jsx";
 import {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
+import axios from "../../../api/axios.jsx";
+import {useConfig} from "../../../hooks/useConfig.js";
+import dot from "../../../assets/images/greendot.png";
+import Modal from "react-modal";
+import {NotificationCard} from "../../../utils/NotificationCard.jsx";
 
-export const UserDashboardHeader = ({ userData, setGeneralSearch, setQuery }) => {
+export const UserDashboardHeader = ({ handleStatus, setStatusTitle, setStatusMessage, setStatusColor, userData, setGeneralSearch, setQuery }) => {
   const [profileClick, setProfileCLick] = useState(false);
   const [search, setSearch] = useState("");
+  const [notification, setNotification] = useState()
+  const [lastNotificationTime, setLastNotificationTime] = useState(notification?.dateCreated)
+  const [notDep, setNotDep] = useState(false)
+  const [newNotification, setNewNotification] = useState(false)
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleNotificationClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setNewNotification(false)
+  };
+
+  const enableStatus = (title, message, color) => {
+    handleStatus();
+    setStatusTitle(title);
+    setStatusMessage(message);
+    setStatusColor(color);
+  };
 
   const handleChange = (e) => {
     setSearch(e.target.value);
+  }
+
+  const handleNotDep = () => {
+    setNotDep(!notDep)
   }
 
   useEffect(() => {
@@ -21,6 +52,30 @@ export const UserDashboardHeader = ({ userData, setGeneralSearch, setQuery }) =>
       }
     }, 500)
   }, [search]);
+
+  useEffect(() => {
+    const fetchNotification = async () => {
+      const response = await axios.get("/notifications", useConfig())
+      console.log(response)
+
+      setNotification(response.data)
+      setLastNotificationTime(response.data.dateCreated)
+
+      if (response.data.dateCreated !== lastNotificationTime && lastNotificationTime !== undefined) {
+        enableStatus(
+            "New Notification",
+            "You have a new Notification",
+            "bg-green-600",
+        );
+        setNewNotification(true)
+      }
+    }
+
+    setTimeout(() => {
+      fetchNotification()
+      handleNotDep()
+    }, 5000)
+  }, [notDep]);
 
   return (
     <div className="max-w-[1297px] mx-auto justify-between items-stretch bg-white flex gap-5 py-4 max-md:flex-wrap max-md:px-5">
@@ -76,12 +131,24 @@ export const UserDashboardHeader = ({ userData, setGeneralSearch, setQuery }) =>
           </Link>
         </div>
         <div className="items-center self-stretch flex justify-between gap-5">
-          <img
-            loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/45865262ec10830d6ae94f082eeaa00c750af8e190a99765bfbb482648db65df?"
-            className="aspect-square object-contain object-center w-[25px] overflow-hidden shrink-0 max-w-full my-auto"
-            alt="notification"
-          />
+          <div onClick={handleNotificationClick} className="relative cursor-pointer hover:scale-125 transition">
+            { newNotification &&
+                <div>
+                  <img
+                      loading="lazy"
+                      src={dot}
+                      className="absolute ml-3 aspect-square object-contain object-center w-[15px] overflow-hidden shrink-0 max-w-full my-auto"
+                      alt="notification_dot"
+                  />
+                </div>
+            }
+            <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/45865262ec10830d6ae94f082eeaa00c750af8e190a99765bfbb482648db65df?"
+                className="aspect-square object-contain object-center w-[25px] overflow-hidden shrink-0 max-w-full my-auto"
+                alt="notification"
+            />
+          </div>
           <div
             onClick={() => setProfileCLick(!profileClick)}
             className="relative cursor-pointer"
@@ -95,6 +162,34 @@ export const UserDashboardHeader = ({ userData, setGeneralSearch, setQuery }) =>
           </div>
         </div>
       </div>
+
+
+      <Modal
+          isOpen={isModalOpen}
+          onRequestClose={handleCloseModal}
+          style={{
+            overlay: {
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
+              zIndex: 1000,
+            },
+            content: {
+              maxWidth: "fit-content",
+              maxHeight: "fit-content",
+              margin: "auto",
+              background: "white",
+              borderRadius: "8px",
+              // padding: "20px",
+            },
+          }}
+      >
+        <NotificationCard
+            statusColor={"bg-green-500"}
+            statusTitle={"New Notification"}
+            message={notification?.message}
+        />
+      </Modal>
+
+
 
       {profileClick && (
         <div className="absolute right-[2rem] top-[4rem] shadow-2xl">

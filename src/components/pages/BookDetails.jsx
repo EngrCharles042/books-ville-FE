@@ -9,7 +9,6 @@ import { RateCard } from "../../utils/RateCard.jsx";
 import { useData } from "../../hooks/useData.js";
 import { useConfig } from "../../hooks/useConfig.js";
 import { DownloadAndReadOnline } from "../../utils/DownloadAndReadOnline.jsx";
-import { usePurchasedCheck } from "../../hooks/usePurchasedCheck.js";
 
 export const BookDetails = ({
   handleStatus,
@@ -396,7 +395,7 @@ export const BookDetails = ({
                       value={formData.review}
                       onChange={handleChange}
                       placeholder="Write your review... "
-                      className="transition hover:bg-green-700 text-white text-base font-medium leading-5 whitespace-nowrap justify-center items-stretch bg-green-600 mt-2.5 px-4 py-5 rounded-md border-[1.11px] border-solid border-green-600"
+                      className="transition bg-white text-black text-base font-medium leading-5 whitespace-nowrap justify-center items-stretch mt-2.5 px-4 py-5 rounded-md border-[1.11px] border-solid border-green-600"
                     />
                   </span>
                 </div>
