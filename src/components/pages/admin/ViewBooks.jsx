@@ -5,6 +5,9 @@ import { ClipLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import { formatDate } from "../../../hooks/formatDate.js";
 import { EditBookModal } from "./EditBookModal.jsx";
+import {useConfig} from "../../../hooks/useConfig.js";
+import {Rate} from "../../../utils/Rate.jsx";
+import {Rating} from "../../../utils/Rating.jsx";
 
 export const ViewBooks = ({
   handleStatus,
@@ -30,7 +33,7 @@ export const ViewBooks = ({
   const [modal1IsOpen, setModal1IsOpen] = useState(false);
   const [selectedBook, setSelectedBook] = useState(null);
   const [showBookPage, setShowBookPage] = useState(false);
-  const [isBookHidden, setIsBookHidden] = useState(false);
+  const [isBookHidden, setIsBookHidden] = useState();
 
   const navigate = useNavigate();
 
@@ -83,7 +86,7 @@ export const ViewBooks = ({
   const handleViewBookClick = async (bookId) => {
     // Fetch the details of the selected book using its ID
     await axios
-      .get(`/book/get-book/${bookId}`)
+      .get(`/book/get-book/${bookId}`, useConfig())
       .then((response) => {
         setSelectedBook(response.data.responseData); // Set the selected book details in the state
         setShowBookPage(true); // Show the book page
@@ -125,10 +128,10 @@ export const ViewBooks = ({
       .patch(`/book/hide/${bookId}`)
       .then((response) => {
         console.log("Book hidden/unhidden successfully.");
-        setIsBookHidden(!isBookHidden); // Toggle the isBookHidden state
+        setIsBookHidden(response.data.responseData); // Toggle the isBookHidden state
         enableStatus(
           "Success",
-          "Book hidden/unhidden successfully",
+          `Book ${response.data.responseData ? "Hidden" : "Unhidden"} successfully`,
           "bg-green-600",
         );
         // Optionally, you can update the state or fetch the updated book list
@@ -248,7 +251,7 @@ export const ViewBooks = ({
           </div>
 
           <div
-            key={selectedBook.id}
+            key={selectedBook?.id}
             className="flex flex-col items-stretch max-md:max-w-full"
           >
             <span className="items-center flex gap-2 mt-7 self-start max-md:ml-2.5">
@@ -282,11 +285,14 @@ export const ViewBooks = ({
                       <div className="text-slate-600 text-sm leading-5 self-stretch mt-2 max-md:max-w-full">
                         {selectedBook?.description}
                       </div>
-                      <img
-                        loading="lazy"
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/0d1ea423584557a106b458a9be2a68237f790d77d38a36a41a213fff22a2c672?"
-                        className="aspect-[6.78] object-contain object-center w-[122px] overflow-hidden max-w-full mt-3.5 self-start"
-                      />
+
+                      {selectedBook?.rating ? (
+                          <Rating rate={selectedBook?.rating} />
+                      ) : (
+                          <div className="text-blue-600 w-[8.5rem] mt-5">
+                            No rating for book
+                          </div>
+                      )}
                     </span>
                   </div>
                 </div>
@@ -379,10 +385,10 @@ export const ViewBooks = ({
                 </Modal>
 
                 <span
-                  className={`transition hover:bg-${isBookHidden ? "green" : "yellow"}-600 cursor-pointer text-center text-white text-sm font-medium leading-5 uppercase whitespace-nowrap border bg-${isBookHidden ? "green" : "yellow"}-500 mt-4 px-5 py-4 rounded-md border-solid border-${isBookHidden ? "green" : "yellow"}-600 self-start max-md:px-5`}
-                  onClick={() => handleHideBook(selectedBook.id)}
+                  className={`transition ${isBookHidden || selectedBook?.hidden ? "hover:bg-green-600" : "hover:bg-yellow-600"} cursor-pointer text-center text-white text-sm font-medium leading-5 uppercase whitespace-nowrap border ${isBookHidden || selectedBook?.hidden ? "bg-green-500" : "bg-yellow-500"} mt-4 px-5 py-4 rounded-md border-solid ${isBookHidden || selectedBook?.hidden ? "border-green-600" : "border-yellow-600"} self-start max-md:px-5`}
+                  onClick={() => handleHideBook(selectedBook?.id)}
                 >
-                  {isBookHidden ? "Unhide Book" : "Hide Book"}
+                  {isBookHidden || selectedBook?.hidden ? "Unhide Book" : "Hide Book"}
                 </span>
                 <span
                   className="transition hover:bg-green-600 cursor-pointer text-center text-white text-sm font-medium leading-5 uppercase whitespace-nowrap border bg-green-500 mt-4 px-5 py-4 rounded-md border-solid border-green-600 self-start max-md:px-5"

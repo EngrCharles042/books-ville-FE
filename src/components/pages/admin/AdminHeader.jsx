@@ -1,10 +1,13 @@
 import { AdminProfilePopUp } from "../../../utils/AdminProfilePopUp.jsx";
 import { useEffect, useState } from "react";
+import {useData} from "../../../hooks/useData.js";
 
 export const AdminHeader = ({ userData, setGeneralSearch, setQuery }) => {
   const [profileClick, setProfileCLick] = useState(false);
 
   const [search, setSearch] = useState("");
+
+  const {profilePicture} = useData();
 
   const handleChange = (e) => {
     setSearch(e.target.value);
@@ -61,7 +64,7 @@ export const AdminHeader = ({ userData, setGeneralSearch, setQuery }) => {
             <img
               className="relative rounded-[50%] w-[2.25rem] h-[2.25rem] object-cover cursor-pointer"
               alt="profile picture"
-              srcSet={userData?.profilePicture}
+              srcSet={profilePicture}
               onClick={() => setProfileCLick(!profileClick)}
             />
           </div>

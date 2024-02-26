@@ -5,6 +5,8 @@ import axios from "../../../api/axios.jsx";
 export const BestSellingAndPopularBooks = () => {
   const [books, setBooks] = useState([]);
 
+  const [bestSelling, setBestSelling] = useState([]);
+
   const [fantasy, setFantasy] = useState([]);
 
   useEffect(() => {
@@ -26,33 +28,22 @@ export const BestSellingAndPopularBooks = () => {
       setFantasy(
         response.data.responseData.content.filter(
           (book) => book.genre === "FANTASY",
-        ),
+        ).slice(0, 4),
       );
     };
 
     loadAllBooks();
   }, []);
 
-  const bestSelling = {
-    image1: "/src/assets/images/landingPageImages/img.png",
-    image2: "/src/assets/images/landingPageImages/img_1.png",
-    image3: "/src/assets/images/landingPageImages/img_2.png",
-    image4: "/src/assets/images/landingPageImages/img_3.png",
-  };
+  useEffect(() => {
+    const loadBestSelling = async () => {
+      const response = await axios.get("/transaction/best-seller");
 
-  const nameBestSelling = {
-    name1: "The Midnight Library",
-    name2: "Not Here to be Liked",
-    name3: "Click to Subscribe",
-    name4: "The rules do not apply",
-  };
+      setBestSelling(response.data.responseData.slice(0, 4))
+    }
 
-  const authorBestSelling = {
-    author1: "Matt Haig",
-    author2: "Michelle Quach",
-    author3: "G.L.Tomas",
-    author4: "Ariel Levy",
-  };
+    loadBestSelling()
+  }, []);
 
   return (
     <div className="flex flex-col max-w-[1297px] mx-auto items-stretch">
@@ -62,32 +53,21 @@ export const BestSellingAndPopularBooks = () => {
         </div>
         <div className="text-black text-base font-bold leading-7">View all</div>
       </div>
-      <div className="w-full mt-12 px-5 max-md:max-w-full max-md:mt-10">
+      <div className="w-full px-5 max-md:max-w-full max-md:mt-10">
         <div className="gap-5 flex max-md:flex-row max-md:flex-wrap max-md:gap-0">
-          <BookCard
-            image={bestSelling.image1}
-            name={nameBestSelling.name1}
-            author={authorBestSelling.author1}
-            price={5000}
-          />
-          <BookCard
-            image={bestSelling.image2}
-            name={nameBestSelling.name2}
-            author={authorBestSelling.author2}
-            price={5000}
-          />
-          <BookCard
-            image={bestSelling.image3}
-            name={nameBestSelling.name3}
-            author={authorBestSelling.author3}
-            price={5000}
-          />
-          <BookCard
-            image={bestSelling.image4}
-            name={nameBestSelling.name4}
-            author={authorBestSelling.author4}
-            price={5000}
-          />
+          {
+            bestSelling?.map(
+                book => (
+                  <BookCard
+                      key={book.id}
+                      image={book.bookCover}
+                      name={book.bookTitle}
+                      author={book.author}
+                      price={book.price}
+                  />
+                )
+            )
+          }
         </div>
       </div>
       <div className="items-stretch flex w-full justify-between gap-5 mt-14 px-5 max-md:max-w-full max-md:flex-wrap max-md:mt-10">
@@ -98,7 +78,7 @@ export const BestSellingAndPopularBooks = () => {
           View All{" "}
         </div>
       </div>
-      <div className="w-full mt-12 px-5 max-md:max-w-full max-md:mt-10">
+      <div className="w-full px-5 max-md:max-w-full max-md:mt-10">
         <div className="gap-5 flex max-md:flex-row max-md:flex-wrap max-md:gap-0">
           {fantasy.map((book) => (
             <BookCard
@@ -120,7 +100,7 @@ export const BestSellingAndPopularBooks = () => {
           Read More{" "}
         </div>
       </div>
-      <div className="w-full mt-12 px-5 max-md:max-w-full max-md:mt-10">
+      <div className="w-full px-5 max-md:max-w-full max-md:mt-10">
         <div className="gap-5 flex max-md:flex-row max-md:flex-wrap max-md:gap-0">
           {books.slice(0, 4).map((book, index) => (
             <BookCard

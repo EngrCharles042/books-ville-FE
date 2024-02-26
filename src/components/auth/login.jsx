@@ -6,6 +6,8 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
 import authImage from "../../assets/images/authImage.svg";
+import CryptoJS from 'crypto-js';
+import {useEncryption} from "../../hooks/useEncryption.js";
 
 export const Login = ({
   handleStatus,
@@ -13,6 +15,7 @@ export const Login = ({
   setStatusMessage,
   setStatusColor,
 }) => {
+
   const enableStatus = (title, message, color) => {
     handleStatus();
     setStatusTitle(title);
@@ -76,8 +79,15 @@ export const Login = ({
     try {
       setClip(true);
 
+      const data = {
+        email: `${formData.email}`,
+        password: `${useEncryption(formData.password)}`
+      }
+
+      console.log(data)
+
       // Make API call to your Java backend to handle user registration
-      await axios.post("/auth/login", formData).then((result) => {
+      await axios.post("/auth/login", data).then((result) => {
         setClip(false);
 
         if (result.data.responseMessage === "notVerified") {

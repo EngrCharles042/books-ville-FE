@@ -12,6 +12,8 @@ export const SignUp = ({
   setStatusMessage,
   setStatusColor,
 }) => {
+  const regExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+=])[A-Za-z\d!@#$%^&*()-_+=]{8,}$/
+
   const enableStatus = (title, message, color) => {
     handleStatus();
     setStatusTitle(title);
@@ -77,6 +79,16 @@ export const SignUp = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!regExp.test(formData.password) || formData.password !== formData.confirmPassword) {
+      enableStatus(
+          "Password Mismatch",
+          "Your Password inputs does not match, please check and try again",
+          "bg-red-600",
+      );
+
+      return;
+    }
 
     try {
       setClip(true);
@@ -235,6 +247,12 @@ export const SignUp = ({
               >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </span>
+
+              { !regExp.test(formData.password) && formData.password.length > 0 &&
+                  <div className="text-red-500">
+                    Password must contain at least: one lowercase, uppercase, number special character and must not be less than 8
+                  </div>
+              }
             </div>
 
             <div className="text-neutral-800 text-sm flex flex-col font-medium leading-5 self-stretch mt-2 max-md:max-w-full">
@@ -256,6 +274,12 @@ export const SignUp = ({
               >
                 {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
               </span>
+
+              { formData.password !== formData.confirmPassword && formData.confirmPassword.length > 0 &&
+                  <div className="text-red-500">
+                    Passwords does not match
+                  </div>
+              }
             </div>
             <div className="self-stretch flex items-stretch justify-between gap-3.5 mt-6 max-md:max-w-full max-md:flex-wrap max-md:justify-center">
               <div className="bg-gray-200 self-center w-[222px] shrink-0 h-px my-auto" />
