@@ -175,10 +175,9 @@ export const UserDashboardHeader = ({ handleStatus, setStatusTitle, setStatusMes
             content: {
               maxWidth: "fit-content",
               maxHeight: "fit-content",
-              margin: "auto",
-              background: "white",
+              background: "none",
+              border: "none",
               borderRadius: "8px",
-              // padding: "20px",
             },
           }}
       >

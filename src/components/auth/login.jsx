@@ -84,8 +84,6 @@ export const Login = ({
         password: `${useEncryption(formData.password)}`
       }
 
-      console.log(data)
-
       // Make API call to your Java backend to handle user registration
       await axios.post("/auth/login", data).then((result) => {
         setClip(false);
