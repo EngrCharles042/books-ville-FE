@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "../../../api/axios.jsx";
 import { Link } from "react-router-dom";
 
-export const MyBooks = () => {
+export const MyBooks = ({recommended}) => {
   const [savedBooks, setSavedBooks] = useState([]);
   const [purchasedBooks, sePurchasedBooks] = useState([]);
 
@@ -32,27 +32,6 @@ export const MyBooks = () => {
     getSavedBooks();
     getPurchasedBooks();
   }, []);
-
-  const recommended = {
-    image1: "/src/assets/images/landingPageImages/img_7.png",
-    image2: "/src/assets/images/landingPageImages/img_8.png",
-    image3: "/src/assets/images/landingPageImages/img_9.png",
-    image4: "src/assets/images/landingPageImages/image-2@2x.png",
-  };
-
-  const nameRecommended = {
-    name1: "The Midnight Library",
-    name2: "Not Here to be Liked",
-    name3: "Click to Subscribe",
-    name4: "The rules do not apply",
-  };
-
-  const authorRecommended = {
-    author1: "Matt Haig",
-    author2: "Michelle Quach",
-    author3: "G.L.Tomas",
-    author4: "Ariel Levy",
-  };
 
   return (
     <div className="flex flex-col max-w-[1297px] mb-5 mx-auto items-stretch max-md:mt-40">
@@ -118,30 +97,20 @@ export const MyBooks = () => {
       </div>
       <div className="w-full mt-4 md:mt-7 max-md:max-w-full max-md:mt-10">
         <div className="gap-5 flex flex-col md:flex-row max-md:flex-col max-md:items-stretch max-md:gap-0">
-          <BookCard
-            image={recommended.image1}
-            name={nameRecommended.name1}
-            author={authorRecommended.author1}
-            price={5000}
-          />
-          <BookCard
-            image={recommended.image2}
-            name={nameRecommended.name2}
-            author={authorRecommended.author2}
-            price={5000}
-          />
-          <BookCard
-            image={recommended.image3}
-            name={nameRecommended.name3}
-            author={authorRecommended.author3}
-            price={5000}
-          />
-          <BookCard
-            image={recommended.image4}
-            name={nameRecommended.name4}
-            author={authorRecommended.author4}
-            price={5000}
-          />
+
+          {recommended?.map(
+              (book, index) => (
+                  <BookCard
+                      key={index}
+                      bookId={book.id}
+                      image={book.bookCover}
+                      name={book.bookTitle}
+                      author={book.author}
+                      price={book.price}
+                  />
+              )
+          )}
+
         </div>
       </div>
     </div>

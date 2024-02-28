@@ -250,7 +250,7 @@ export const SignUp = ({
 
               { !regExp.test(formData.password) && formData.password.length > 0 &&
                   <div className="text-red-500">
-                    Password must contain at least: one lowercase, uppercase, number special character and must not be less than 8
+                    Password must contain at least: one lowercase, uppercase, number special character [!@#$%^&*()_+=] and must not be less than 8.
                   </div>
               }
             </div>

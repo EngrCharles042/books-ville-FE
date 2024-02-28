@@ -9,13 +9,22 @@ import axios from "../../../api/axios";
 import { CheckoutPayment } from "../../payment/CheckoutPayment.jsx";
 import {useConfig} from "../../../hooks/useConfig.js";
 import {AlreadyPurchasedBooks} from "../../../utils/AlreadyPurchasedBooks.jsx";
+import {BookCard} from "../landing/BookCard.jsx";
 
 export const Checkout = ({
+  recommended,
   handleStatus,
   setStatusTitle,
   setStatusMessage,
   setStatusColor,
 }) => {
+  const enableStatus = (title, message, color) => {
+    handleStatus();
+    setStatusTitle(title);
+    setStatusMessage(message);
+    setStatusColor(color);
+  };
+
   const [totalPrice, setTotalPrice] = useState();
 
   const [dep, setDep] = useState(false);
@@ -101,6 +110,47 @@ export const Checkout = ({
 
     getAlreadyPurchasedBooks()
   }, [dep]);
+
+
+  const handleAddToCart = async (id) => {
+
+    const formData = new FormData();
+    formData.append("id", id);
+
+    try {
+      await axios
+          .post("/cart/addToCart", formData, {
+            headers: {
+              Authorization: `Bearer ${JSON.parse(localStorage.getItem("userData")).accessToken}`,
+            },
+          })
+          .then((response) => {
+            console.log(response.data.responseData);
+
+            if (response.data.responseMessage === "alreadyAdded") {
+              enableStatus(
+                  "Already added",
+                  "Book has already been added to Cart",
+                  "bg-red-300",
+              );
+            } else {
+              enableStatus(
+                  "Add to Cart Successful",
+                  "Book has been added to cart successfully",
+                  "bg-green-600",
+              );
+            }
+
+            handleDep()
+          });
+    } catch (error) {
+      enableStatus(
+          "Oops!",
+          "Something went wrong please try again",
+          "bg-red-600",
+      );
+    }
+  };
 
   return (
     <>
@@ -273,93 +323,33 @@ export const Checkout = ({
           </div>
           <div className="self-center w-full max-w-[1120px] mt-8 px-2 py-2.5 max-md:pr-5">
             <div className="gap-5 flex flex-col md:flex-row max-md:flex-col max-md:items-stretch max-md:gap-0">
-              <div className="flex flex-col items-stretch max-w-[15rem] md:w-[25%] md:ml-0 mb-5 md:mb-0">
-                <span className="justify-center items-stretch shadow-sm flex grow flex-col md:mt-9 max-md:px-5">
-                  <img
-                    loading="lazy"
-                    srcSet={image1}
-                    className="aspect-[0.65] object-contain object-center overflow-hidden"
-                  />
-                  <div className="text-black text-xl font-semibold leading-6 mt-2.5">
-                    The Midnight Library
-                  </div>
-                  <div className="text-neutral-600 text-xl leading-6 mt-2.5">
-                    Matt Haig
-                  </div>
-                  <div className="text-black text-xl font-medium leading-6 mt-2">
-                    N 5000
-                  </div>
-                  <span className="hover:bg-green-700 transition cursor-pointer text-white text-xs font-medium leading-4 uppercase whitespace-nowrap justify-center items-center bg-green-600 mt-2.5 px-16 py-5 rounded border-[0.771px] border-solid border-green-600">
-                    Add to cART
-                  </span>
-                </span>
-              </div>
 
-              <div className="flex flex-col items-stretch max-w-[15rem] md:w-[25%] md:ml-0 mb-5 md:mb-0">
-                <span className="justify-center items-stretch shadow-sm flex grow flex-col md:mt-9 max-md:px-5">
-                  <img
-                    loading="lazy"
-                    srcSet={image2}
-                    className="aspect-[0.65] object-contain object-center overflow-hidden"
-                  />
-                  <div className="text-black text-xl font-semibold leading-6 mt-2.5">
-                    Not Here to be Liked
-                  </div>
-                  <div className="text-neutral-600 text-xl leading-6 mt-2.5">
-                    Michelle Quach
-                  </div>
-                  <div className="text-black text-xl font-medium leading-6 mt-2">
-                    N 5000
-                  </div>
-                  <span className="hover:bg-green-700 transition cursor-pointer text-white text-xs font-medium leading-4 uppercase whitespace-nowrap justify-center items-center bg-green-600 mt-2.5 px-16 py-5 rounded border-[0.771px] border-solid border-green-600 max-md:mr-2.5 max-md:px-5">
-                    Add to cART
-                  </span>
-                </span>
-              </div>
+              {recommended?.map(
+                  (book, index) => (
+                      <div key={index} className="flex flex-col items-stretch max-w-[15rem] md:w-[25%] md:ml-0 mb-5 md:mb-0">
+                        <span className="justify-center items-stretch shadow-sm flex grow flex-col md:mt-9 max-md:px-5">
+                          <img
+                              loading="lazy"
+                              src={book.bookCover}
+                              className="aspect-[0.65] object-contain object-center overflow-hidden"
+                          />
+                          <div className="text-black text-xl font-semibold leading-6 mt-2.5">
+                            {book.bookTitle}
+                          </div>
+                          <div className="text-neutral-600 text-xl leading-6 mt-2.5">
+                            {book.author}
+                          </div>
+                          <div className="text-black text-xl font-medium leading-6 mt-2">
+                            N {book.price}
+                          </div>
+                          <span onClick={() => (handleAddToCart(book.id))} className="hover:bg-green-700 transition cursor-pointer text-white text-xs font-medium leading-4 uppercase whitespace-nowrap justify-center items-center bg-green-600 mt-2.5 px-16 py-5 rounded border-[0.771px] border-solid border-green-600 max-md:mr-2.5 max-md:px-5">
+                            Add to cART
+                          </span>
+                        </span>
+                      </div>
+                  )
+              )}
 
-              <div className="flex flex-col items-stretch max-w-[15rem] md:w-[25%] md:ml-0 mb-5 md:mb-0">
-                <span className="justify-center items-stretch shadow-sm flex grow flex-col md:mt-9 max-md:px-5">
-                  <img
-                    loading="lazy"
-                    srcSet={image3}
-                    className="aspect-[0.65] object-contain object-center overflow-hidden"
-                  />
-                  <div className="text-black text-xl font-semibold leading-6 mt-2.5">
-                    Click to Subscribe
-                  </div>
-                  <div className="text-neutral-600 text-xl leading-6 mt-2.5">
-                    G.L.Tomas
-                  </div>
-                  <div className="text-black text-xl font-medium leading-6 mt-2">
-                    N 5000
-                  </div>
-                  <span className="hover:bg-green-700 transition cursor-pointer text-white text-xs font-medium leading-4 uppercase whitespace-nowrap justify-center items-center bg-green-600 mt-2.5 px-16 py-5 rounded border-[0.771px] border-solid border-green-600 max-md:mr-2.5 max-md:px-5">
-                    Add to cART
-                  </span>
-                </span>
-              </div>
-
-              <div className="flex flex-col items-stretch max-w-[15rem] md:w-[25%] md:ml-0 mb-5 md:mb-0">
-                <span className="justify-center items-stretch shadow-sm flex grow flex-col md:mt-9 max-md:px-5">
-                  <img
-                    loading="lazy"
-                    srcSet={image4}
-                    className="aspect-[0.65] object-contain object-center overflow-hidden"
-                  />
-                  <div className="text-black text-xl font-semibold leading-6 mt-2.5">
-                    The rules do not apply
-                  </div>
-                  <div className="text-neutral-600 text-xl leading-6 mt-2.5">
-                    Ariel Levy
-                  </div>
-                  <div className="text-black text-xl font-medium leading-6 mt-2">
-                    N 5000
-                  </div>
-                  <span className="hover:bg-green-700 transition cursor-pointer text-white text-xs font-medium leading-4 uppercase whitespace-nowrap justify-center items-center bg-green-600 mt-2.5 px-16 py-5 rounded border-[0.771px] border-solid border-green-600 max-md:mr-2.5 max-md:px-5">
-                    Add to cART
-                  </span>
-                </span>
-              </div>
             </div>
           </div>
         </span>
