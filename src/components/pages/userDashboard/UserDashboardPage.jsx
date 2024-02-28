@@ -17,6 +17,7 @@ export const UserDashboardPage = ({handleStatus, setStatusTitle, setStatusMessag
   const [dependency, setDependency] = useState(false)
   const [generalSearch, setGeneralSearch] = useState(false)
   const [search, setSearch] = useState('')
+  const [bestSelling, setBestSelling] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,6 +35,16 @@ export const UserDashboardPage = ({handleStatus, setStatusTitle, setStatusMessag
     fetchData()
 
   }, [dependency]);
+
+  useEffect(() => {
+    const loadBestSelling = async () => {
+      const response = await axios.get("/transaction/best-seller");
+
+      setBestSelling(response.data.responseData.slice(0, 4))
+    }
+
+    loadBestSelling()
+  }, []);
 
   const [user, setUser] = useState();
 
@@ -71,7 +82,7 @@ export const UserDashboardPage = ({handleStatus, setStatusTitle, setStatusMessag
         { !generalSearch &&
             <div className="pt-[3rem]">
               <Routes>
-                <Route path={"/"} element={<MyBooks />} />
+                <Route path={"/"} element={<MyBooks recommended={bestSelling} />} />
 
                 <Route path={"/categories"} element={
                   <UserCategoryPage
@@ -135,6 +146,7 @@ export const UserDashboardPage = ({handleStatus, setStatusTitle, setStatusMessag
                 <Route
                     path={"/cart"} element={
                   <Checkout
+                      recommended={bestSelling}
                       handleStatus={handleStatus}
                       setStatusTitle={setStatusTitle}
                       setStatusMessage={setStatusMessage}
